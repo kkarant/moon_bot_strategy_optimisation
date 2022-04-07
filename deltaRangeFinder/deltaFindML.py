@@ -3,6 +3,7 @@ import os
 import shutil
 from io import StringIO
 
+from dtreeviz.trees import dtreeviz  # remember to load the package
 import pandas as pd
 import pydotplus
 from IPython.display import Image
@@ -146,6 +147,13 @@ def decisionTreeVisualisation(stratName, listOfReqVal, clf):
 
     shutil.move(fileName, dst_dir)
 
+def decisionTreeVisualisation2():
+
+
+    viz = dtreeviz(regr, X, y,
+                   target_name="target",
+                   feature_names=boston.feature_names)
+    viz
 
 def decisionTreeTextReport(clf, stratName):
     textReport = export_text(clf)
