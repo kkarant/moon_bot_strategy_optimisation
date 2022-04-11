@@ -1,0 +1,233 @@
+|--- feature_11 <= 1.04
+|   |--- weights: [5.00, 0.00] class: Loss
+|--- feature_11 >  1.04
+|   |--- feature_8 <= 9.97
+|   |   |--- feature_15 <= 0.62
+|   |   |   |--- feature_3 <= 2.16
+|   |   |   |   |--- weights: [0.00, 2.00] class: Profit
+|   |   |   |--- feature_3 >  2.16
+|   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |--- feature_15 >  0.62
+|   |   |   |--- weights: [0.00, 44.00] class: Profit
+|   |--- feature_8 >  9.97
+|   |   |--- feature_11 <= 1.99
+|   |   |   |--- feature_10 <= 10.07
+|   |   |   |   |--- feature_14 <= 0.09
+|   |   |   |   |   |--- feature_5 <= 0.28
+|   |   |   |   |   |   |--- feature_5 <= 0.20
+|   |   |   |   |   |   |   |--- feature_8 <= 10.20
+|   |   |   |   |   |   |   |   |--- weights: [2.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |--- feature_8 >  10.20
+|   |   |   |   |   |   |   |   |--- feature_9 <= 5.45
+|   |   |   |   |   |   |   |   |   |--- feature_3 <= 0.20
+|   |   |   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |   |--- feature_3 >  0.20
+|   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 22.00] class: Profit
+|   |   |   |   |   |   |   |   |--- feature_9 >  5.45
+|   |   |   |   |   |   |   |   |   |--- feature_9 <= 10.09
+|   |   |   |   |   |   |   |   |   |   |--- feature_6 <= 0.44
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [6.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |   |   |--- feature_6 >  0.44
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 6
+|   |   |   |   |   |   |   |   |   |--- feature_9 >  10.09
+|   |   |   |   |   |   |   |   |   |   |--- feature_0 <= -0.05
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |   |   |   |   |   |--- feature_0 >  -0.05
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |   |--- feature_5 >  0.20
+|   |   |   |   |   |   |   |--- feature_7 <= 0.24
+|   |   |   |   |   |   |   |   |--- feature_7 <= 0.20
+|   |   |   |   |   |   |   |   |   |--- feature_2 <= 0.44
+|   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 9.00] class: Profit
+|   |   |   |   |   |   |   |   |   |--- feature_2 >  0.44
+|   |   |   |   |   |   |   |   |   |   |--- feature_2 <= 0.63
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |   |   |--- feature_2 >  0.63
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
+|   |   |   |   |   |   |   |   |--- feature_7 >  0.20
+|   |   |   |   |   |   |   |   |   |--- feature_3 <= 2.22
+|   |   |   |   |   |   |   |   |   |   |--- weights: [2.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |   |--- feature_3 >  2.22
+|   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
+|   |   |   |   |   |   |   |--- feature_7 >  0.24
+|   |   |   |   |   |   |   |   |--- weights: [0.00, 30.00] class: Profit
+|   |   |   |   |   |--- feature_5 >  0.28
+|   |   |   |   |   |   |--- feature_7 <= 0.65
+|   |   |   |   |   |   |   |--- feature_9 <= 10.43
+|   |   |   |   |   |   |   |   |--- weights: [0.00, 7.00] class: Profit
+|   |   |   |   |   |   |   |--- feature_9 >  10.43
+|   |   |   |   |   |   |   |   |--- weights: [2.00, 0.00] class: Loss
+|   |   |   |   |   |   |--- feature_7 >  0.65
+|   |   |   |   |   |   |   |--- feature_4 <= 0.14
+|   |   |   |   |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
+|   |   |   |   |   |   |   |--- feature_4 >  0.14
+|   |   |   |   |   |   |   |   |--- weights: [8.00, 0.00] class: Loss
+|   |   |   |   |--- feature_14 >  0.09
+|   |   |   |   |   |--- feature_2 <= 1.00
+|   |   |   |   |   |   |--- feature_6 <= 0.01
+|   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |--- feature_6 >  0.01
+|   |   |   |   |   |   |   |--- feature_8 <= 11.02
+|   |   |   |   |   |   |   |   |--- feature_8 <= 10.84
+|   |   |   |   |   |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
+|   |   |   |   |   |   |   |   |--- feature_8 >  10.84
+|   |   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |--- feature_8 >  11.02
+|   |   |   |   |   |   |   |   |--- feature_5 <= 0.16
+|   |   |   |   |   |   |   |   |   |--- feature_4 <= 0.30
+|   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 2.00] class: Profit
+|   |   |   |   |   |   |   |   |   |--- feature_4 >  0.30
+|   |   |   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |--- feature_5 >  0.16
+|   |   |   |   |   |   |   |   |   |--- feature_4 <= 1.78
+|   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 60.00] class: Profit
+|   |   |   |   |   |   |   |   |   |--- feature_4 >  1.78
+|   |   |   |   |   |   |   |   |   |   |--- feature_15 <= 0.98
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 2.00] class: Profit
+|   |   |   |   |   |   |   |   |   |   |--- feature_15 >  0.98
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |--- feature_2 >  1.00
+|   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |--- feature_10 >  10.07
+|   |   |   |   |--- weights: [2.00, 0.00] class: Loss
+|   |   |--- feature_11 >  1.99
+|   |   |   |--- feature_7 <= 1.45
+|   |   |   |   |--- feature_1 <= -0.43
+|   |   |   |   |   |--- feature_1 <= -1.08
+|   |   |   |   |   |   |--- feature_4 <= 0.85
+|   |   |   |   |   |   |   |--- weights: [3.00, 0.00] class: Loss
+|   |   |   |   |   |   |--- feature_4 >  0.85
+|   |   |   |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
+|   |   |   |   |   |--- feature_1 >  -1.08
+|   |   |   |   |   |   |--- feature_8 <= 10.84
+|   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |--- feature_8 >  10.84
+|   |   |   |   |   |   |   |--- feature_5 <= 0.09
+|   |   |   |   |   |   |   |   |--- feature_7 <= 0.55
+|   |   |   |   |   |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
+|   |   |   |   |   |   |   |   |--- feature_7 >  0.55
+|   |   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |--- feature_5 >  0.09
+|   |   |   |   |   |   |   |   |--- weights: [0.00, 28.00] class: Profit
+|   |   |   |   |--- feature_1 >  -0.43
+|   |   |   |   |   |--- feature_2 <= 0.38
+|   |   |   |   |   |   |--- feature_3 <= 2.85
+|   |   |   |   |   |   |   |--- feature_6 <= 2.06
+|   |   |   |   |   |   |   |   |--- weights: [0.00, 8.00] class: Profit
+|   |   |   |   |   |   |   |--- feature_6 >  2.06
+|   |   |   |   |   |   |   |   |--- feature_14 <= 0.02
+|   |   |   |   |   |   |   |   |   |--- feature_9 <= 6.48
+|   |   |   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |   |--- feature_9 >  6.48
+|   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 11.00] class: Profit
+|   |   |   |   |   |   |   |   |--- feature_14 >  0.02
+|   |   |   |   |   |   |   |   |   |--- feature_5 <= 0.13
+|   |   |   |   |   |   |   |   |   |   |--- feature_12 <= 1.21
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |   |   |   |   |   |--- feature_12 >  1.21
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 6
+|   |   |   |   |   |   |   |   |   |--- feature_5 >  0.13
+|   |   |   |   |   |   |   |   |   |   |--- feature_3 <= 0.60
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 3
+|   |   |   |   |   |   |   |   |   |   |--- feature_3 >  0.60
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 8
+|   |   |   |   |   |   |--- feature_3 >  2.85
+|   |   |   |   |   |   |   |--- feature_5 <= 0.13
+|   |   |   |   |   |   |   |   |--- feature_15 <= 0.57
+|   |   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |--- feature_15 >  0.57
+|   |   |   |   |   |   |   |   |   |--- weights: [0.00, 4.00] class: Profit
+|   |   |   |   |   |   |   |--- feature_5 >  0.13
+|   |   |   |   |   |   |   |   |--- feature_1 <= 1.57
+|   |   |   |   |   |   |   |   |   |--- feature_5 <= 0.20
+|   |   |   |   |   |   |   |   |   |   |--- weights: [10.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |   |--- feature_5 >  0.20
+|   |   |   |   |   |   |   |   |   |   |--- feature_10 <= 4.86
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
+|   |   |   |   |   |   |   |   |   |   |--- feature_10 >  4.86
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [4.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |--- feature_1 >  1.57
+|   |   |   |   |   |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
+|   |   |   |   |   |--- feature_2 >  0.38
+|   |   |   |   |   |   |--- feature_3 <= 0.29
+|   |   |   |   |   |   |   |--- feature_7 <= 0.08
+|   |   |   |   |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
+|   |   |   |   |   |   |   |--- feature_7 >  0.08
+|   |   |   |   |   |   |   |   |--- weights: [5.00, 0.00] class: Loss
+|   |   |   |   |   |   |--- feature_3 >  0.29
+|   |   |   |   |   |   |   |--- feature_7 <= 1.28
+|   |   |   |   |   |   |   |   |--- feature_4 <= 0.46
+|   |   |   |   |   |   |   |   |   |--- feature_1 <= -0.35
+|   |   |   |   |   |   |   |   |   |   |--- feature_4 <= 0.28
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
+|   |   |   |   |   |   |   |   |   |   |--- feature_4 >  0.28
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [2.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |   |--- feature_1 >  -0.35
+|   |   |   |   |   |   |   |   |   |   |--- feature_1 <= 0.27
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 36.00] class: Profit
+|   |   |   |   |   |   |   |   |   |   |--- feature_1 >  0.27
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 3
+|   |   |   |   |   |   |   |   |--- feature_4 >  0.46
+|   |   |   |   |   |   |   |   |   |--- feature_3 <= 1.48
+|   |   |   |   |   |   |   |   |   |   |--- feature_1 <= 0.69
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 16.00] class: Profit
+|   |   |   |   |   |   |   |   |   |   |--- feature_1 >  0.69
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |   |   |   |   |--- feature_3 >  1.48
+|   |   |   |   |   |   |   |   |   |   |--- feature_4 <= 1.25
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 6
+|   |   |   |   |   |   |   |   |   |   |--- feature_4 >  1.25
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 10.00] class: Profit
+|   |   |   |   |   |   |   |--- feature_7 >  1.28
+|   |   |   |   |   |   |   |   |--- feature_0 <= 0.06
+|   |   |   |   |   |   |   |   |   |--- weights: [0.00, 2.00] class: Profit
+|   |   |   |   |   |   |   |   |--- feature_0 >  0.06
+|   |   |   |   |   |   |   |   |   |--- weights: [5.00, 0.00] class: Loss
+|   |   |   |--- feature_7 >  1.45
+|   |   |   |   |--- feature_11 <= 3.85
+|   |   |   |   |   |--- feature_13 <= 1.38
+|   |   |   |   |   |   |--- feature_3 <= 2.51
+|   |   |   |   |   |   |   |--- feature_14 <= 0.14
+|   |   |   |   |   |   |   |   |--- feature_1 <= -0.67
+|   |   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |--- feature_1 >  -0.67
+|   |   |   |   |   |   |   |   |   |--- feature_7 <= 1.49
+|   |   |   |   |   |   |   |   |   |   |--- feature_3 <= 1.05
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |   |   |--- feature_3 >  1.05
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
+|   |   |   |   |   |   |   |   |   |--- feature_7 >  1.49
+|   |   |   |   |   |   |   |   |   |   |--- weights: [0.00, 31.00] class: Profit
+|   |   |   |   |   |   |   |--- feature_14 >  0.14
+|   |   |   |   |   |   |   |   |--- feature_8 <= 21.44
+|   |   |   |   |   |   |   |   |   |--- weights: [3.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |--- feature_8 >  21.44
+|   |   |   |   |   |   |   |   |   |--- weights: [0.00, 3.00] class: Profit
+|   |   |   |   |   |   |--- feature_3 >  2.51
+|   |   |   |   |   |   |   |--- feature_1 <= -0.29
+|   |   |   |   |   |   |   |   |--- weights: [4.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |--- feature_1 >  -0.29
+|   |   |   |   |   |   |   |   |--- feature_12 <= 2.53
+|   |   |   |   |   |   |   |   |   |--- feature_6 <= 0.49
+|   |   |   |   |   |   |   |   |   |   |--- weights: [2.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |   |--- feature_6 >  0.49
+|   |   |   |   |   |   |   |   |   |   |--- feature_4 <= 1.40
+|   |   |   |   |   |   |   |   |   |   |   |--- truncated branch of depth 2
+|   |   |   |   |   |   |   |   |   |   |--- feature_4 >  1.40
+|   |   |   |   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |   |--- feature_12 >  2.53
+|   |   |   |   |   |   |   |   |   |--- weights: [2.00, 0.00] class: Loss
+|   |   |   |   |   |--- feature_13 >  1.38
+|   |   |   |   |   |   |--- feature_3 <= 2.65
+|   |   |   |   |   |   |   |--- weights: [5.00, 0.00] class: Loss
+|   |   |   |   |   |   |--- feature_3 >  2.65
+|   |   |   |   |   |   |   |--- feature_7 <= 2.01
+|   |   |   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |   |   |--- feature_7 >  2.01
+|   |   |   |   |   |   |   |   |--- weights: [0.00, 2.00] class: Profit
+|   |   |   |   |--- feature_11 >  3.85
+|   |   |   |   |   |--- feature_2 <= 0.00
+|   |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |   |   |   |--- feature_2 >  0.00
+|   |   |   |   |   |   |--- weights: [0.00, 36.00] class: Profit
+

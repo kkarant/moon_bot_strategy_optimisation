@@ -10,7 +10,7 @@ from deltaRangeFinder.deltaFindML import dataSetForDecisionTree, decisionTree, d
 
 @decorator
 def main():
-    repFile = 'data/dr6k.txt'
+    repFile = 'data/dr11k.txt'
     df = fileImport.csvImport(repFile)[0]
     colNames = fileImport.csvImport(repFile)[1]
     ratioData = strategyStatistics.getRatio(df, colNames)
@@ -22,8 +22,8 @@ def main():
     reportCreator.reportCreation(repFile, stratData, regrDict, ratioData, colNames, df, listOfReqVal,
                                  stratRatioDict)
 
-    textRep = decisionTree(stratData, colNames)
-    decoder(textRep, stratData, listOfReqVal)
+    #textRep = decisionTree(stratData, colNames) # works
+    #decoder(textRep, stratData, listOfReqVal) # ne rabotaet rzdelenie na zony
 
 
 if __name__ == '__main__':

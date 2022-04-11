@@ -147,6 +147,7 @@ def decisionTreeVisualisation(stratName, listOfReqVal, clf):
 
     shutil.move(fileName, dst_dir)
 
+
 # def decisionTreeVisu(stratName, listOfReqVal, clf, X, y):
 #
 #     viz = dtreeviz(clf, X, y,
@@ -155,13 +156,12 @@ def decisionTreeVisualisation(stratName, listOfReqVal, clf):
 #     print(viz)
 
 def decisionTreeTextReport(clf, stratName):
-    textReport = export_text(clf)
-    with open("report/reportDecTree.txt", "a") as file:
-        file.write('Report for ' + str(stratName))
-        file.write('\n')
+    textReport = export_text(clf, show_weights=True)
+    strName = str(stratName).replace(" ", "").replace("(", "").replace(")", "").replace(">", ""). \
+        replace("<", "").replace("-", "_minus").replace("+", "_plus").replace("st", "St")
+    with open('decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+") as file:
+        file.truncate()
         file.writelines(textReport)
-        file.write('\n')
-        file.write('===============================================================================')
         file.write('\n')
     file.close()
     return file
@@ -185,9 +185,9 @@ def decisionTree(stratData, colNames):
             clf = clf.fit(X_train, y_train)
             # Predict the response for test dataset
             y_pred = clf.predict(X_test)
-            print("For strategy {0} accuracy: {1:.2f}".format(stratName, metrics.accuracy_score(y_test, y_pred)))
-            decisionTreeVisualisation(stratName, listOfReqVal, clf)
+            # print("For strategy {0} accuracy: {1:.2f}".format(stratName, metrics.accuracy_score(y_test, y_pred)))
+            # decisionTreeVisualisation(stratName, listOfReqVal, clf)
             textRep = decisionTreeTextReport(clf, stratName)
-        else:
-            print(f"Not enough data for {stratName}")
+        # else:
+        # print(f"Not enough data for {stratName}")
     return textRep
