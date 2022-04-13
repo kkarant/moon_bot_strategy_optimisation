@@ -1,11 +1,8 @@
-from datetime import datetime
-
 import fileImport
 import regressionCalculaton
-import reportCreator
 import strategyStatistics
 from deltaRangeFinder.decTreeRangesCombine import decoder
-from deltaRangeFinder.deltaFindML import dataSetForDecisionTree, decisionTree, decorator
+from deltaRangeFinder.deltaFindML import decisionTree, decorator
 
 
 @decorator
@@ -19,11 +16,11 @@ def main():
     listOfReqVal = regressionCalculaton.regressionValues(stratData, colNames)[1]
     stratRatioDict = strategyStatistics.strategyGetRatio(stratData)
 
-    reportCreator.reportCreation(repFile, stratData, regrDict, ratioData, colNames, df, listOfReqVal,
-                                 stratRatioDict)
+    # reportCreator.reportCreation(repFile, stratData, regrDict, ratioData, colNames, df, listOfReqVal,
+    # stratRatioDict)
 
-    #textRep = decisionTree(stratData, colNames) # works
-    #decoder(textRep, stratData, listOfReqVal) # ne rabotaet rzdelenie na zony
+    textRep = decisionTree(stratData, colNames)  # works
+    #decoder(stratData, listOfReqVal)  # ne rabotaet rzdelenie na zony
 
 
 if __name__ == '__main__':
