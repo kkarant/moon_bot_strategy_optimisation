@@ -1,17 +1,17 @@
 |--- feature_0 <= -0.11
 |   |--- feature_12 <= 4.27
-|   |   |--- feature_11 <= 2.23
+|   |   |--- feature_12 <= 2.45
 |   |   |   |--- weights: [0.00, 1.00] class: Profit
-|   |   |--- feature_11 >  2.23
-|   |   |   |--- feature_1 <= -4.00
+|   |   |--- feature_12 >  2.45
+|   |   |   |--- feature_6 <= 0.09
 |   |   |   |   |--- weights: [0.00, 1.00] class: Profit
-|   |   |   |--- feature_1 >  -4.00
+|   |   |   |--- feature_6 >  0.09
 |   |   |   |   |--- weights: [12.00, 0.00] class: Loss
 |   |--- feature_12 >  4.27
-|   |   |--- feature_15 <= 7.51
-|   |   |   |--- weights: [0.00, 3.00] class: Profit
-|   |   |--- feature_15 >  7.51
+|   |   |--- feature_0 <= -0.45
 |   |   |   |--- weights: [1.00, 0.00] class: Loss
+|   |   |--- feature_0 >  -0.45
+|   |   |   |--- weights: [0.00, 3.00] class: Profit
 |--- feature_0 >  -0.11
 |   |--- weights: [0.00, 9.00] class: Profit
 

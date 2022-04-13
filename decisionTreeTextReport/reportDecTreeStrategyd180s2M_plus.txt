@@ -6,9 +6,9 @@
 |   |--- feature_13 >  0.72
 |   |   |--- feature_11 <= 3.10
 |   |   |   |--- feature_10 <= 5.70
-|   |   |   |   |--- feature_14 <= 0.07
+|   |   |   |   |--- feature_4 <= 1.00
 |   |   |   |   |   |--- weights: [0.00, 3.00] class: Profit
-|   |   |   |   |--- feature_14 >  0.07
+|   |   |   |   |--- feature_4 >  1.00
 |   |   |   |   |   |--- weights: [1.00, 0.00] class: Loss
 |   |   |   |--- feature_10 >  5.70
 |   |   |   |   |--- weights: [2.00, 0.00] class: Loss

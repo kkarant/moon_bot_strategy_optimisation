@@ -20,7 +20,7 @@ def main():
     # stratRatioDict)
 
     textRep = decisionTree(stratData, colNames)  # works
-    #decoder(stratData, listOfReqVal)  # ne rabotaet rzdelenie na zony
+    decoder(stratData, listOfReqVal)  # ne rabotaet rzdelenie na zony
 
 
 if __name__ == '__main__':
