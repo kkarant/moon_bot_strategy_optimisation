@@ -1,15 +1,13 @@
-def findStrFile(strF, startIndex, file):
+def findStrFile(strF, startIndex, file, line):
     index = 0
     lines = file.readlines()
-    for line in lines:
-        # print('in', line, sep='\n')
-        # print('To', strF, sep='\n')
-        print(strF)
-        print(line)
 
-        index = index + 1
-        if strF in line:
-            return index
+    # print(strF)
+    # print(line)
+
+    index = index + 1
+    if strF in line:
+        return True
     return -1
 
 
@@ -23,6 +21,7 @@ def decoder(stratData, listOfReqVal):
     for stratName in stratData[1]:
         if stratData[1][stratName].__len__() > 10:
             print(stratName)
+            tmpDict = {}
             startIndex = 0
             strName = str(stratName).replace(" ", "").replace("(", "").replace(")", "").replace(">", ""). \
                 replace("<", "").replace("-", "_minus").replace("+", "_plus").replace("st", "St")
@@ -33,16 +32,20 @@ def decoder(stratData, listOfReqVal):
             # print(strToFind)
 
             file = open('decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
-            for _ in file.readlines():
+            for line in file.readlines():
                 i = 0
                 while i < len(stratData[1][stratName]):
                     # strF = f"weights: [0.00, {i:.2f}] class: Profit"
                     # strF_2 = str("weights: [0.00, 33.00] class: Profit")
-                    # print(f"weights: [{i:.2f}, {j:.2f}] class: Profit")
-                    # print(strF)
-                    results = findStrFile(strToFind[i], startIndex, file)
-                    # print(results)
-                    if results is not None and results != -1:
-                        print("Index of found " + strToFind[i] + " is " + str(results))
+                    result = findStrFile(strToFind[i], startIndex, file, line)
+                    if result is not None and result != -1:
+                        # print("Index of found is " + str(i))
+                        tmpDict[i] = strToFind[i]
                     i = i + 1
+            tmp = -1
+            for key, value in tmpDict.items():
+                if tmp < key:
+                    tmp = key
+            biggestWeight = tmp
+            print(tmpDict[biggestWeight])
             file.close()
