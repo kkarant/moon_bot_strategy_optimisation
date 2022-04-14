@@ -1,0 +1,371 @@
+Report for data/dr11k.txt
+===================================================
+Overall stats for strategy
+
+Average plus is: 7.07
+Average minus is: -26.01
+Profit/loss ratio is: -0.27
+While there is: 7918.00 profit trades, and: 2923.00 loss trades
+calculated statistical realized PnL(%) is: -20065.70%
+Real PnL(%) is: -20064.20%
+
+***PnL(%) statistics are correct only with same order size in every trade***
+===================================================
+ Statistics about frequency of strategies
+(strategy <d180s1 M->)       1354
+(strategy <d150s1 M->)       1190
+(strategy <d120s1 M->)       1109
+(strategy <d180s1 M+>)       1027
+(strategy <d120s1 M+>)       1026
+(strategy <d150s1 M+>)        976
+(strategy <d120s1.2 M+>)      519
+(strategy <d180s1.2 M->)      495
+(strategy <d150s1.2 M+>)      492
+(strategy <d180s1.2 M+>)      491
+(strategy <d150s1.2 M->)      451
+(strategy <d120s1.2 M->)      439
+(strategy <d120s1.5 M+>)      217
+(strategy <d180s1.5 M+>)      185
+(strategy <d150s1.5 M+>)      179
+(strategy <d180s1.5 M->)      151
+(strategy <d150s1.5 M->)      143
+(strategy <d120s1.5 M->)      137
+(strategy <d120s2 M+>)         55
+(strategy <d150s2 M+>)         51
+(strategy <d120s2 M->)         39
+(strategy <d150s2 M->)         38
+(strategy <d180s2 M+>)         36
+(strategy <d180s2 M->)         30
+(strategy <d120s3 M->)          5
+(strategy <d180s3 M+>)          3
+(strategy <d180s3 M->)          2
+(strategy <d150s3 M->)          2
+(strategy <d120s3 M+>)          2
+Name: ChannelName , dtype: int64
+===================================================
+Average time in trade stats for strategies
+For strategy (strategy <d180s1 M+>) average time for trade is 0.15 min (8.97) sec 
+For strategy (strategy <d150s1 M+>) average time for trade is 1.30 min (77.78) sec 
+For strategy (strategy <d120s1.5 M+>) average time for trade is 3.64 min (218.50) sec 
+For strategy (strategy <d150s1.5 M+>) average time for trade is 3.85 min (230.78) sec 
+For strategy (strategy <d150s1.2 M+>) average time for trade is 1.35 min (80.86) sec 
+For strategy (strategy <d180s1.2 M+>) average time for trade is 1.51 min (90.41) sec 
+For strategy (strategy <d120s1 M+>) average time for trade is 1.26 min (75.66) sec 
+For strategy (strategy <d120s1.2 M+>) average time for trade is 1.02 min (61.25) sec 
+For strategy (strategy <d180s1.5 M+>) average time for trade is 4.05 min (242.81) sec 
+For strategy (strategy <d180s2 M+>) average time for trade is 5.12 min (307.17) sec 
+For strategy (strategy <d120s2 M+>) average time for trade is 4.17 min (250.04) sec 
+For strategy (strategy <d150s2 M+>) average time for trade is 3.75 min (225.14) sec 
+For strategy (strategy <d180s1 M->) average time for trade is 0.96 min (57.55) sec 
+For strategy (strategy <d120s1 M->) average time for trade is 1.08 min (64.93) sec 
+For strategy (strategy <d150s1 M->) average time for trade is 0.27 min (16.16) sec 
+For strategy (strategy <d120s1.2 M->) average time for trade is 2.93 min (175.77) sec 
+For strategy (strategy <d180s1.2 M->) average time for trade is 0.37 min (22.45) sec 
+For strategy (strategy <d150s1.2 M->) average time for trade is 3.15 min (189.07) sec 
+For strategy (strategy <d150s1.5 M->) average time for trade is 2.67 min (160.28) sec 
+For strategy (strategy <d180s1.5 M->) average time for trade is 3.12 min (186.94) sec 
+For strategy (strategy <d120s1.5 M->) average time for trade is 2.63 min (157.81) sec 
+For strategy (strategy <d120s2 M->) average time for trade is 3.25 min (195.15) sec 
+For strategy (strategy <d150s2 M->) average time for trade is 2.60 min (155.95) sec 
+For strategy (strategy <d180s2 M->) average time for trade is 3.57 min (214.00) sec 
+For strategy (strategy <d120s3 M->) average time for trade is 4.19 min (251.20) sec 
+For strategy (strategy <d180s3 M->) average time for trade is 1.21 min (72.50) sec 
+For strategy (strategy <d150s3 M->) average time for trade is 0.93 min (55.50) sec 
+For strategy (strategy <d120s3 M+>) average time for trade is 2.31 min (138.50) sec 
+For strategy (strategy <d180s3 M+>) average time for trade is 2.28 min (137.00) sec 
+===================================================
+ Overall stats for each strategy
+
+Overall stats for strategy (strategy <d180s1 M+>) 
+Average plus is: 6.19
+Average minus is: -24.06
+Profit/loss ratio is: -0.26
+While there is: 766.00 profit trades, and: 261.00 loss trades
+Real PnL(%) is: -1541.90%
+
+Overall stats for strategy (strategy <d150s1 M+>) 
+Average plus is: 6.39
+Average minus is: -24.54
+Profit/loss ratio is: -0.26
+While there is: 722.00 profit trades, and: 254.00 loss trades
+Real PnL(%) is: -1617.60%
+
+Overall stats for strategy (strategy <d120s1.5 M+>) 
+Average plus is: 8.95
+Average minus is: -27.27
+Profit/loss ratio is: -0.33
+While there is: 153.00 profit trades, and: 64.00 loss trades
+Real PnL(%) is: -376.20%
+
+Overall stats for strategy (strategy <d150s1.5 M+>) 
+Average plus is: 8.52
+Average minus is: -27.13
+Profit/loss ratio is: -0.31
+While there is: 124.00 profit trades, and: 55.00 loss trades
+Real PnL(%) is: -435.60%
+
+Overall stats for strategy (strategy <d150s1.2 M+>) 
+Average plus is: 7.56
+Average minus is: -24.75
+Profit/loss ratio is: -0.31
+While there is: 351.00 profit trades, and: 141.00 loss trades
+Real PnL(%) is: -836.10%
+
+Overall stats for strategy (strategy <d180s1.2 M+>) 
+Average plus is: 7.39
+Average minus is: -24.51
+Profit/loss ratio is: -0.30
+While there is: 350.00 profit trades, and: 141.00 loss trades
+Real PnL(%) is: -869.70%
+
+Overall stats for strategy (strategy <d120s1 M+>) 
+Average plus is: 6.44
+Average minus is: -24.76
+Profit/loss ratio is: -0.26
+While there is: 753.00 profit trades, and: 271.00 loss trades
+Real PnL(%) is: -1858.70%
+
+Overall stats for strategy (strategy <d120s1.2 M+>) 
+Average plus is: 7.97
+Average minus is: -24.92
+Profit/loss ratio is: -0.32
+While there is: 355.00 profit trades, and: 163.00 loss trades
+Real PnL(%) is: -1233.10%
+
+Overall stats for strategy (strategy <d180s1.5 M+>) 
+Average plus is: 7.92
+Average minus is: -27.46
+Profit/loss ratio is: -0.29
+While there is: 138.00 profit trades, and: 47.00 loss trades
+Real PnL(%) is: -198.40%
+
+Overall stats for strategy (strategy <d180s2 M+>) 
+Average plus is: 10.83
+Average minus is: -27.49
+Profit/loss ratio is: -0.39
+While there is: 24.00 profit trades, and: 12.00 loss trades
+Real PnL(%) is: -69.90%
+
+Overall stats for strategy (strategy <d120s2 M+>) 
+Average plus is: 12.35
+Average minus is: -29.18
+Profit/loss ratio is: -0.42
+While there is: 35.00 profit trades, and: 20.00 loss trades
+Real PnL(%) is: -151.40%
+
+Overall stats for strategy (strategy <d150s2 M+>) 
+Average plus is: 11.95
+Average minus is: -30.33
+Profit/loss ratio is: -0.39
+While there is: 36.00 profit trades, and: 15.00 loss trades
+Real PnL(%) is: -24.70%
+
+Overall stats for strategy (strategy <d180s1 M->) 
+Average plus is: 6.56
+Average minus is: -25.03
+Profit/loss ratio is: -0.26
+While there is: 1006.00 profit trades, and: 348.00 loss trades
+Real PnL(%) is: -2114.80%
+
+Overall stats for strategy (strategy <d120s1 M->) 
+Average plus is: 6.96
+Average minus is: -26.52
+Profit/loss ratio is: -0.26
+While there is: 831.00 profit trades, and: 278.00 loss trades
+Real PnL(%) is: -1589.20%
+
+Overall stats for strategy (strategy <d150s1 M->) 
+Average plus is: 6.74
+Average minus is: -25.72
+Profit/loss ratio is: -0.26
+While there is: 883.00 profit trades, and: 307.00 loss trades
+Real PnL(%) is: -1947.20%
+
+Overall stats for strategy (strategy <d120s1.2 M->) 
+Average plus is: 7.49
+Average minus is: -27.87
+Profit/loss ratio is: -0.27
+While there is: 320.00 profit trades, and: 119.00 loss trades
+Real PnL(%) is: -920.50%
+
+Overall stats for strategy (strategy <d180s1.2 M->) 
+Average plus is: 6.75
+Average minus is: -27.98
+Profit/loss ratio is: -0.24
+While there is: 381.00 profit trades, and: 114.00 loss trades
+Real PnL(%) is: -618.60%
+
+Overall stats for strategy (strategy <d150s1.2 M->) 
+Average plus is: 7.07
+Average minus is: -27.81
+Profit/loss ratio is: -0.25
+While there is: 333.00 profit trades, and: 118.00 loss trades
+Real PnL(%) is: -929.10%
+
+Overall stats for strategy (strategy <d150s1.5 M->) 
+Average plus is: 9.01
+Average minus is: -29.11
+Profit/loss ratio is: -0.31
+While there is: 96.00 profit trades, and: 47.00 loss trades
+Real PnL(%) is: -503.10%
+
+Overall stats for strategy (strategy <d180s1.5 M->) 
+Average plus is: 8.69
+Average minus is: -29.62
+Profit/loss ratio is: -0.29
+While there is: 100.00 profit trades, and: 51.00 loss trades
+Real PnL(%) is: -641.10%
+
+Overall stats for strategy (strategy <d120s1.5 M->) 
+Average plus is: 9.05
+Average minus is: -31.86
+Profit/loss ratio is: -0.28
+While there is: 85.00 profit trades, and: 52.00 loss trades
+Real PnL(%) is: -887.20%
+
+Overall stats for strategy (strategy <d120s2 M->) 
+Average plus is: 9.96
+Average minus is: -33.31
+Profit/loss ratio is: -0.30
+While there is: 20.00 profit trades, and: 19.00 loss trades
+Real PnL(%) is: -433.70%
+
+Overall stats for strategy (strategy <d150s2 M->) 
+Average plus is: 12.12
+Average minus is: -34.31
+Profit/loss ratio is: -0.35
+While there is: 27.00 profit trades, and: 11.00 loss trades
+Real PnL(%) is: -50.20%
+
+Overall stats for strategy (strategy <d180s2 M->) 
+Average plus is: 9.75
+Average minus is: -31.06
+Profit/loss ratio is: -0.31
+While there is: 22.00 profit trades, and: 8.00 loss trades
+Real PnL(%) is: -34.00%
+
+Overall stats for strategy (strategy <d120s3 M->) 
+Average plus is: 20.37
+Average minus is: -36.55
+Profit/loss ratio is: -0.56
+While there is: 3.00 profit trades, and: 2.00 loss trades
+Real PnL(%) is: -12.00%
+
+Overall stats for strategy (strategy <d180s3 M->) 
+Average plus is: 21.30
+Average minus is: -62.70
+Profit/loss ratio is: -0.34
+While there is: 1.00 profit trades, and: 1.00 loss trades
+Real PnL(%) is: -41.40%
+
+Overall stats for strategy (strategy <d150s3 M->) 
+Average plus is: 24.40
+Average minus is: -65.40
+Profit/loss ratio is: -0.37
+While there is: 1.00 profit trades, and: 1.00 loss trades
+Real PnL(%) is: -41.00%
+
+Overall stats for strategy (strategy <d120s3 M+>) 
+Average plus is: 24.40
+Average minus is: -47.00
+Profit/loss ratio is: -0.52
+While there is: 1.00 profit trades, and: 1.00 loss trades
+Real PnL(%) is: -22.60%
+
+Overall stats for strategy (strategy <d180s3 M+>) 
+Average plus is: 24.40
+Average minus is: -44.80
+Profit/loss ratio is: -0.54
+While there is: 1.00 profit trades, and: 2.00 loss trades
+Real PnL(%) is: -65.20%
+===================================================
+Correlation stats for strategies
+
+
+Correlations for strategy (strategy <d180s1 M+>)     Not Enough data 
+
+Correlations for strategy (strategy <d150s1 M+>)     Not Enough data 
+
+Correlations for strategy (strategy <d120s1.5 M+>)     Not Enough data 
+
+Correlations for strategy (strategy <d150s1.5 M+>) 
+parameter: dBTC  is 0.20
+
+Correlations for strategy (strategy <d150s1.2 M+>)     Not Enough data 
+
+Correlations for strategy (strategy <d180s1.2 M+>)     Not Enough data 
+
+Correlations for strategy (strategy <d120s1 M+>)     Not Enough data 
+
+Correlations for strategy (strategy <d120s1.2 M+>)     Not Enough data 
+
+Correlations for strategy (strategy <d180s1.5 M+>)     Not Enough data 
+
+Correlations for strategy (strategy <d180s2 M+>) 
+parameter: dBTC  is 0.32
+parameter: dBTC5m  is 0.30
+parameter: d24h  is -0.50
+parameter: d3h  is -0.26
+parameter: Vd1m  is 0.32
+
+Correlations for strategy (strategy <d120s2 M+>) 
+parameter: dBTC  is 0.34
+parameter: Dump1H  is 0.19
+
+Correlations for strategy (strategy <d150s2 M+>) 
+parameter: dMarket  is 0.28
+parameter: dM24  is 0.26
+parameter: Pump1H  is 0.19
+parameter: d1h  is 0.25
+
+Correlations for strategy (strategy <d180s1 M->)     Not Enough data 
+
+Correlations for strategy (strategy <d120s1 M->)     Not Enough data 
+
+Correlations for strategy (strategy <d150s1 M->)     Not Enough data 
+
+Correlations for strategy (strategy <d120s1.2 M->)     Not Enough data 
+
+Correlations for strategy (strategy <d180s1.2 M->)     Not Enough data 
+
+Correlations for strategy (strategy <d150s1.2 M->)     Not Enough data 
+
+Correlations for strategy (strategy <d150s1.5 M->) 
+parameter: d24BTC  is -0.21
+parameter: dM24  is -0.30
+
+Correlations for strategy (strategy <d180s1.5 M->)     Not Enough data 
+
+Correlations for strategy (strategy <d120s1.5 M->)     Not Enough data 
+
+Correlations for strategy (strategy <d120s2 M->) 
+parameter: dM24  is 0.26
+parameter: bvsv  is 0.18
+parameter: dBTC5m  is -0.18
+parameter: d24h  is 0.19
+parameter: d3h  is 0.20
+parameter: dBTC1m  is -0.22
+
+Correlations for strategy (strategy <d150s2 M->) 
+parameter: dM24  is 0.20
+parameter: dBTC1m  is 0.19
+
+Correlations for strategy (strategy <d180s2 M->) 
+parameter: bvsv  is -0.54
+parameter: dBTC5m  is -0.33
+parameter: Pump1H  is 0.20
+parameter: d3h  is 0.40
+parameter: d5m  is -0.23
+parameter: d1m  is -0.32
+parameter: dBTC1m  is -0.20
+parameter: Vd1m  is -0.29
+
+Correlations for strategy (strategy <d120s3 M->)     Not enough trades for real corr
+
+Correlations for strategy (strategy <d180s3 M->)     Not enough trades for real corr
+
+Correlations for strategy (strategy <d150s3 M->)     Not enough trades for real corr
+
+Correlations for strategy (strategy <d120s3 M+>)     Not enough trades for real corr
+
+Correlations for strategy (strategy <d180s3 M+>)     Not enough trades for real corr

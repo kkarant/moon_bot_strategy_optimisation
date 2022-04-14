@@ -1,7 +1,8 @@
 import fileImport
 import regressionCalculaton
 import strategyStatistics
-from deltaRangeFinder.decTreeRangesCombine import weightSearch, weightLinesSearch, weightLinesDepthSearch
+from deltaRangeFinder.decTreeRangesCombine import weightSearch, weightLinesSearch, weightLinesDepthSearch, \
+    featuresListFinder
 from deltaRangeFinder.deltaFindML import decisionTree, decorator
 
 
@@ -23,7 +24,9 @@ def main():
     print(weightDict)
     weightLine = weightLinesSearch(weightDict)
     print(weightLine)
-    weightLinesDepthSearch(weightDict, weightLine)
+    weightDepthIndex = weightLinesDepthSearch(weightDict, weightLine)
+    print(weightDepthIndex)
+    featuresListFinder(weightDepthIndex, weightLine, weightDict)
 
 
 if __name__ == '__main__':

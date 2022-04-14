@@ -83,14 +83,32 @@ def weightLinesDepthSearch(weightDict, weightLine):
 
         file = open('decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
         content = file.readlines()
-        if weightDict[stratName] in content[weightLine[i]]:
-            t = content[i]
-            while depthIndicator in t:
-                if depthIndicator in t:
-                    num = num + 1
-                    t = t[j:]
-                    j = j + 4
+        t = content[weightLine[i]-1]
+        #print(t)
+        #print(weightLine[i])
+        num = t.count(depthIndicator)
         weightDepthIndex.append(num)
-        print(weightDepthIndex)
-
+        #print(num)
+        file.close()
         i = i + 1
+    return weightDepthIndex
+
+
+def featuresListFinder(weightDepthIndex, weightLine, weightDict):
+    depthIndicator = '|'
+    for stratName in weightDict:
+        featuresList = []
+        j = 0
+        i = 0
+        strName = str(stratName).replace(" ", "").replace("(", "").replace(")", "").replace(">", ""). \
+            replace("<", "").replace("-", "_minus").replace("+", "_plus").replace("st", "St")
+
+        file = open('decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
+        content = file.readlines()
+        while i < weightLine[j]:
+            currDe = weightDepthIndex[j] - i
+            if weightLine[j] >= i and content[weightLine[j] - i].count(depthIndicator) == currDe:
+                featuresList.append(content[weightLine[j] - i])
+            i = i + 1
+        j = j + 1
+        print(featuresList)
