@@ -1,7 +1,7 @@
 import fileImport
 import regressionCalculaton
 import strategyStatistics
-from deltaRangeFinder.decTreeRangesCombine import decoder
+from deltaRangeFinder.decTreeRangesCombine import weightSearch, weightLinesSearch, weightLinesDepthSearch
 from deltaRangeFinder.deltaFindML import decisionTree, decorator
 
 
@@ -19,8 +19,11 @@ def main():
     # reportCreator.reportCreation(repFile, stratData, regrDict, ratioData, colNames, df, listOfReqVal,
     # stratRatioDict)
 
-    textRep = decisionTree(stratData, colNames)  # works
-    decoder(stratData, listOfReqVal)  # ne rabotaet rzdelenie na zony
+    weightDict = weightSearch(stratData, listOfReqVal)  # ne rabotaet rzdelenie na zony
+    print(weightDict)
+    weightLine = weightLinesSearch(weightDict)
+    print(weightLine)
+    weightLinesDepthSearch(weightDict, weightLine)
 
 
 if __name__ == '__main__':

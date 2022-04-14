@@ -190,4 +190,3 @@ def decisionTree(stratData, colNames):
             textRep = decisionTreeTextReport(clf, stratName)
         # else:
         # print(f"Not enough data for {stratName}")
-    return textRep
