@@ -26,7 +26,8 @@ def main():
     print(weightLine)
     weightDepthIndex = weightLinesDepthSearch(weightDict, weightLine)
     print(weightDepthIndex)
-    featuresListFinder(weightDepthIndex, weightLine, weightDict)
+    featureListDict = featuresListFinder(weightDepthIndex, weightLine, weightDict)
+    print(featureListDict)
 
 
 if __name__ == '__main__':

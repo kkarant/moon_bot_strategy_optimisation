@@ -83,12 +83,12 @@ def weightLinesDepthSearch(weightDict, weightLine):
 
         file = open('decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
         content = file.readlines()
-        t = content[weightLine[i]-1]
-        #print(t)
-        #print(weightLine[i])
+        t = content[weightLine[i] - 1]
+        # print(t)
+        # print(weightLine[i])
         num = t.count(depthIndicator)
         weightDepthIndex.append(num)
-        #print(num)
+        # print(num)
         file.close()
         i = i + 1
     return weightDepthIndex
@@ -96,19 +96,28 @@ def weightLinesDepthSearch(weightDict, weightLine):
 
 def featuresListFinder(weightDepthIndex, weightLine, weightDict):
     depthIndicator = '|'
+    j = 0
+    featureListDict = {}
     for stratName in weightDict:
         featuresList = []
-        j = 0
-        i = 0
+        i = 1
         strName = str(stratName).replace(" ", "").replace("(", "").replace(")", "").replace(">", ""). \
             replace("<", "").replace("-", "_minus").replace("+", "_plus").replace("st", "St")
 
         file = open('decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
         content = file.readlines()
-        while i < weightLine[j]:
-            currDe = weightDepthIndex[j] - i
-            if weightLine[j] >= i and content[weightLine[j] - i].count(depthIndicator) == currDe:
-                featuresList.append(content[weightLine[j] - i])
+        currDe = weightDepthIndex[j] - i
+        while i <= weightLine[j]:
+            if content[weightLine[j] - i].count('weights') == 1:
+                ...
+            elif content[weightLine[j] - i].count(depthIndicator) == currDe:
+
+                #print(currDe)
+                lengthFeatures = len(featuresList)
+                featuresList.append(content[weightLine[j] - i]
+                                    .replace("|", "").replace(" ", "").replace("---", "").replace("\n", ""))
+                currDe = currDe - 1
             i = i + 1
         j = j + 1
-        print(featuresList)
+        featureListDict[stratName] = featuresList
+    return featureListDict
