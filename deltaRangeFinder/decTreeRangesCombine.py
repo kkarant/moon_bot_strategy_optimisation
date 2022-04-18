@@ -106,20 +106,21 @@ def weightLinesDepthSearch(weightDict, weightLine, mode):
 
         file = open('decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
         content = file.readlines()
-        if mode == 0:
-            t = content[weightLine[i] - 1]
-            num = t.count(depthIndicator)
-            weightDepthIndex[stratName] = num
-        elif mode == 1:
-            k = 0
-            while k < len(weightLine[stratName]):
-                t = content[weightLine[stratName][k] - 1] #problem
-                print(k)
+        if len(content) > 11:
+            if mode == 0:
+                t = content[weightLine[i] - 1]
                 num = t.count(depthIndicator)
-                tmpList1.append(num)
-                k = k + 1
-            weightDepthIndex[stratName] = tmpList1
-        tmpList1 = []
+                weightDepthIndex[stratName] = num
+            elif mode == 1:
+                k = 0
+                while k < len(weightLine[stratName]):
+                    t = content[weightLine[stratName][k] - 1]  # problem
+                    # print(weightLine[stratName][k] - 1)
+                    num = t.count(depthIndicator)
+                    tmpList1.append(num)
+                    k = k + 1
+                weightDepthIndex[stratName] = tmpList1
+            tmpList1 = []
 
         file.close()
         i = i + 1
@@ -130,30 +131,45 @@ def featuresListFinder(weightDepthIndex, weightLine, weightDict):
     depthIndicator = '|'
     j = 0
     featureListDict = {}
+    featuresDict = {}
     for stratName in weightDict:
-        featuresList = []
+
         i = 1
         strName = str(stratName).replace(" ", "").replace("(", "").replace(")", "").replace(">", ""). \
             replace("<", "").replace("-", "_minus").replace("+", "_plus").replace("st", "St")
 
         file = open('decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
         content = file.readlines()
-        currDe = weightDepthIndex[j] - i
-        while i <= weightLine[j]:
-            if content[weightLine[j] - i].count('weights') == 1:
-                ...
-            elif content[weightLine[j] - i].count(depthIndicator) == currDe:
-
-                # print(currDe)
-                lengthFeatures = len(featuresList)
-                featuresList.append(content[weightLine[j] - i]
-                                    .replace("|", "").replace(" ", "").replace("---", "").replace("\n", ""))
-                currDe = currDe - 1
-            i = i + 1
-        j = j + 1
-        featureListDict[stratName] = featuresList
+        if stratName in weightDepthIndex.keys():
+            for el in weightDepthIndex[stratName]:
+                featuresList = []
+                i = 1
+                elNum = 0
+                currDe = el - i
+                if weightLine[stratName][elNum] > 2:
+                    while i <= weightLine[stratName][elNum]:
+                        if content[weightLine[stratName][elNum] - i].count('weights') == 1:
+                            ...
+                        elif content[weightLine[stratName][elNum] - i].count(depthIndicator) == currDe:
+                            # print(currDe)
+                            featuresList.append(content[weightLine[stratName][elNum] - i]
+                                                .replace("|", "").replace(" ", "").replace("---", "").replace("\n", ""))
+                            currDe = currDe - 1
+                        i = i + 1
+                    elNum = elNum + 1
+                    featuresDict[elNum] = featuresList
+                else:
+                    featuresDict[elNum] = "wrong lines"
+            j = j + 1
+            featureListDict[stratName] = featuresDict
+            featuresDict = {}
+        else:
+            featureListDict[stratName] = "No depth for this strategy"
     return featureListDict
 
 
-def findSeveralWeightPaths():
-    ...
+def findSeveralWeightPaths(weightDepthIndex, weightLine, weightDict, mode):
+    if mode == 0:
+        featuresListFinder(weightDepthIndex, weightLine, weightDict)
+    elif mode == 1:
+        featuresListFinder(weightDepthIndex, weightLine, weightDict)

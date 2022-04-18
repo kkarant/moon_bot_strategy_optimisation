@@ -85,18 +85,20 @@ def reportCreation(rfile, stratData, regrDict, ratioData, colNames, df, listOfRe
         timeInTradeCalcprint(strategyStatistics.timeInTradeCalc(stratData, colNames)[0], file)
 
     if reportModulesStrFind('Overall stats for each strategy'):
-        #'real_pnl', 'plusCount', 'minusCount', 'sumPlus', 'sumMinus', 'averagePlus', 'averageMinus'
+        # 'real_pnl', 'plusCount', 'minusCount', 'sumPlus', 'sumMinus', 'averagePlus', 'averageMinus'
         file.write('\n===================================================')
         file.write('\n Overall stats for each strategy')
         for stratName in stratRatioDict:
             file.write('\n')
             file.write('\nOverall stats for strategy ' + str(stratName))
-            file.write('\nAverage plus is: ' + str('{0:.2f}'.format(stratRatioDict[stratName][5])) + '\nAverage minus is: '
-                       + (str('{0:.2f}'.format(stratRatioDict[stratName][6])))
-                       + '\nProfit/loss ratio is: ' + str('{0:.2f}'.format(stratRatioDict[stratName][5] / stratRatioDict[stratName][6]))
-                       + '\nWhile there is: ' + str('{0:.2f}'.format(stratRatioDict[stratName][1])) + ' profit trades, and: '
-                       + str('{0:.2f}'.format(stratRatioDict[stratName][2])) + ' loss trades'
-                       + '\nReal PnL(%) is: ' + str('{0:.2f}'.format(stratRatioDict[stratName][0])) + '%')
+            file.write(
+                '\nAverage plus is: ' + str('{0:.2f}'.format(stratRatioDict[stratName][5])) + '\nAverage minus is: '
+                + (str('{0:.2f}'.format(stratRatioDict[stratName][6])))
+                + '\nProfit/loss ratio is: ' + str(
+                    '{0:.2f}'.format(stratRatioDict[stratName][5] / stratRatioDict[stratName][6]))
+                + '\nWhile there is: ' + str('{0:.2f}'.format(stratRatioDict[stratName][1])) + ' profit trades, and: '
+                + str('{0:.2f}'.format(stratRatioDict[stratName][2])) + ' loss trades'
+                + '\nReal PnL(%) is: ' + str('{0:.2f}'.format(stratRatioDict[stratName][0])) + '%')
 
     if reportModulesStrFind('Correlation stats for strategies'):
         file.write('\n===================================================')
@@ -118,4 +120,21 @@ def reportCreation(rfile, stratData, regrDict, ratioData, colNames, df, listOfRe
                         i = i + 1
                 if i == 0:
                     file.write('    Not Enough data ')
+    file.close()
+
+
+def featureReportCreation(rfile, weightDepthIndex, weightLine, weightDict, featureListDict):
+    i = 0
+    with open("report/reportFeatures.txt", "w") as file:
+        file.write('Report for ' + str(rfile))
+    file = open("report/reportFeatures.txt", "a")
+    for stratName in featureListDict:
+        i = 0
+        file.write('\nReport for ' + stratName)
+        while i < len(weightDict[stratName]):
+            file.write('\nfor ' + weightDict[stratName][i])
+            file.write('\nfeatures: ')
+            for el in featureListDict[stratName][1]:
+                file.write('\t\n' + el)
+            i = i + 1
     file.close()
