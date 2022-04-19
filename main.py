@@ -2,8 +2,8 @@ import fileImport
 import regressionCalculaton
 import strategyStatistics
 from deltaRangeFinder.decTreeRangesCombine import weightSearch, weightLinesDepthSearch, \
-    featuresListFinder, findSeveralWeightPaths
-from deltaRangeFinder.deltaFindML import decisionTree, decorator
+    featuresListFinder
+from deltaRangeFinder.deltaFindML import decorator
 from reportCreator import featureReportCreation
 
 
@@ -28,12 +28,10 @@ def main():
     print(weightLine)
     weightDepthIndex = weightLinesDepthSearch(weightDict, weightLine, mode)
     print(weightDepthIndex)
-    featureListDict = featuresListFinder(weightDepthIndex, weightLine, weightDict)
+    featureListDict = featuresListFinder(weightDepthIndex, weightLine, weightDict, mode)
     print(featureListDict)
 
     featureReportCreation(repFile, weightDepthIndex, weightLine, weightDict, featureListDict)
-
-    # check if found lines with weights are right, make featuresListDict work with weight line from given, not list
 
 
 if __name__ == '__main__':
