@@ -1,5 +1,3 @@
-import os
-
 import pandas as pd
 
 
@@ -26,10 +24,8 @@ def csvImport(file):
     colNames = list(df.columns)
     col_name = colNames[6]
     # df[col_name] = list(map(lambda x: x[:-2], df[col_name].values))
-    el = 0
     df[col_name] = [elem[:-2] for elem in df[col_name].values]  # udalaem % iz colNames[6]
     df[col_name] = [float(x) for x in df[col_name].values]
     # print(colNames)
 
     return df, colNames
-

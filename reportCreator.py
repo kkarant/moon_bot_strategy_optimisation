@@ -1,5 +1,3 @@
-import fileImport
-import regressionCalculaton
 import strategyStatistics
 
 
@@ -17,12 +15,13 @@ def reportModulesStrFind(strFirstLine):
             break
     if flag == 0:
         # print('String', string1, 'Not Found')
+        file1.close()
         return 1
     else:
         # print('String', string1, 'Found In Line', index)
+        file1.close()
         return 0
     # closing text file
-    file1.close()
 
 
 def reportSourceFileName(rfile):
@@ -39,12 +38,13 @@ def reportSourceFileName(rfile):
             break
     if flag == 0:
         # print('String', string1, 'Not Found')
+        file1.close()
         return 1
     else:
         # print('String', string1, 'Found In Line', index)
+        file1.close()
         return 0
     # closing text file
-    file1.close()
 
 
 def timeInTradeCalcprint(strategyDictTime, file):
@@ -124,7 +124,6 @@ def reportCreation(rfile, stratData, regrDict, ratioData, colNames, df, listOfRe
 
 
 def featureReportCreation(rfile, weightDict, featureListDict):
-    i = 0
     with open("report/reportFeatures.txt", "w") as file:
         file.write('Report for ' + str(rfile))
     file = open("report/reportFeatures.txt", "a")
@@ -141,13 +140,33 @@ def featureReportCreation(rfile, weightDict, featureListDict):
 
 
 def rangesDictFinalReportCreation(rfile, rangesDictFinal):
-    with open("report/reportRanges.txt", "w") as file:
+    with open("report/reportRangesNotSorted.txt", "w") as file:
         file.write('Report for ' + str(rfile))
 
-    file = open("report/reportRanges.txt", "a")
+    file = open("report/reportRangesNotSorted.txt", "a")
     for stratName in rangesDictFinal:
         file.write("\n====================================")
         file.write("\nRanges for strategy " + stratName)
         for el in rangesDictFinal[stratName]:
             file.write("\n" + el)
+    file.close()
+
+
+def rangesReportFiveBestCreation(rfile, rangesDictFinal, biggestRRList, biggestRegrDictStrat):
+    i = 0
+    with open("report/reportStratRangesFiveBest.txt", "w") as file:
+        file.write('Report for ' + str(rfile))
+
+    file = open("report/reportStratRangesFiveBest.txt", "a")
+    for stratName in biggestRegrDictStrat:
+        file.write("\n====================================")
+        file.write("\nRanges for strategy " + stratName + " with ratio = {0:.2f}".format(biggestRRList[i]))
+        for el in rangesDictFinal[stratName]:
+            file.write("\n" + el)
+            if len(biggestRegrDictStrat[stratName]) > 0:
+                for val in biggestRegrDictStrat[stratName]:
+                    if val in el:
+                        file.write(", correlation is {0:.2f}".format(biggestRegrDictStrat[stratName][val]))
+
+        i = i + 1
     file.close()

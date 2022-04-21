@@ -1,15 +1,14 @@
 from datetime import datetime
 
 
-def averageTime(lst): #returns seconds
+def averageTime(lst):  # returns seconds
     tm = datetime(10, 1, 1, 0, 0, 0)
-    tm1 = tm
     for el in lst:
-        tm = tm +el
-    #print(tm)
-    #print(tm.second + tm.minute*60 + tm.hour*3600)
-    #print(len(lst))
-    return (tm.second + tm.minute*60 + tm.hour*3600) / len(lst)
+        tm = tm + el
+    # print(tm)
+    # print(tm.second + tm.minute*60 + tm.hour*3600)
+    # print(len(lst))
+    return (tm.second + tm.minute * 60 + tm.hour * 3600) / len(lst)
 
 
 def getStatForStrat(df, columns):
@@ -53,7 +52,6 @@ def getRatio(df, columns) -> tuple:
 
 
 def strategyGetRatio(strategyDict):
-    dictParamOrder = ['real_pnl', 'plusCount', 'minusCount', 'sumPlus', 'sumMinus', 'averagePlus', 'averageMinus']
     stratRatioDict = {}
     plusCount = 0
     minusCount = 0
@@ -96,10 +94,9 @@ def strategyGetRatio(strategyDict):
         stratRatioDict[stratName] = temp
         temp = []
 
-
-    #for stratName in stratRatioDict:
-        #if stratRatioDict[stratName].__len__() > 1:
-           # print(stratRatioDict[stratName])
+    # for stratName in stratRatioDict:
+    # if stratRatioDict[stratName].__len__() > 1:
+    # print(stratRatioDict[stratName])
     return stratRatioDict
 
 
@@ -127,7 +124,7 @@ def timeInTradeCalc(strategyDict, colNames):
             el = el + 1
         averageList = averageTime(tempList)
 
-        #print(averageList)
+        # print(averageList)
         strategyDictTimeAverage[stratName] = averageList
         strategyDictTimeData[stratName] = tempListForData
         tempListForData = []
@@ -135,5 +132,34 @@ def timeInTradeCalc(strategyDict, colNames):
         el = 0
 
     return strategyDictTimeAverage, strategyDictTimeData
-#TODO сделать такой счетчик но и для плюс минус сделок иф профит меньше нуля то туда добавляем время и наоборот
 
+
+def bestStrategies(stratRatioDict, regrDict, rangesDictFinal, stratData, listOfReqVal):
+    stratWHighestRRList = []
+    rrRatioTmp = {}
+    biggestRegrDict = {}
+    biggestRegrDictStrat = {}
+    for stratName in rangesDictFinal:
+        if len(stratData[1][stratName]) > 200:
+            rrRatioTmp[stratName] = (stratRatioDict[stratName][5] / stratRatioDict[stratName][6])
+
+    biggestRRList = sorted(rrRatioTmp.values(), reverse=False)[:5]
+    for stratName in rangesDictFinal:
+        if len(stratData[1][stratName]) > 200:
+            for el in biggestRRList:
+                if rrRatioTmp[stratName] == el:
+                    stratWHighestRRList.append(stratName)
+
+    for stratName in stratWHighestRRList:
+        i = 0
+        while i < len(regrDict[stratName]):
+            if regrDict[stratName][i] > 0.1 or regrDict[stratName][i] < -0.1:
+                biggestRegrDict[listOfReqVal[i]] = regrDict[stratName][i]
+            i = i + 1
+        biggestRegrDictStrat[stratName] = biggestRegrDict
+        biggestRegrDict = {}
+    # print(biggestRRList)
+    # print(stratWHighestRRList)
+    # print(biggestRegrDictStrat)
+    return biggestRRList, biggestRegrDictStrat
+# TODO сделать такой счетчик но и для плюс минус сделок иф профит меньше нуля то туда добавляем время и наоборот

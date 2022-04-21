@@ -219,13 +219,14 @@ def featuresFinalReport(featureListDict, listOfReqVal):
                 size = tList.__len__()  # ne tam size meryau
                 # print(size)
                 for feature in featuresDict:
-                    if str(feature) in el:
-                        el1 = el.replace(str(feature), str(featuresDict[feature]))
-                        # if ' ' not in el1:
-                        tList.append(el1)
-                actualSize = tList.__len__()
-                if size + 2 == actualSize:
-                    del tList[-2]
+                    if featuresDict[feature] != 'Vd1m':
+                        if str(feature) in el:
+                            el1 = el.replace(str(feature), str(featuresDict[feature]))
+                            # if ' ' not in el1:
+                            tList.append(el1)
+                    actualSize = tList.__len__()
+                    if size + 2 == actualSize:
+                        del tList[-2]
             tDict[item] = tList
             tList = []
         newFeatureListDict[stratName] = tDict

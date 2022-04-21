@@ -4,7 +4,7 @@ import reportCreator
 import strategyStatistics
 from deltaRangeFinder.decTreeRangesCombine import weightSearch, weightLinesDepthSearch, \
     featuresListFinder, featuresFinalReport, featuresCombineFinal
-from deltaRangeFinder.deltaFindML import decorator
+from deltaRangeFinder.deltaFindML import decorator, decisionTree
 
 
 @decorator
@@ -35,8 +35,16 @@ def main():
 
     rangesDictFinal = featuresCombineFinal(featuresFinalReport(featureListDict, listOfReqVal), listOfReqVal)
     # reportCreator.featureReportCreation(repFile, weightDict, featureListDict)
-    reportCreator.rangesDictFinalReportCreation(repFile, rangesDictFinal)
+    # reportCreator.rangesDictFinalReportCreation(repFile, rangesDictFinal)
+    strategyStatistics.bestStrategies(stratRatioDict, regrDict, rangesDictFinal, stratData, listOfReqVal)
 
+    biggestRRList = strategyStatistics.bestStrategies(stratRatioDict, regrDict,
+                                                      rangesDictFinal, stratData, listOfReqVal)[0]
+
+    biggestRegrDictStrat = strategyStatistics.bestStrategies(stratRatioDict, regrDict,
+                                                             rangesDictFinal, stratData, listOfReqVal)[1]
+
+    reportCreator.rangesReportFiveBestCreation(repFile, rangesDictFinal, biggestRRList, biggestRegrDictStrat)
 
 if __name__ == '__main__':
     main()

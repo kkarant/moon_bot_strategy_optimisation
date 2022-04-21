@@ -1,9 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
-from numpy import correlate, corrcoef
 from scipy.stats import pearsonr
-import pandas as pd
-from sklearn.model_selection import train_test_split
 
 
 def zeroElimination(list):
