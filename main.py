@@ -1,15 +1,15 @@
 import fileImport
 import regressionCalculaton
+import reportCreator
 import strategyStatistics
 from deltaRangeFinder.decTreeRangesCombine import weightSearch, weightLinesDepthSearch, \
-    featuresListFinder
+    featuresListFinder, featuresFinalReport, featuresCombineFinal
 from deltaRangeFinder.deltaFindML import decorator
-from reportCreator import featureReportCreation
 
 
 @decorator
 def main():
-    repFile = 'data/dr11k.txt'
+    repFile = 'data/dr13k.txt'
     df = fileImport.csvImport(repFile)[0]
     colNames = fileImport.csvImport(repFile)[1]
     ratioData = strategyStatistics.getRatio(df, colNames)
@@ -20,18 +20,22 @@ def main():
 
     # reportCreator.reportCreation(repFile, stratData, regrDict, ratioData, colNames, df, listOfReqVal,
     # stratRatioDict)
+
+    # decisionTree(stratData, colNames)
     # mode = 0
     mode = 1
     weightDict = weightSearch(stratData, listOfReqVal, mode)[0]
-    print(weightDict)
+    # print(weightDict)
     weightLine = weightSearch(stratData, listOfReqVal, mode)[1]
-    print(weightLine)
+    # print(weightLine)
     weightDepthIndex = weightLinesDepthSearch(weightDict, weightLine, mode)
-    print(weightDepthIndex)
+    # print(weightDepthIndex)
     featureListDict = featuresListFinder(weightDepthIndex, weightLine, weightDict, mode)
-    print(featureListDict)
+    # print(featureListDict)
 
-    featureReportCreation(repFile, weightDepthIndex, weightLine, weightDict, featureListDict)
+    rangesDictFinal = featuresCombineFinal(featuresFinalReport(featureListDict, listOfReqVal), listOfReqVal)
+    # reportCreator.featureReportCreation(repFile, weightDict, featureListDict)
+    reportCreator.rangesDictFinalReportCreation(repFile, rangesDictFinal)
 
 
 if __name__ == '__main__':

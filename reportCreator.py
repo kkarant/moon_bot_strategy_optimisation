@@ -123,7 +123,7 @@ def reportCreation(rfile, stratData, regrDict, ratioData, colNames, df, listOfRe
     file.close()
 
 
-def featureReportCreation(rfile, weightDepthIndex, weightLine, weightDict, featureListDict):
+def featureReportCreation(rfile, weightDict, featureListDict):
     i = 0
     with open("report/reportFeatures.txt", "w") as file:
         file.write('Report for ' + str(rfile))
@@ -137,4 +137,17 @@ def featureReportCreation(rfile, weightDepthIndex, weightLine, weightDict, featu
             for el in featureListDict[stratName][1]:
                 file.write('\t\n' + el)
             i = i + 1
+    file.close()
+
+
+def rangesDictFinalReportCreation(rfile, rangesDictFinal):
+    with open("report/reportRanges.txt", "w") as file:
+        file.write('Report for ' + str(rfile))
+
+    file = open("report/reportRanges.txt", "a")
+    for stratName in rangesDictFinal:
+        file.write("\n====================================")
+        file.write("\nRanges for strategy " + stratName)
+        for el in rangesDictFinal[stratName]:
+            file.write("\n" + el)
     file.close()

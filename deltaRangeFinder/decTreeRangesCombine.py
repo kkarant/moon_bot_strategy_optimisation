@@ -13,8 +13,8 @@ def findStrFile(strF, startIndex, file, line):
 
 def get_key(val, dict):
     for key, value in dict.items():
-         if val == value:
-             return key
+        if val == value:
+            return key
 
 
 def weightSearch(stratData, listOfReqVal, mode):
@@ -179,13 +179,14 @@ def featuresListFinder(weightDepthIndex, weightLine, weightDict, mode):
                         while i <= weightLine[stratName][elNum]:
                             if content[weightLine[stratName][elNum] - i].count('weights') == 1:
                                 ...
-                            elif content[weightLine[stratName][elNum] - i].count(depthIndicator) == currDe\
+                            elif content[weightLine[stratName][elNum] - i].count(depthIndicator) == currDe \
                                     and content[weightLine[stratName][elNum] - i].count(depthIndicator) != el:
                                 # print(currDe)
                                 # print('found ' + str(content[weightLine[stratName][elNum] - i]) + ' in line '
                                 #      + str(weightLine[stratName][elNum] - i) + ' currDe = ' + str(currDe))
                                 featuresList.append(content[weightLine[stratName][elNum] - i]
-                                                    .replace("|", "").replace(" ", "").replace("---", "").replace("\n", ""))
+                                                    .replace("|", "").replace(" ", "").replace("---", "").replace("\n",
+                                                                                                                  ""))
                                 currDe = currDe - 1
                             i = i + 1
                         elNum = elNum + 1
@@ -198,3 +199,101 @@ def featuresListFinder(weightDepthIndex, weightLine, weightDict, mode):
                 featureListDict[stratName] = "No depth for this strategy"
     return featureListDict
 
+
+def featuresFinalReport(featureListDict, listOfReqVal):
+    newFeatureListDict = {}
+    featuresDict = {}
+    tList = []
+    tDict = {}
+    i = 0
+    for val in listOfReqVal:
+        featuresDict['feature_' + str(i)] = str(val[:-1])
+        i = i + 1
+    # print(featuresDict.keys())
+
+    i = 0
+    for stratName in featureListDict:
+        for item in featureListDict[stratName]:
+            # print(featureListDict[stratName][item])
+            for el in featureListDict[stratName][item]:
+                size = tList.__len__()  # ne tam size meryau
+                # print(size)
+                for feature in featuresDict:
+                    if str(feature) in el:
+                        el1 = el.replace(str(feature), str(featuresDict[feature]))
+                        # if ' ' not in el1:
+                        tList.append(el1)
+                actualSize = tList.__len__()
+                if size + 2 == actualSize:
+                    del tList[-2]
+            tDict[item] = tList
+            tList = []
+        newFeatureListDict[stratName] = tDict
+        tList = []
+        tDict = {}
+        # print(el1)
+
+    return newFeatureListDict
+
+
+def featuresCombineFinal(newFeatureListDict, listOfReqVal):
+    rangesDictByStrategy = {}
+    rangesDictByValues = {}
+    rangesDictFinal = {}
+    tempList = []
+
+    # valNames.append(str(val + 'List'))
+
+    for stratName in newFeatureListDict:
+        for val in listOfReqVal:
+            rangesDictByValues[str(val[:-1])] = []
+        for item in newFeatureListDict[stratName]:
+            for el in newFeatureListDict[stratName][item]:
+                # print(el)
+                for feature in rangesDictByValues:
+                    if str(feature) in el:
+                        rangesDictByValues[str(feature)].append(el)
+        rangesDictByStrategy[stratName] = rangesDictByValues
+        rangesDictByValues = {}
+    #print(rangesDictByStrategy)
+
+    for stratName in rangesDictByStrategy:
+        for feature in rangesDictByStrategy[stratName]:
+            minVal = 0.001337
+            maxVal = 0.001337
+            if rangesDictByStrategy[stratName][feature].__len__() > 0:
+                for el in rangesDictByStrategy[stratName][feature]:
+                    if el != '':
+                        if '<=' in el:
+                            elMax = float(el.partition('=')[2])
+                            if maxVal == 0.001337:
+                                maxVal = elMax
+                            elif elMax >= maxVal:
+                                maxVal = elMax
+                            # print(maxVal)
+                        elif '>' in el:
+                            elMin = float(el.partition('>')[2])
+                            if minVal == 0.001337:
+                                minVal = elMin
+                            elif elMin <= minVal:
+                                minVal = elMin
+                            # print(minVal)
+                if maxVal != 0.001337 and minVal != 0.001337:
+                    # print('for ' + feature + ' range is [' + str(minVal) + ', ' + str(maxVal) + ']')
+                    tempList.append('for ' + feature + ' range is [' + str(minVal) + ', ' + str(maxVal) + ']')
+                elif maxVal != 0.001337 and minVal == 0.001337:
+                    # print('for ' + feature + ' range is [NaN, ' + str(maxVal) + ']')
+                    tempList.append('for ' + feature + ' range is [NaN, ' + str(maxVal) + ']')
+                elif maxVal == 0.001337 and minVal != 0.001337:
+                    # print('for ' + feature + ' range is [' + str(minVal) + ', NaN]')
+                    tempList.append('for ' + feature + ' range is [' + str(minVal) + ', NaN]')
+                else:
+                    # print('Not enough data for ' + feature)
+                    tempList.append('Not enough data for ' + feature)
+        rangesDictFinal[stratName] = tempList
+        tempList = []
+    return rangesDictFinal
+
+
+# TODO newFeatureListDict -> 1, 2, 3 [item] -> values str
+# TODO rangesDictByStrategy -> stratName -> feature name -> list of values (str
