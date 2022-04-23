@@ -92,6 +92,7 @@ def reportCreation(rfile, stratData, regrDict, ratioData, colNames, df, listOfRe
             file.write('\n')
             file.write('\nOverall stats for strategy ' + str(stratName))
             file.write(
+                '\nTotal trades = ' + str(stratRatioDict[stratName][1] + stratRatioDict[stratName][2]) +
                 '\nAverage plus is: ' + str('{0:.2f}'.format(stratRatioDict[stratName][5])) + '\nAverage minus is: '
                 + (str('{0:.2f}'.format(stratRatioDict[stratName][6])))
                 + '\nProfit/loss ratio is: ' + str(
@@ -152,7 +153,7 @@ def rangesDictFinalReportCreation(rfile, rangesDictFinal):
     file.close()
 
 
-def rangesReportFiveBestCreation(rfile, rangesDictFinal, biggestRRList, biggestRegrDictStrat):
+def rangesReportFiveBestCreation(rfile, rangesDictFinal, biggestRRList, biggestRegrDictStrat, stratRatioDict):
     i = 0
     with open("report/reportStratRangesFiveBest.txt", "w") as file:
         file.write('Report for ' + str(rfile))
@@ -161,6 +162,7 @@ def rangesReportFiveBestCreation(rfile, rangesDictFinal, biggestRRList, biggestR
     for stratName in biggestRegrDictStrat:
         file.write("\n====================================")
         file.write("\nRanges for strategy " + stratName + " with ratio = {0:.2f}".format(biggestRRList[i]))
+        file.write('\nTotal trades = ' + str(stratRatioDict[stratName][1] + stratRatioDict[stratName][2]))
         for el in rangesDictFinal[stratName]:
             file.write("\n" + el)
             if len(biggestRegrDictStrat[stratName]) > 0:
