@@ -140,12 +140,12 @@ def bestStrategies(stratRatioDict, regrDict, rangesDictFinal, stratData, listOfR
     biggestRegrDict = {}
     biggestRegrDictStrat = {}
     for stratName in rangesDictFinal:
-        if len(stratData[1][stratName]) > 200:
+        if len(stratData[1][stratName]) > 400:
             rrRatioTmp[stratName] = (stratRatioDict[stratName][5] / stratRatioDict[stratName][6])
 
     biggestRRList = sorted(rrRatioTmp.values(), reverse=False)[:5]
     for stratName in rangesDictFinal:
-        if len(stratData[1][stratName]) > 200:
+        if len(stratData[1][stratName]) > 400:
             for el in biggestRRList:
                 if rrRatioTmp[stratName] == el:
                     stratWHighestRRList.append(stratName)
@@ -162,4 +162,12 @@ def bestStrategies(stratRatioDict, regrDict, rangesDictFinal, stratData, listOfR
     # print(stratWHighestRRList)
     # print(biggestRegrDictStrat)
     return biggestRRList, biggestRegrDictStrat
+
+
+def whichStratIsBetter(stratRatioDict, regrDict, rangesDictFinal, stratData, listOfReqVal):
+    # stratData -> 1 -> stratName -> iterate over trades -> 1 -> BuyDate \ CloseDate
+    ...
+
+
+
 # TODO сделать такой счетчик но и для плюс минус сделок иф профит меньше нуля то туда добавляем время и наоборот
