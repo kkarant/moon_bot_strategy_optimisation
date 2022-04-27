@@ -1,11 +1,9 @@
-import fileImport
-import regressionCalculaton
-import reportCreator
-import strategyStatistics
+from fileInteraction import fileImport
+from stratStatistics import regressionCalculaton, strategyStatistics
 from binanceApiTradeInfo.apiInitialization import clientInit, getDateOfTradesToReceive
-from deltaRangeFinder.decTreeRangesCombine import weightSearch, weightLinesDepthSearch, \
-    featuresListFinder, featuresFinalReport, featuresCombineFinal
-from deltaRangeFinder.deltaFindML import decorator, decisionTree
+from deltaRangesFinder.decTreeRangesCombine import weightSearch, weightLinesDepthSearch, \
+    featuresListFinder
+from deltaRangesFinder.deltaFindML import decorator
 
 
 @decorator
@@ -59,8 +57,8 @@ def main():
     # biggestRegrDictStrat, stratRatioDict)
     # creates txt report with ranges and correlations for five strategies with highest ratio
 
-    clientInit()  # init of work with binance apI
-    getDateOfTradesToReceive(stratData)
+    client = clientInit()  # init of work with binance apI
+    getDateOfTradesToReceive(stratData, client)
 
 
 if __name__ == '__main__':

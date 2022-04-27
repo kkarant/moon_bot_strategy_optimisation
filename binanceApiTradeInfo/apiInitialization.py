@@ -1,29 +1,87 @@
-from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager
-from datetime import datetime
+from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager, exceptions
+from datetime import datetime, timedelta
+from calendar import monthrange
+
+
+# import BinanceAPIException, BinanceRequestException, NotImplementedException
+
 
 def clientInit():
     api_key = "InpLPIyMKvx0qNAeCFCCxBJczLxSU7snqfzZfGHlcriFUxlo2Sinr1JvVUKpChx1"
     api_secret = "CHmWXVTNhX4o0YL790vpKezFykXerCsCqvcrk3xiZCjzB1mCL7detkTUUpl0Hm7y"
     client = Client(api_key, api_secret)
+    res = client.get_exchange_info()
+    print(client.response.headers)
+    return client
 
 
-def getDateOfTradesToReceive(stratData):
+def getKlinesScript(coinName, buy, close, client):
+    dataFromKlines = []
+    klines = client.get_historical_klines(coinName, Client.KLINE_INTERVAL_1MINUTE, buy, close)
+    dataFromKlines = [klines[0][2], klines[0][3]]
+
+    print(coinName)
+    print(dataFromKlines)
+
+    return dataFromKlines
+
+
+def getDateOfTradesToReceive(stratData, client):
     # stratData -> 1 -> stratName -> iterate over trades -> 1 -> BuyDate \ CloseDate
-    for stratName in stratData[1]:
-        for trade in stratData[1][stratName]:
-            #print(trade[1]['BuyDate '])
-            buyDate = trade[1]['BuyDate '][:-1]
-            closeDate = trade[1]['CloseDate '][:-1]
+    tmpList = []
+    tradeInfoList = []
+    tradesInfoDict = {}
+    optimisedCoins = {}
+    markedDataDict = {}
+    coinsDict = {}
+    coinsKlinesDict = {}
+    dateFormat = "%Y-%m-%d %H:%M:%S"
+    if client.get_system_status()["status"] == 0:
+        for stratName in stratData[1]:
+            for trade in stratData[1][stratName]:
+                buyDate = trade[1]['BuyDate '][:-1]
+                closeDate = trade[1]['CloseDate '][:-1]
+                coinName = str(trade[1]['Coin '][:-1])
+                buyDateConverted = datetime.strptime(buyDate, dateFormat)
+                closeDateConverted = datetime.strptime(closeDate, dateFormat)
 
-            buyDateConverted = datetime.strptime(buyDate, "%Y-%m-%d %H:%M:%S")
-            closeDateConverted = datetime.strptime(closeDate, "%Y-%m-%d %H:%M:%S")
-            if buyDateConverted.strftime('%M') % 5 == 0:
-                numOfCline = buyDateConverted.strftime('%M')
-            print(buyDateConverted.strftime('%M'))
+                tmpBuyDate = datetime.strptime(str(buyDateConverted)[:-2] + "00", dateFormat)
+                tmpCloseDate = closeDateConverted + timedelta(minutes=1)
+                tmpCloseDate = datetime.strptime(str(tmpCloseDate)[:-2] + "00", dateFormat)
+                # print('Original buy date: ' + buyDateConverted.strftime(dateFormat)
+                #       + ', converted to: ' + str(tmpBuyDate))
+                # print('Original close date: ' + closeDateConverted.strftime(dateFormat)
+                #       + ', converted to: ' + str(tmpCloseDate))
+                # if coinName in coinsDict:
+                #     if coinsDict[coinName][0] == tmpBuyDate:
+                #         if coinsDict[coinName][1] == tmpCloseDate:
+                #             ...
+                # else:
+                #     getKlinesScript(tmpBuyDate, tmpCloseDate, trade, client, coinsDict, coinName)
+                tmpList.append(coinName)
+                tmpList.append(tmpBuyDate)
+                tmpList.append(tmpCloseDate)
+                tradeInfoList.append(tmpList)
+                tmpList = []
 
+                if coinName not in optimisedCoins:
+                    optimisedCoins[coinName] = [tmpBuyDate, tmpCloseDate]
+                elif coinName in optimisedCoins:
+                    if tmpBuyDate < optimisedCoins[coinName][0]:
+                        optimisedCoins[coinName][0] = tmpBuyDate
+                    if tmpCloseDate > optimisedCoins[coinName][1]:
+                        optimisedCoins[coinName][1] = tmpCloseDate
 
-            hours = ['19:30', '20:10', '20:30', '21:00', '22:00']
-            now = datetime.datetime.strptime("20:18", "%H:%M")
-            min(hours, key=lambda t: abs(now - datetime.datetime.strptime(t, "%H:%M")))
-            #timeForKline =
+            tradesInfoDict[stratName] = tradeInfoList
+            tradeInfoList = []
+        # print(optimisedCoins)
 
+        for coin in optimisedCoins:
+            buy = optimisedCoins[coin][0]
+            close = optimisedCoins[coin][1]
+            coinName = str(coin) + "USDT"
+            coinsKlinesDict[coin] = getKlinesScript(coinName, buy, close, client)
+
+    else:
+        print('system maintenance')
+        return 1

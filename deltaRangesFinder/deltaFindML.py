@@ -3,15 +3,13 @@ import os
 import shutil
 from io import StringIO
 
-from dtreeviz.trees import dtreeviz  # remember to load the package
 import pandas as pd
 import pydotplus
 from IPython.display import Image
-from sklearn import metrics
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, export_graphviz, export_text
 
-from strategyStatistics import timeInTradeCalc
+from stratStatistics.strategyStatistics import timeInTradeCalc
 
 
 def decorator(func):

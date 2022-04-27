@@ -79,6 +79,7 @@ For strategy (strategy <d120s3 M+>) average time for trade is 2.31 min (138.50) 
  Overall stats for each strategy
 
 Overall stats for strategy (strategy <d180s1 M+>) 
+Total trades = 1135
 Average plus is: 6.12
 Average minus is: -23.82
 Profit/loss ratio is: -0.26
@@ -86,6 +87,7 @@ While there is: 846.00 profit trades, and: 289.00 loss trades
 Real PnL(%) is: -1706.70%
 
 Overall stats for strategy (strategy <d150s1 M+>) 
+Total trades = 1077
 Average plus is: 6.33
 Average minus is: -24.36
 Profit/loss ratio is: -0.26
@@ -93,6 +95,7 @@ While there is: 802.00 profit trades, and: 275.00 loss trades
 Real PnL(%) is: -1625.70%
 
 Overall stats for strategy (strategy <d120s1 M+>) 
+Total trades = 1107
 Average plus is: 6.42
 Average minus is: -24.60
 Profit/loss ratio is: -0.26
@@ -100,6 +103,7 @@ While there is: 816.00 profit trades, and: 291.00 loss trades
 Real PnL(%) is: -1923.30%
 
 Overall stats for strategy (strategy <d120s1.2 M+>) 
+Total trades = 551
 Average plus is: 7.96
 Average minus is: -24.81
 Profit/loss ratio is: -0.32
@@ -107,6 +111,7 @@ While there is: 380.00 profit trades, and: 171.00 loss trades
 Real PnL(%) is: -1218.80%
 
 Overall stats for strategy (strategy <d180s1.5 M+>) 
+Total trades = 196
 Average plus is: 7.77
 Average minus is: -27.25
 Profit/loss ratio is: -0.29
@@ -114,6 +119,7 @@ While there is: 146.00 profit trades, and: 50.00 loss trades
 Real PnL(%) is: -228.50%
 
 Overall stats for strategy (strategy <d180s1.2 M+>) 
+Total trades = 534
 Average plus is: 7.37
 Average minus is: -24.25
 Profit/loss ratio is: -0.30
@@ -121,6 +127,7 @@ While there is: 379.00 profit trades, and: 155.00 loss trades
 Real PnL(%) is: -965.50%
 
 Overall stats for strategy (strategy <d150s1.2 M+>) 
+Total trades = 532
 Average plus is: 7.54
 Average minus is: -24.58
 Profit/loss ratio is: -0.31
@@ -128,6 +135,7 @@ While there is: 382.00 profit trades, and: 150.00 loss trades
 Real PnL(%) is: -805.70%
 
 Overall stats for strategy (strategy <d120s2 M+>) 
+Total trades = 58
 Average plus is: 12.07
 Average minus is: -29.18
 Profit/loss ratio is: -0.41
@@ -135,6 +143,7 @@ While there is: 37.00 profit trades, and: 21.00 loss trades
 Real PnL(%) is: -166.10%
 
 Overall stats for strategy (strategy <d120s1.5 M+>) 
+Total trades = 226
 Average plus is: 8.85
 Average minus is: -27.19
 Profit/loss ratio is: -0.33
@@ -142,6 +151,7 @@ While there is: 159.00 profit trades, and: 67.00 loss trades
 Real PnL(%) is: -413.60%
 
 Overall stats for strategy (strategy <d150s1.5 M+>) 
+Total trades = 189
 Average plus is: 8.43
 Average minus is: -26.96
 Profit/loss ratio is: -0.31
@@ -149,6 +159,7 @@ While there is: 131.00 profit trades, and: 58.00 loss trades
 Real PnL(%) is: -459.10%
 
 Overall stats for strategy (strategy <d180s1.2 M->) 
+Total trades = 710
 Average plus is: 6.47
 Average minus is: -26.79
 Profit/loss ratio is: -0.24
@@ -156,6 +167,7 @@ While there is: 530.00 profit trades, and: 180.00 loss trades
 Real PnL(%) is: -1393.00%
 
 Overall stats for strategy (strategy <d150s1.2 M->) 
+Total trades = 646
 Average plus is: 6.71
 Average minus is: -26.75
 Profit/loss ratio is: -0.25
@@ -163,6 +175,7 @@ While there is: 472.00 profit trades, and: 174.00 loss trades
 Real PnL(%) is: -1485.80%
 
 Overall stats for strategy (strategy <d180s1 M->) 
+Total trades = 1915
 Average plus is: 6.29
 Average minus is: -24.57
 Profit/loss ratio is: -0.26
@@ -170,6 +183,7 @@ While there is: 1414.00 profit trades, and: 501.00 loss trades
 Real PnL(%) is: -3416.90%
 
 Overall stats for strategy (strategy <d150s1 M->) 
+Total trades = 1691
 Average plus is: 6.51
 Average minus is: -24.97
 Profit/loss ratio is: -0.26
@@ -177,6 +191,7 @@ While there is: 1227.00 profit trades, and: 464.00 loss trades
 Real PnL(%) is: -3599.20%
 
 Overall stats for strategy (strategy <d120s1 M->) 
+Total trades = 1542
 Average plus is: 6.73
 Average minus is: -25.66
 Profit/loss ratio is: -0.26
@@ -184,6 +199,7 @@ While there is: 1143.00 profit trades, and: 399.00 loss trades
 Real PnL(%) is: -2539.60%
 
 Overall stats for strategy (strategy <d180s1.5 M->) 
+Total trades = 220
 Average plus is: 7.77
 Average minus is: -28.11
 Profit/loss ratio is: -0.28
@@ -191,6 +207,7 @@ While there is: 144.00 profit trades, and: 76.00 loss trades
 Real PnL(%) is: -1017.30%
 
 Overall stats for strategy (strategy <d150s1.5 M->) 
+Total trades = 202
 Average plus is: 8.52
 Average minus is: -27.99
 Profit/loss ratio is: -0.30
@@ -198,6 +215,7 @@ While there is: 132.00 profit trades, and: 70.00 loss trades
 Real PnL(%) is: -834.20%
 
 Overall stats for strategy (strategy <d120s1.2 M->) 
+Total trades = 612
 Average plus is: 7.21
 Average minus is: -26.99
 Profit/loss ratio is: -0.27
@@ -205,6 +223,7 @@ While there is: 445.00 profit trades, and: 167.00 loss trades
 Real PnL(%) is: -1298.60%
 
 Overall stats for strategy (strategy <d120s1.5 M->) 
+Total trades = 194
 Average plus is: 8.86
 Average minus is: -30.85
 Profit/loss ratio is: -0.29
@@ -212,6 +231,7 @@ While there is: 124.00 profit trades, and: 70.00 loss trades
 Real PnL(%) is: -1060.30%
 
 Overall stats for strategy (strategy <d150s2 M->) 
+Total trades = 52
 Average plus is: 11.04
 Average minus is: -31.93
 Profit/loss ratio is: -0.35
@@ -219,6 +239,7 @@ While there is: 36.00 profit trades, and: 16.00 loss trades
 Real PnL(%) is: -113.30%
 
 Overall stats for strategy (strategy <d120s2 M->) 
+Total trades = 53
 Average plus is: 9.88
 Average minus is: -33.00
 Profit/loss ratio is: -0.30
@@ -226,6 +247,7 @@ While there is: 29.00 profit trades, and: 24.00 loss trades
 Real PnL(%) is: -505.60%
 
 Overall stats for strategy (strategy <d180s2 M->) 
+Total trades = 48
 Average plus is: 8.41
 Average minus is: -30.35
 Profit/loss ratio is: -0.28
@@ -233,6 +255,7 @@ While there is: 33.00 profit trades, and: 15.00 loss trades
 Real PnL(%) is: -177.90%
 
 Overall stats for strategy (strategy <d180s3 M->) 
+Total trades = 5
 Average plus is: 21.30
 Average minus is: -38.88
 Profit/loss ratio is: -0.55
@@ -240,6 +263,7 @@ While there is: 1.00 profit trades, and: 4.00 loss trades
 Real PnL(%) is: -134.20%
 
 Overall stats for strategy (strategy <d150s3 M->) 
+Total trades = 4
 Average plus is: 21.40
 Average minus is: -45.15
 Profit/loss ratio is: -0.47
@@ -247,6 +271,7 @@ While there is: 2.00 profit trades, and: 2.00 loss trades
 Real PnL(%) is: -47.50%
 
 Overall stats for strategy (strategy <d120s3 M->) 
+Total trades = 7
 Average plus is: 17.55
 Average minus is: -39.30
 Profit/loss ratio is: -0.45
@@ -254,6 +279,7 @@ While there is: 4.00 profit trades, and: 3.00 loss trades
 Real PnL(%) is: -47.70%
 
 Overall stats for strategy (strategy <d180s3 M+>) 
+Total trades = 4
 Average plus is: 24.40
 Average minus is: -38.43
 Profit/loss ratio is: -0.63
@@ -261,6 +287,7 @@ While there is: 1.00 profit trades, and: 3.00 loss trades
 Real PnL(%) is: -90.90%
 
 Overall stats for strategy (strategy <d150s3 M+>) 
+Total trades = 1
 Average plus is: 0.00
 Average minus is: 1.00
 Profit/loss ratio is: 0.00
@@ -268,6 +295,7 @@ While there is: 0.00 profit trades, and: 1.00 loss trades
 Real PnL(%) is: -25.70%
 
 Overall stats for strategy (strategy <d150s2 M+>) 
+Total trades = 53
 Average plus is: 11.90
 Average minus is: -30.25
 Profit/loss ratio is: -0.39
@@ -275,6 +303,7 @@ While there is: 37.00 profit trades, and: 16.00 loss trades
 Real PnL(%) is: -43.80%
 
 Overall stats for strategy (strategy <d180s2 M+>) 
+Total trades = 39
 Average plus is: 10.55
 Average minus is: -27.61
 Profit/loss ratio is: -0.38
@@ -282,6 +311,7 @@ While there is: 26.00 profit trades, and: 13.00 loss trades
 Real PnL(%) is: -84.50%
 
 Overall stats for strategy (strategy <d120s3 M+>) 
+Total trades = 2
 Average plus is: 24.40
 Average minus is: -47.00
 Profit/loss ratio is: -0.52

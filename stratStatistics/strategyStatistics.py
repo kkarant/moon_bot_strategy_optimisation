@@ -168,6 +168,4 @@ def whichStratIsBetter(stratRatioDict, regrDict, rangesDictFinal, stratData, lis
     # stratData -> 1 -> stratName -> iterate over trades -> 1 -> BuyDate \ CloseDate
     ...
 
-
-
 # TODO сделать такой счетчик но и для плюс минус сделок иф профит меньше нуля то туда добавляем время и наоборот
