@@ -4,6 +4,7 @@ from binanceApiTradeInfo.apiInitialization import clientInit, getDateOfTradesToR
 from deltaRangesFinder.decTreeRangesCombine import weightSearch, weightLinesDepthSearch, \
     featuresListFinder
 from deltaRangesFinder.deltaFindML import decorator
+from databaseInteraction.dbKlinesInfo import dbInit
 
 
 @decorator
@@ -11,11 +12,11 @@ def main():
     repFile = 'data/dr13k.txt'
     df = fileImport.csvImport(repFile)[0]  # our dataset from imported report
     colNames = fileImport.csvImport(repFile)[1]  # column name from imported file
-    ratioData = strategyStatistics.getRatio(df, colNames)  # finds basic info as PnL or number of + and - trades
+    ## ratioData = strategyStatistics.getRatio(df, colNames)  # finds basic info as PnL or number of + and - trades
     stratData = strategyStatistics.getStatForStrat(df, colNames)  # all trades for every strategy separated
-    regrDict = regressionCalculaton.regressionValues(stratData, colNames)[0]  # regressions for every parame in strat
-    listOfReqVal = regressionCalculaton.regressionValues(stratData, colNames)[1]  # list of values used in program
-    stratRatioDict = strategyStatistics.strategyGetRatio(stratData)  # basic info but for every strategy by themselves
+    ## regrDict = regressionCalculaton.regressionValues(stratData, colNames)[0]  # regressions for every parame in strat
+    ## listOfReqVal = regressionCalculaton.regressionValues(stratData, colNames)[1]  # list of values used in program
+    ## stratRatioDict = strategyStatistics.strategyGetRatio(stratData)  # basic info but for every strategy by themselves
 
     # reportCreator.reportCreation(repFile, stratData, regrDict, ratioData, colNames, df, listOfReqVal,
     # stratRatioDict)
@@ -27,13 +28,13 @@ def main():
     # mode = 0
     mode = 1
 
-    weightDict = weightSearch(stratData, listOfReqVal, mode)[0]
+    ## weightDict = weightSearch(stratData, listOfReqVal, mode)[0]
     # list of weights to find location and depth
-    weightLine = weightSearch(stratData, listOfReqVal, mode)[1]
+    ## weightLine = weightSearch(stratData, listOfReqVal, mode)[1]
     # in which line of report there is searched weight
-    weightDepthIndex = weightLinesDepthSearch(weightDict, weightLine, mode)
+    ## weightDepthIndex = weightLinesDepthSearch(weightDict, weightLine, mode)
     # depth of lines with weights
-    featureListDict = featuresListFinder(weightDepthIndex, weightLine, weightDict, mode)
+    ## featureListDict = featuresListFinder(weightDepthIndex, weightLine, weightDict, mode)
     # returns dictionary with all features on the way to weights in given line (weightLine)
     # and depth (weightDepthIndex)
 

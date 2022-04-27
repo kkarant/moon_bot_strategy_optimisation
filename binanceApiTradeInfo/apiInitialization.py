@@ -2,8 +2,8 @@ from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager,
 from datetime import datetime, timedelta
 from calendar import monthrange
 
-
 # import BinanceAPIException, BinanceRequestException, NotImplementedException
+from databaseInteraction.dbKlinesInfo import dbAddKline, dbInit
 
 
 def clientInit():
@@ -17,8 +17,11 @@ def clientInit():
 
 def getKlinesScript(coinName, buy, close, client):
     dataFromKlines = []
-    klines = client.get_historical_klines(coinName, Client.KLINE_INTERVAL_1MINUTE, buy, close)
-    dataFromKlines = [klines[0][2], klines[0][3]]
+    klines = client.get_historical_klines(coinName, Client.KLINE_INTERVAL_1MINUTE, str(buy), str(close))
+    # print(klines)
+    for el in klines:
+        dataFromKlines = [el[2], el[3], el[0], el[6]]
+        #dbAddKline(coinName, coinName, dataFromKlines)
 
     print(coinName)
     print(dataFromKlines)
@@ -32,9 +35,6 @@ def getDateOfTradesToReceive(stratData, client):
     tradeInfoList = []
     tradesInfoDict = {}
     optimisedCoins = {}
-    markedDataDict = {}
-    coinsDict = {}
-    coinsKlinesDict = {}
     dateFormat = "%Y-%m-%d %H:%M:%S"
     if client.get_system_status()["status"] == 0:
         for stratName in stratData[1]:
@@ -80,8 +80,9 @@ def getDateOfTradesToReceive(stratData, client):
             buy = optimisedCoins[coin][0]
             close = optimisedCoins[coin][1]
             coinName = str(coin) + "USDT"
-            coinsKlinesDict[coin] = getKlinesScript(coinName, buy, close, client)
+            getKlinesScript(coinName, buy, close, client)
 
+        dbInit(optimisedCoins)
     else:
         print('system maintenance')
         return 1
