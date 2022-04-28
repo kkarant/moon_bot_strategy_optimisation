@@ -21,7 +21,7 @@ def getKlinesScript(coinName, buy, close, client):
     # print(klines)
     for el in klines:
         dataFromKlines = [el[2], el[3], el[0], el[6]]
-        #dbAddKline(coinName, coinName, dataFromKlines)
+        dbAddKline(coinName, dataFromKlines)
 
     print(coinName)
     print(dataFromKlines)
@@ -75,14 +75,13 @@ def getDateOfTradesToReceive(stratData, client):
             tradesInfoDict[stratName] = tradeInfoList
             tradeInfoList = []
         # print(optimisedCoins)
-
+        # dbInit(optimisedCoins)
         for coin in optimisedCoins:
             buy = optimisedCoins[coin][0]
             close = optimisedCoins[coin][1]
             coinName = str(coin) + "USDT"
             getKlinesScript(coinName, buy, close, client)
 
-        dbInit(optimisedCoins)
     else:
         print('system maintenance')
         return 1
