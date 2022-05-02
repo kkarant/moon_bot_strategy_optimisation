@@ -4,7 +4,7 @@ from stratStatistics import strategyStatistics
 def reportModulesStrFind(strFirstLine):
     string1 = strFirstLine
 
-    file1 = open("../report/report.txt", "r")
+    file1 = open("report/report.txt", "r")
     flag = 0
     index = 0
 
@@ -27,7 +27,7 @@ def reportModulesStrFind(strFirstLine):
 def reportSourceFileName(rfile):
     string1 = str(rfile)
 
-    file1 = open("../report/report.txt", "r")
+    file1 = open("report/report.txt", "r")
     flag = 0
     index = 0
 
@@ -58,10 +58,10 @@ def timeInTradeCalcprint(strategyDictTime, file):
 
 def reportCreation(rfile, stratData, regrDict, ratioData, colNames, df, listOfReqVal, stratRatioDict):
     if reportSourceFileName(rfile):
-        with open("../report/report.txt", "w") as file:
+        with open("report/report.txt", "w") as file:
             file.write('Report for ' + str(rfile))
 
-    file = open("../report/report.txt", "a")
+    file = open("report/report.txt", "a")
     if reportModulesStrFind('Overall stats for strategy'):
         file.write('\n===================================================')
         file.write('\nOverall stats for strategy')
@@ -125,9 +125,9 @@ def reportCreation(rfile, stratData, regrDict, ratioData, colNames, df, listOfRe
 
 
 def featureReportCreation(rfile, weightDict, featureListDict):
-    with open("../report/reportFeatures.txt", "w") as file:
+    with open("report/reportFeatures.txt", "w") as file:
         file.write('Report for ' + str(rfile))
-    file = open("../report/reportFeatures.txt", "a")
+    file = open("report/reportFeatures.txt", "a")
     for stratName in featureListDict:
         i = 0
         file.write('\nReport for ' + stratName)
@@ -141,10 +141,10 @@ def featureReportCreation(rfile, weightDict, featureListDict):
 
 
 def rangesDictFinalReportCreation(rfile, rangesDictFinal):
-    with open("../report/reportRangesNotSorted.txt", "w") as file:
+    with open("report/reportRangesNotSorted.txt", "w") as file:
         file.write('Report for ' + str(rfile))
 
-    file = open("../report/reportRangesNotSorted.txt", "a")
+    file = open("report/reportRangesNotSorted.txt", "a")
     for stratName in rangesDictFinal:
         file.write("\n====================================")
         file.write("\nRanges for strategy " + stratName)
@@ -155,10 +155,10 @@ def rangesDictFinalReportCreation(rfile, rangesDictFinal):
 
 def rangesReportFiveBestCreation(rfile, rangesDictFinal, biggestRRList, biggestRegrDictStrat, stratRatioDict):
     i = 0
-    with open("../report/reportStratRangesFiveBest.txt", "w") as file:
+    with open("report/reportStratRangesFiveBest.txt", "w") as file:
         file.write('Report for ' + str(rfile))
 
-    file = open("../report/reportStratRangesFiveBest.txt", "a")
+    file = open("report/reportStratRangesFiveBest.txt", "a")
     for stratName in biggestRegrDictStrat:
         file.write("\n====================================")
         file.write("\nRanges for strategy " + stratName + " with ratio = {0:.2f}".format(biggestRRList[i]))

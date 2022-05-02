@@ -1,4 +1,3 @@
-import datetime
 import os
 import shutil
 from io import StringIO
@@ -10,19 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, export_graphviz, export_text
 
 from stratStatistics.strategyStatistics import timeInTradeCalc
-
-
-def decorator(func):
-    def wrapper(*args, **kwargs):
-        start = datetime.datetime.now()
-        result = func(*args, **kwargs)
-        stop = datetime.datetime.now()
-        c = stop - start
-        with open("report/reportFuncDuration.txt", "a") as fRep:
-            fRep.write(f"\n{func.__name__} duration:  {c}")
-        return result
-
-    return wrapper
+from supportingFunctions import decorator
 
 
 def getProfit(stratData, stratName):  # execution  time OK
@@ -59,10 +46,10 @@ def dataSetInsert(stratData, stratName, val, colNames):
     return df
 
 
-# SVC algorithm - too slow, not for out situation
-# def analysisSCV(stratData, colNames):
-#     listOfReqVal = ['dBTC ', 'd24BTC ', 'dMarket ', 'dM24 ', 'bvsv ', 'dBTC5m ', 'Pump1H ', 'Dump1H ', 'd24h ', 'd3h ',
-#                     'd1h ', 'd15m ', 'd5m ', 'd1m ', 'dBTC1m ', 'Vd1m ']
+# SVC algorithm - too slow, not for out situation def analysisSCV(stratData, colNames):
+# listOfReqVal = ['dBTC ',
+# 'd24BTC ', 'dMarket ', 'dM24 ', 'bvsv ', 'dBTC5m ', 'Pump1H ', 'Dump1H ', 'd24h ', 'd3h ', 'd1h ', 'd15m ', 'd5m ',
+# 'd1m ', 'dBTC1m ', 'Vd1m ']
 #
 #     for stratName in stratData[1]:
 #         for val in listOfReqVal:
@@ -100,8 +87,6 @@ def dataSetInsert(stratData, stratName, val, colNames):
 #             plt.legend()
 #             plt.show()
 
-# TODO
-
 
 def dataSetForDecisionTree(stratData, stratName, listOfReqVal, colNames):
     valList = []
@@ -135,7 +120,7 @@ def decisionTreeVisualisation(stratName, listOfReqVal, clf):
     graph.write_png(fileName)
     Image(graph.create_png())
 
-    dst_dir = 'DecisionTreeReports'
+    dst_dir = 'decisionTreeReports'
     if not os.path.exists(dst_dir):
         os.makedirs(dst_dir)
     try:
@@ -170,8 +155,6 @@ def decisionTree(stratData, colNames):
     listOfReqVal = ['dBTC ', 'd24BTC ', 'dMarket ', 'dM24 ', 'bvsv ', 'dBTC5m ', 'Pump1H ', 'Dump1H ', 'd24h ', 'd3h ',
                     'd1h ', 'd15m ', 'd5m ', 'd1m ', 'dBTC1m ', 'Vd1m ']
 
-    with open("report/reportDecTree.txt", "w") as file:
-        file.close()
     for stratName in stratData[1]:
         if stratData[1][stratName].__len__() > 10:
             df = dataSetForDecisionTree(stratData, stratName, listOfReqVal, colNames)

@@ -1,9 +1,13 @@
-from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager, exceptions
+from collections import namedtuple
 from datetime import datetime, timedelta
-from calendar import monthrange
+import itertools
+from time import sleep
+
+from binance import Client
 
 # import BinanceAPIException, BinanceRequestException, NotImplementedException
-from databaseInteraction.dbKlinesInfo import dbAddKline, dbInit
+from binanceApiTradeInfo.restAPIinteraction import apiCallsManager
+from supportingFunctions import isNull
 
 
 def clientInit():
@@ -15,73 +19,140 @@ def clientInit():
     return client
 
 
-def getKlinesScript(coinName, buy, close, client):
-    dataFromKlines = []
-    klines = client.get_historical_klines(coinName, Client.KLINE_INTERVAL_1MINUTE, str(buy), str(close))
-    # print(klines)
-    for el in klines:
-        dataFromKlines = [el[2], el[3], el[0], el[6]]
-        dbAddKline(coinName, dataFromKlines)
-
-    print(coinName)
-    print(dataFromKlines)
-
-    return dataFromKlines
-
-
-def getDateOfTradesToReceive(stratData, client):
-    # stratData -> 1 -> stratName -> iterate over trades -> 1 -> BuyDate \ CloseDate
-    tmpList = []
-    tradeInfoList = []
-    tradesInfoDict = {}
-    optimisedCoins = {}
+def rightTimeDatesPrep(stratData):
     dateFormat = "%Y-%m-%d %H:%M:%S"
-    if client.get_system_status()["status"] == 0:
-        for stratName in stratData[1]:
-            for trade in stratData[1][stratName]:
-                buyDate = trade[1]['BuyDate '][:-1]
-                closeDate = trade[1]['CloseDate '][:-1]
-                coinName = str(trade[1]['Coin '][:-1])
-                buyDateConverted = datetime.strptime(buyDate, dateFormat)
-                closeDateConverted = datetime.strptime(closeDate, dateFormat)
+    coinList = {}
+    optimisedCoins = {}
+    i = 0
+    for stratName in stratData[1]:
+        for trade in stratData[1][stratName]:
+            coinName = str(trade[1]['Coin '][:-1])
+            buyDateConverted = datetime.strptime(trade[1]['BuyDate '][:-1], dateFormat)
+            closeDateConverted = datetime.strptime(trade[1]['CloseDate '][:-1], dateFormat)
 
-                tmpBuyDate = datetime.strptime(str(buyDateConverted)[:-2] + "00", dateFormat)
-                tmpCloseDate = closeDateConverted + timedelta(minutes=1)
-                tmpCloseDate = datetime.strptime(str(tmpCloseDate)[:-2] + "00", dateFormat)
-                # print('Original buy date: ' + buyDateConverted.strftime(dateFormat)
-                #       + ', converted to: ' + str(tmpBuyDate))
-                # print('Original close date: ' + closeDateConverted.strftime(dateFormat)
-                #       + ', converted to: ' + str(tmpCloseDate))
-                # if coinName in coinsDict:
-                #     if coinsDict[coinName][0] == tmpBuyDate:
-                #         if coinsDict[coinName][1] == tmpCloseDate:
-                #             ...
-                # else:
-                #     getKlinesScript(tmpBuyDate, tmpCloseDate, trade, client, coinsDict, coinName)
-                tmpList.append(coinName)
-                tmpList.append(tmpBuyDate)
-                tmpList.append(tmpCloseDate)
-                tradeInfoList.append(tmpList)
-                tmpList = []
+            tmpBuyDate = buyDateConverted - timedelta(hours=2)
+            tmpBuyDate = datetime.strptime(str(tmpBuyDate)[:-2] + "00", dateFormat)
+            tmpCloseDate = closeDateConverted + timedelta(minutes=1) - timedelta(hours=2)
+            tmpCloseDate = datetime.strptime(str(tmpCloseDate)[:-2] + "00", dateFormat)
+            # print('Original buy date: ' + buyDateConverted.strftime(dateFormat)
+            #       + ', converted to: ' + str(tmpBuyDate))
+            # print('Original close date: ' + closeDateConverted.strftime(dateFormat)
+            #       + ', converted to: ' + str(tmpCloseDate))
 
-                if coinName not in optimisedCoins:
-                    optimisedCoins[coinName] = [tmpBuyDate, tmpCloseDate]
-                elif coinName in optimisedCoins:
-                    if tmpBuyDate < optimisedCoins[coinName][0]:
-                        optimisedCoins[coinName][0] = tmpBuyDate
-                    if tmpCloseDate > optimisedCoins[coinName][1]:
-                        optimisedCoins[coinName][1] = tmpCloseDate
+            optimisedCoins[i] = [coinName, tmpBuyDate, tmpCloseDate]
+            if coinName not in coinList:
+                coinList[coinName] = []
 
-            tradesInfoDict[stratName] = tradeInfoList
-            tradeInfoList = []
-        # print(optimisedCoins)
-        # dbInit(optimisedCoins)
-        for coin in optimisedCoins:
-            buy = optimisedCoins[coin][0]
-            close = optimisedCoins[coin][1]
-            coinName = str(coin) + "USDT"
-            getKlinesScript(coinName, buy, close, client)
+            i = i + 1
+    return optimisedCoins, coinList
 
+
+def apiCallsOptimization(optimisedCoins, coinList):
+    m = 0
+    for num in optimisedCoins:
+        coinName = optimisedCoins[num][0]
+        buyDateOptCoin = optimisedCoins[num][1]
+        closeDateOptCoin = optimisedCoins[num][2]
+        if not coinList[coinName]:
+            coinList[coinName].append([buyDateOptCoin, closeDateOptCoin])
+            continue
+        elif len(coinList[coinName]) >= 1:
+            for el in coinList[coinName]:
+                buyDateCoinList = el[0]
+                closeDateCoinList = el[1]
+
+                # if closeDateCoinList > buyDateOptCoin:
+                #     diff = closeDateCoinList - buyDateOptCoin
+                #     m = 1
+                # elif closeDateCoinList < buyDateOptCoin:
+                #     diff = buyDateCoinList - closeDateOptCoin
+                #     m = 2
+
+                diff = buyDateCoinList - closeDateOptCoin
+                m = 2
+                if timedelta(hours=2) > diff > timedelta(seconds=1):
+                    if m == 1:
+                        el[1] = closeDateOptCoin
+                        if buyDateOptCoin < buyDateCoinList:
+                            el[0] = buyDateOptCoin
+                    elif m == 2:
+                        el[0] = buyDateOptCoin
+                        if closeDateCoinList < closeDateOptCoin:
+                            el[1] = closeDateOptCoin
+                    elif m == 0:
+                        print(f'Error with trade {num}')
+                    # print(f'num of trade {num} For coin {coinName} diff = {diff} < 2 hour m =  {m}')
+                    break
+                elif diff > timedelta(hours=2, minutes=1):
+                    if [optimisedCoins[num][1], optimisedCoins[num][2]] not in coinList[coinName]:
+                        coinList[coinName].append([optimisedCoins[num][1], optimisedCoins[num][2]])
+    # print(coinList)
+    return coinList
+
+
+def overlapCoinRange(range1, range2):
+    Range = namedtuple('Range', ['start', 'end'])
+
+    r1 = Range(start=range1[0], end=range1[1])
+    r2 = Range(start=range2[0], end=range2[1])
+    latest_start = max(r1.start, r2.start)
+    earliest_end = min(r1.end, r2.end)
+    delta = int((earliest_end - latest_start).total_seconds() / 60)
+    overlap = max(0, delta)
+    if overlap == 0:
+        return False  # ranges dont overlap
+    elif overlap > 0:
+        return True  # ranges overlap
+
+
+def finalTransform(coinList):
+    # for comb in itertools.combinations(coinList[coin], 2)
+    coinListTransformed = {}
+    coinListTransformed1 = {}
+    for coin in coinList:
+        coinListTransformed[coin] = []
+        coinListTransformed1[coin] = []
+    for coin in coinList:
+        usedRanges = [0]
+        i = 0
+        if len(coinList[coin]) % 2 == 0:
+            output = [coinList[coin][i:i + 2] for i in range(0, len(coinList[coin]), 2)]
+            needToAddLastEl = False
+        else:
+            output = [coinList[coin][:-1][i:i + 2] for i in range(0, len(coinList[coin][:-1]), 2)]
+            needToAddLastEl = True
+        for comb in output:
+            if overlapCoinRange(*comb):
+                coinListTransformed[coin].append([min(comb[0][0], comb[1][0]), max(comb[0][1], comb[1][1])])
+            else:
+                coinListTransformed[coin].append(comb[0])
+                coinListTransformed[coin].append(comb[1])
+
+        if needToAddLastEl:
+            coinListTransformed[coin].append(coinList[coin][-1])
+    return coinListTransformed
+
+
+def timeForCalls(coinList):
+    allTime = timedelta(seconds=0)
+    for coin in coinList:
+        totalTime = timedelta(seconds=0)
+        for el in coinList[coin]:
+            totalTime = totalTime + el[1] - el[0]
+        allTime = allTime + totalTime
+        # print(f'For coin {coin} required time = {totalTime}')
+    print(allTime)
+
+
+def apiToDatabase(stratData, client):
+    # stratData -> 1 -> stratName -> iterate over trades -> 1 -> BuyDate \ CloseDate
+
+    if client.get_system_status()["status"] == 0 and not isNull(stratData[1]):
+        coinListTransformed = finalTransform(apiCallsOptimization(*rightTimeDatesPrep(stratData)))
+        timeForCalls(coinListTransformed)
+        print(coinListTransformed.keys())
+
+        apiCallsManager(coinListTransformed) # 1000Xec
     else:
         print('system maintenance')
         return 1

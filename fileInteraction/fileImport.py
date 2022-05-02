@@ -1,4 +1,5 @@
 import pandas as pd
+import os.path
 
 
 # def findLastFile():
@@ -29,3 +30,14 @@ def csvImport(file):
     # print(colNames)
 
     return df, colNames
+
+
+def checkFilesForExistence(listOfReportFiles):
+    for path in listOfReportFiles:
+        if os.path.exists(path):
+            print(f'File {path} exists')
+        elif not os.path.exists(path):
+            with open(path, 'w') as file:
+                print(f'Created file {path}')
+
+
