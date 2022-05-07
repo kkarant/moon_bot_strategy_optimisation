@@ -9,7 +9,7 @@ def decorator(func):
         result = func(*args, **kwargs)
         stop = datetime.datetime.now()
         c = stop - start
-        with open("report/reportFuncDuration.txt", "a") as fRep:
+        with open("allData/report/reportFuncDuration.txt", "a") as fRep:
             fRep.write(f"\n{func.__name__} duration:  {c}")
         return result
 

@@ -21,6 +21,7 @@ import os.path
 def csvImport(file):
     df = pd.read_csv(file, sep='\t')
     df.drop(index=df.index[0])
+    BuySellPrice = df[["BuyPrice ", "SellPrice "]].copy()
     df.drop(["Quantity ", "BuyPrice ", "SellPrice ", "SellReason "], axis=1, inplace=True)
     colNames = list(df.columns)
     col_name = colNames[6]
@@ -29,7 +30,7 @@ def csvImport(file):
     df[col_name] = [float(x) for x in df[col_name].values]
     # print(colNames)
 
-    return df, colNames
+    return df, colNames, BuySellPrice
 
 
 def checkFilesForExistence(listOfReportFiles):

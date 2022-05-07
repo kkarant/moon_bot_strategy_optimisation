@@ -142,7 +142,7 @@ def decisionTreeTextReport(clf, stratName):
     textReport = export_text(clf, show_weights=True)
     strName = str(stratName).replace(" ", "").replace("(", "").replace(")", "").replace(">", ""). \
         replace("<", "").replace("-", "_minus").replace("+", "_plus").replace("st", "St")
-    with open('decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "w+") as file:
+    with open('allData/decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "w+") as file:
         file.truncate()
         file.writelines(textReport)
         file.write('\n')
