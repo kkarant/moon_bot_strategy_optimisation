@@ -21,7 +21,6 @@ def receiveData(stratData):
     for trade in stratData[1]["(strategy <d180s1 M+>) "]:
         tradeDict[trade[1]["Coin "][:-1]].append(receiveDataFromDB(trade, dateFormat, cur, conn))
         tradeNumList.append([trade[1]["Coin "][:-1], trade[0]])
-    filteredTradeDict = {k: v for k, v in tradeDict.items() if v is not [None] and v}
-    stratTPSLdata["(strategy <d180s1 M+>) "] = filteredTradeDict
+    stratTPSLdata["(strategy <d180s1 M+>) "] = tradeDict
     conn.close()
     return stratTPSLdata, tradeNumList

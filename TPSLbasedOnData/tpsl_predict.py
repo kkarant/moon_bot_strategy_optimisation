@@ -37,6 +37,10 @@ def tradeIterationTS(analysisData, stratData, stratName, colNames, tradeNumList,
 
         minusCoins = minusCoinsCounter(coin, profit, minusCoins)
 
+        print(f'For {coin} open Price = {openPrice}, close Price = {closePrice}, '
+              f'trade len ={datetime.strptime(closeTime, dateFormat) - datetime.strptime(openTime, dateFormat)}'
+              f'openTime = {openTime}, closeTime = {closeTime}')
+
         if coin in analysisData.keys():
             if len(analysisData[coin]) >= 1:
                 if analysisData[coin][indexTrade] is not None:
@@ -63,28 +67,27 @@ def tradeIsNormal(openTime, closeTime, dateFormat, minusCoins, coin, lenStratDat
 
 def optimalTSLtrade(analysisData, profit, openPrice, closePrice):
     minutePriceAction = {}
+    print('==============================================')
     print(f'Open price = {openPrice} close price = {closePrice}')
     print(f'profit= {profit}')
     # print(analysisData)
 
     for el in analysisData:
         if el.klinevaluetimebuy not in minutePriceAction:
-            minutePriceAction[el.klinevaluetimebuy] = [el.klinevaluehigh, el.klinevaluelow]
+            minutePriceAction[el.klinevaluetimebuy] = [float(el.klinevaluehigh), float(el.klinevaluelow)]
     highestPrice = 0
-    lowestPrice = 50000
+    lowestPrice = 5000
 
     for minute in minutePriceAction:
         # print(minutePriceAction[minute])
-        tmpHigh = minutePriceAction[minute][0]
-        tmpLow = minutePriceAction[minute][1]
-        highestPrice = max(tmpHigh, highestPrice)
-        lowestPrice = min(tmpLow, lowestPrice)
+        highestPrice = max(minutePriceAction[minute][0], highestPrice)
+        lowestPrice = min(minutePriceAction[minute][1], lowestPrice)
 
     if highestPrice != 50000 and lowestPrice != 0:
         highestPercent = (highestPrice - openPrice) / openPrice * 100 * 20
         lowestPercent = (lowestPrice - openPrice) / openPrice * 100 * 20
         realPercent = (closePrice - openPrice) / openPrice * 100 * 20
-        print('==============================================')
+
         print(f'For highest price = {highestPrice}, profit = {highestPercent},'
               f'\nFor lowest price = {lowestPrice}, profit = {lowestPercent}, '
               f'\nreal profit  = {realPercent}')
@@ -105,6 +108,6 @@ def optimalTSLstrat(TpSLList, stratData, stratName):
         if el[2] > -50:
             overallLowpercent += el[2]
 
-    tmpTake = overallHighpercent / len(stratData[1][stratName])
-    tmpStop = overallLowpercent / len(stratData[1][stratName])
+    tmpTake = overallHighpercent / len(TpSLList)
+    tmpStop = overallLowpercent / len(TpSLList)
     print(f'optimal take = {tmpTake}, optimal stop = {tmpStop}')

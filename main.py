@@ -1,4 +1,8 @@
+from datetime import datetime
+
+from TPSLbasedOnData.tpsl_calculation import tpsl_StratLevel_manager
 from TPSLbasedOnData.tpsl_predict import tpslPredictManager
+from binanceApiTradeInfo.APIinteraction import clientInit, apiToDatabase, test_request_corect_price
 from deltaRangesFinder.decTreeRangesCombine import weightSearch, weightLinesDepthSearch, \
     featuresListFinder, featuresCombineFinal, featuresFinalReport
 from deltaRangesFinder.deltaFindML import decisionTree
@@ -14,7 +18,7 @@ def main():
     listOfReportFiles = [repFile, "allData/report/report.txt", "allData/report/reportFeatures.txt",
                          "allData/report/reportFuncDuration.txt", "allData/report/reportRangesNotSorted.txt",
                          "allData/report/reportStratRangesFiveBest.txt"]
-    # client = clientInit()  # init of work with binance apI
+    client = clientInit()  # init of work with binance apI
     # mode = 0
     mode = 1
     checkFilesForExistence(listOfReportFiles)
@@ -61,14 +65,17 @@ def main():
             # creates txt report with all params ranges (not sorted)
             # TODO FINDS BEST STRATEGIES
             biggestRRList, biggestRegrDictStrat = strategyStatistics.bestStrategies(
-                                                    stratRatioDict, regrDict, rangesDictFinal, stratData, listOfReqVal)
+                stratRatioDict, regrDict, rangesDictFinal, stratData, listOfReqVal)
             # finds five strategies with more than 400 trades and highest profit/loss ratio
             reportCreator.rangesReportFiveBestCreation(repFile, rangesDictFinal, biggestRRList,
                                                        biggestRegrDictStrat, stratRatioDict)
             # creates txt report with ranges and correlations for five strategies with highest ratio
+    print(datetime.now())
 
     # apiToDatabase(stratData, client)
-    tpslPredictManager(stratData, colNames, BuySellPrice)
+    # tpslPredictManager(stratData, colNames, BuySellPrice)
+    tpsl_StratLevel_manager(stratData, colNames, BuySellPrice)
+    # test_request_corect_price()
 
 
 if __name__ == '__main__':
