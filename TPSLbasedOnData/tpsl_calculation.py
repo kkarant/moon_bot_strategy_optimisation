@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta
-
+import pytz
 from databaseInteraction.dataReceiver import receiveData
+
+utc = pytz.UTC
 
 
 def dataPrepStratLevel(stratName, stratData, BuySellPrice, stratTPSLdata, dateFormat, tradeNumList, colNames):
-
     tradeData = stratData[1][stratName]
     TPSLdata = stratTPSLdata[stratName]
 
@@ -14,11 +15,9 @@ def dataPrepStratLevel(stratName, stratData, BuySellPrice, stratTPSLdata, dateFo
 def tpsl_StratLevel_manager(stratData, colNames, BuySellPrice):
     TPSLdata, tradeNumList = receiveData(stratData)
     dateFormat = "%Y-%m-%d %H:%M:%S"
-    stratNameTm = ["(strategy <d180s1 M+>) "]
-    #for stratName in stratData[1]:
-    for stratName in stratNameTm:
-        tpsl_TradeLevel_manager(
-            *dataPrepStratLevel(stratName, stratData, BuySellPrice, TPSLdata, dateFormat, tradeNumList, colNames))
+    for stratName in stratData[1]:
+        print(tpsl_TradeLevel_manager(
+            *dataPrepStratLevel(stratName, stratData, BuySellPrice, TPSLdata, dateFormat, tradeNumList, colNames)))
 
 
 # trade data : from strat data by stratName
@@ -28,12 +27,14 @@ def tpsl_StratLevel_manager(stratData, colNames, BuySellPrice):
 # colNames : list of column names in csv
 
 def tpsl_TradeLevel_manager(tradeData, BuySellPrice, TPSLdata, tradeNumList, colNames, dateFormat, stratName):
-    print(len(TPSLdata))
+    highestPercentOverall = 0
+    lowestPercentOverall = 0
     indexDict = {}
     for trade in tradeData:
         if trade[1][colNames.index('Coin ')][:-1] not in indexDict.keys():
             if trade[1][colNames.index('Coin ')][:-1] in TPSLdata.keys():
                 indexDict[trade[1][colNames.index('Coin ')][:-1]] = 0
+    numOfNormalTrades = 0
     for trade in tradeData:
         overallTradeNum = tradeNumList[tradeData.index(trade)][1]
         coin = trade[1][colNames.index('Coin ')][:-1]  # coin name
@@ -43,33 +44,53 @@ def tpsl_TradeLevel_manager(tradeData, BuySellPrice, TPSLdata, tradeNumList, col
         openPrice = BuySellPrice.loc[overallTradeNum, 'BuyPrice ']
         closePrice = BuySellPrice.loc[overallTradeNum, 'SellPrice ']
         profit = trade[1][colNames.index('Profit ')]  # profit
-        # print(f'Overall Trade num: {overallTradeNum}'
-        #       f'\n coin name = {coin}'
-        #       f'\n openTime = {openTime}'
-        #       f'\n closeTime = {closeTime}'
-        #       f'\n openPrice = {openPrice}'
-        #       f'\n closePrice = {closePrice}'
-        #       f'\n profit = {profit}')
-        tradeCheck(TPSLdata[coin][indexTrade], openTime, closeTime, dateFormat)
-           # for el in TPSLdata:
-               # print(TPSLdata[el])
+
+        if tradeCheck(TPSLdata[coin][indexTrade], openTime, closeTime, dateFormat, numOfNormalTrades):
+            numOfNormalTrades += 1
+            highestPercent, lowestPercent = rrCalculator(TPSLdata[coin][indexTrade], openPrice, closePrice)
+            highestPercentOverall = highestPercentOverall + highestPercent
+            lowestPercentOverall = lowestPercentOverall + lowestPercent
         indexDict[coin] = indexDict[coin] + 1
 
+    print(numOfNormalTrades)
+    return highestPercent/numOfNormalTrades, lowestPercent/numOfNormalTrades
 
-def tradeCheck(priceActionData, openTime, closeTime, dateFormat):
+
+def tradeCheck(priceActionData, openTime, closeTime, dateFormat, numOfNormalTrades):
     tradeDur = (datetime.strptime(closeTime, dateFormat) - datetime.strptime(openTime, dateFormat))
-    if priceActionData is not None:
-        print('============================')
-        print(f'\n openTime = {openTime}'
-              f'\n closeTime = {closeTime}'
-              f'\ntradeDur = {tradeDur}')
-
+    openTimeDT = utc.localize(datetime.strptime(openTime, dateFormat) - timedelta(hours=4))
+    closeTimeDT = utc.localize(datetime.strptime(closeTime, dateFormat) - timedelta(hours=4))
+    if priceActionData is not None and len(priceActionData) >= 1:
         startData = priceActionData[0].klinevaluetimebuy
         endData = priceActionData[-1].klinevaluetimeclose
-        print(f'\n openTime Data = {startData}'
-              f'\n closeTime Data = {endData}'
-              f'\ndataDur = {endData - startData}')
-    if (datetime.strptime(closeTime, dateFormat) - datetime.strptime(openTime, dateFormat)) > timedelta(minutes=1):
+        dataDur = endData - startData
+        # print('============================')
+        # print(f'\n openTimeDT = {openTimeDT}'
+        #       f'\n closeTimeDT = {closeTimeDT}'
+        #       f'\n tradeDur = {tradeDur}'
+        #       f'\n openTime Data = {startData}'
+        #       f'\n closeTime Data = {endData}'
+        #       f'\n dataDur = {dataDur}')
+    if (closeTimeDT - openTimeDT) > timedelta(minutes=1):
         if priceActionData is not None:
             if len(priceActionData) >= 1:
-                return True
+                dataDur = priceActionData[-1].klinevaluetimeclose - priceActionData[0].klinevaluetimebuy
+                if dataDur > tradeDur:
+                    if priceActionData[0].klinevaluetimebuy <= openTimeDT and \
+                            priceActionData[-1].klinevaluetimeclose >= closeTimeDT:
+                        return True
+
+
+def rrCalculator(priceActionData, openPrice, closePrice):
+    maxH = -1
+    minL = 99999
+    for el in priceActionData:
+        maxH = max(float(maxH), float(el.klinevaluehigh))
+        minL = min(float(minL), float(el.klinevaluelow))
+    highestPercent = (maxH - openPrice) / openPrice * 100
+    lowestPercent = (minL - openPrice) / openPrice * 100
+    #print(f'===================================='
+          #f'\nhighestPercent = {highestPercent}'
+          #f'\nlowestPercent = {lowestPercent}')
+
+    return highestPercent, lowestPercent

@@ -1,8 +1,8 @@
 from datetime import datetime
 
 from TPSLbasedOnData.tpsl_calculation import tpsl_StratLevel_manager
-from TPSLbasedOnData.tpsl_predict import tpslPredictManager
-from binanceApiTradeInfo.APIinteraction import clientInit, apiToDatabase, test_request_corect_price
+from binanceApiTradeInfo.APIPriceTests import test_request_corect_price, test_request_aggTrades
+from binanceApiTradeInfo.APIinteraction import clientInit, apiToDatabase
 from deltaRangesFinder.decTreeRangesCombine import weightSearch, weightLinesDepthSearch, \
     featuresListFinder, featuresCombineFinal, featuresFinalReport
 from deltaRangesFinder.deltaFindML import decisionTree
@@ -73,9 +73,9 @@ def main():
     print(datetime.now())
 
     # apiToDatabase(stratData, client)
-    # tpslPredictManager(stratData, colNames, BuySellPrice)
     tpsl_StratLevel_manager(stratData, colNames, BuySellPrice)
     # test_request_corect_price()
+    # test_request_aggTrades()
 
 
 if __name__ == '__main__':

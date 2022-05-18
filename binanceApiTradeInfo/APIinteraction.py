@@ -1,3 +1,4 @@
+import time
 from datetime import datetime
 
 import requests
@@ -12,73 +13,92 @@ from binanceApiTradeInfo.prepForAPI import finalTransform, rightTimeDatesPrep, a
 from supportingFunctions import isNull
 
 
-def test_request_corect_price():
-    responseSpot = requests.get(f"https://api.binance.com/api/v3/klines?symbol=ZILUSDT&interval=1m&limit=10")
-    date = datetime.fromtimestamp(responseSpot.json()[0][0] / 1000.0).strftime('%Y-%m-%d %H:%M:%S')
-    print(f"Spot {date}"
-          f"\n High = {responseSpot.json()[0][2]}"
-          f"\n Low = {responseSpot.json()[0][3]}")
-    responseFutures = requests.get(f"https://fapi.binance.com/fapi/v1/klines?symbol=ZILUSDT&interval=1m&limit=10")
-    date = datetime.fromtimestamp(responseFutures.json()[0][0] / 1000.0).strftime('%Y-%m-%d %H:%M:%S')
-    print(f"Futures {date}"
-          f"\nHigh = {responseFutures.json()[0][2]}"
-          f"\n Low = {responseFutures.json()[0][3]}")
-    responseMark = requests.get(f"https://fapi.binance.com/fapi/v1/markPriceKlines?symbol=ZILUSDT&interval=1m&limit=10")
-    date = datetime.fromtimestamp(responseMark.json()[0][0] / 1000.0).strftime('%Y-%m-%d %H:%M:%S')
-    print(f"Mark {date}"
-          f"\nHigh = {responseMark.json()[0][2]}"
-          f"\n Low = {responseMark.json()[0][3]}")
-    responseIndex = requests.get(f"https://fapi.binance.com/fapi/v1/indexPriceKlines?pair=ZILUSDT&interval=1m&limit=10")
-    date = datetime.fromtimestamp(responseIndex.json()[0][0] / 1000.0).strftime('%Y-%m-%d %H:%M:%S')
-    print(f"Index {date}"
-          f"\nHigh = {responseIndex.json()[0][2]}"
-          f"\n Low = {responseIndex.json()[0][3]}")
-
-
 @decorator
-def single_request(symbol, interval, startTime, endTime):
-    response = 0
-    responseList = {}
+def single_request(payload):
     try:
-        response = requests.get(f"https://fapi.binance.com/fapi/v1/klines?symbol={symbol}&interval={interval}&"
-                                f"startTime={startTime}&endTime={endTime}")
-        # GET / fapi / v1 / klines     for futures reaload all db
-        num = 0
-        # if response.status_code == 200:
+        response = requests.get(f"https://fapi.binance.com/fapi/v1/aggTrades", params=payload)
         if len(response.json()) >= 1:
             # print(response.json()[0])
-
-            for el in response.json():
-                responseList[num] = [el[0], el[2], el[3], el[6]]
-                num = num + 1
+            tradepriceAction = []
+            tradepriceAction = select_price(response.json(), tradepriceAction)
+            timeUsed = select_time(response.json())
+            return tradepriceAction, timeUsed
         else:
             return 404
 
     except requests.exceptions.JSONDecodeError:
-        if response is not None:
-            if response.status_code == 404:
-                print(f"Error in request for coin {symbol} with startTime = {startTime} endTime = {endTime}")
-                return 404
-
-    return responseList
+        print(f"Error")
+        time.sleep(1)
+        return 404
 
 
-def apiCallsManager(coinListTransformed):
-    for coin in coinListTransformed:
-        checkIfTableExist(coin)
-    for coin in coinListTransformed:
-        symbol = str(coin + "USDT")
-        for el in coinListTransformed[coin]:
-            startUnix = el[0]
-            closeUnix = el[1]
-            # print(symbol + " | " + str(startUnix) + " == " + str(closeUnix))
-            response = single_request(symbol, "1m", startUnix, closeUnix)
-            if response != 404:
-                for num in response:
-                    dbAddKline(symbol, response[num])
+def select_price(responseJSON, tradepriceAction):
+    for el in responseJSON:
+        tradepriceAction.append([el["p"], el["T"]])
+
+    return tradepriceAction
+
+
+def select_time(responseJSON):
+    timeUsed = []
+    for el in responseJSON:
+        timeUsed.append(el["T"])
+
+    return timeUsed
+
+
+def apiCallsManager(trade, allTimeRequested):
+    dateFormat = "%Y-%m-%d %H:%M:%S"
+    symbol = str(trade[1]['Coin '][:-1] + 'USDT')
+
+    buyDateConverted = datetime.strptime(trade[1]['BuyDate '][:-1], dateFormat)
+    closeDateConverted = datetime.strptime(trade[1]['CloseDate '][:-1], dateFormat)
+
+    tmpBuyDate = datetime.strptime(str(buyDateConverted)[:-2] + "00", dateFormat)
+    tmpCloseDate = closeDateConverted + timedelta(minutes=1)
+    tmpCloseDate = datetime.strptime(str(tmpCloseDate)[:-2] + "00", dateFormat)
+
+    startTime = int(datetime.timestamp(tmpBuyDate) * 1000)
+    endTime = int(datetime.timestamp(tmpCloseDate) * 1000)
+
+    checkIfTableExist(symbol)
+
+    payload = {'symbol': symbol, 'startTime': startTime, 'endTime': endTime}
+
+    response, timeUsed = single_request(payload)
+    if response != 404:
+        if all(item in allTimeRequested[symbol] for item in timeUsed):
+            print("Coin " + symbol + " already downloaded")
+        else:
+            listOfNewRows = []
+            tl = list(set(timeUsed) - set(allTimeRequested[symbol]))  # get elements which are in temp1 but not in temp2
+            for elR in response:
+                if elR[1] in tl:
+                    listOfNewRows.append(elR)
+            for elR in response:
+                dbAddKline(symbol, elR)
                 print("Coin " + symbol + " downloaded")
-            else:
-                print("Coin " + symbol + " not downloaded, error " + str(response))
+            for tme in tl:
+                allTimeRequested[symbol].append(tme)
+            return allTimeRequested
+    else:
+        print("Coin " + symbol + " not downloaded, error " + str(response))
+
+
+def apiToDatabase(stratData, client):
+    # stratData -> 1 -> stratName -> iterate over trades -> 1 -> BuyDate \ CloseDate
+
+    if client.get_system_status()["status"] == 0 and not isNull(stratData[1]):
+        allTimeRequested = {}
+        for stratName in stratData[1]:
+            for trade in stratData[1][stratName]:
+                if str(trade[1]['Coin '][:-1] + 'USDT') not in allTimeRequested.keys():
+                    allTimeRequested[str(trade[1]['Coin '][:-1] + 'USDT')] = []
+                allTimeRequested = apiCallsManager(trade, allTimeRequested)
+
+    else:
+        print('system maintenance')
+        return 1
 
 
 def clientInit():
@@ -98,17 +118,3 @@ def timeForCalls(coinList):
         allTime = allTime + totalTime
         # print(f'For coin {coin} required time = {totalTime}')
     print(allTime)
-
-
-def apiToDatabase(stratData, client):
-    # stratData -> 1 -> stratName -> iterate over trades -> 1 -> BuyDate \ CloseDate
-
-    if client.get_system_status()["status"] == 0 and not isNull(stratData[1]):
-        coinListTransformed = finalTransform(apiCallsOptimization(*rightTimeDatesPrep(stratData)))
-        timeForCalls(coinListTransformed)
-        # print(coinListTransformed.keys())
-        # print(coinListTransformed.keys())
-        # apiCallsManager(coinListTransformed)
-    else:
-        print('system maintenance')
-        return 1
