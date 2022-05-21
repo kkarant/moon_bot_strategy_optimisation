@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from TPSLbasedOnData.tpsl_calculation import tpsl_StratLevel_manager
-from binanceApiTradeInfo.APIPriceTests import test_request_corect_price, test_request_aggTrades
 from binanceApiTradeInfo.APIinteraction import clientInit, apiToDatabase
 from deltaRangesFinder.decTreeRangesCombine import weightSearch, weightLinesDepthSearch, \
     featuresListFinder, featuresCombineFinal, featuresFinalReport
@@ -72,7 +71,7 @@ def main():
             # creates txt report with ranges and correlations for five strategies with highest ratio
     print(datetime.now())
 
-    # apiToDatabase(stratData, client)
+    #apiToDatabase(stratData, client)
     tpsl_StratLevel_manager(stratData, colNames, BuySellPrice)
     # test_request_corect_price()
     # test_request_aggTrades()
@@ -81,4 +80,7 @@ def main():
 if __name__ == '__main__':
     main()
 
+
 # TODO strategyDict -> [1] -> strategy name -> vse sdelki
+
+

@@ -3,7 +3,8 @@ from datetime import datetime
 
 import requests
 
-from databaseInteraction.dbKlinesInfo import checkIfTableExist, dbAddKline
+from databaseInteraction.dbKlinesInfo import checkIfTableExist, dbAddKline, checkIfRowsExist, connectionDB, \
+    connectioncloseDB
 from supportingFunctions import decorator
 from datetime import timedelta
 
@@ -21,9 +22,9 @@ def single_request(payload):
             # print(response.json()[0])
             tradepriceAction = []
             tradepriceAction = select_price(response.json(), tradepriceAction)
-            timeUsed = select_time(response.json())
-            return tradepriceAction, timeUsed
+            return tradepriceAction
         else:
+            print("err API")
             return 404
 
     except requests.exceptions.JSONDecodeError:
@@ -39,15 +40,7 @@ def select_price(responseJSON, tradepriceAction):
     return tradepriceAction
 
 
-def select_time(responseJSON):
-    timeUsed = []
-    for el in responseJSON:
-        timeUsed.append(el["T"])
-
-    return timeUsed
-
-
-def apiCallsManager(trade, allTimeRequested):
+def apiCallsManager(trade, cur, conn):
     dateFormat = "%Y-%m-%d %H:%M:%S"
     symbol = str(trade[1]['Coin '][:-1] + 'USDT')
 
@@ -61,44 +54,38 @@ def apiCallsManager(trade, allTimeRequested):
     startTime = int(datetime.timestamp(tmpBuyDate) * 1000)
     endTime = int(datetime.timestamp(tmpCloseDate) * 1000)
 
-    checkIfTableExist(symbol)
+    checkIfTableExist(symbol, cur, conn)
 
     payload = {'symbol': symbol, 'startTime': startTime, 'endTime': endTime}
 
-    response, timeUsed = single_request(payload)
+    response = single_request(payload)
     if response != 404:
-        if all(item in allTimeRequested[symbol] for item in timeUsed):
-            print("Coin " + symbol + " already downloaded")
-        else:
-            listOfNewRows = []
-            tl = list(set(timeUsed) - set(allTimeRequested[symbol]))  # get elements which are in temp1 but not in temp2
-            for elR in response:
-                if elR[1] in tl:
-                    listOfNewRows.append(elR)
-            for elR in response:
-                dbAddKline(symbol, elR)
-                print("Coin " + symbol + " downloaded")
-            for tme in tl:
-                allTimeRequested[symbol].append(tme)
-            return allTimeRequested
+        for el in response:
+            if checkIfRowsExist(symbol, el, cur, conn):
+                print("Data already exists in db")
+                # print("Coin " + symbol + " already downloaded")
+            else:
+                dbAddKline(symbol, el, cur, conn)
+                print("Sum new added new to db")
+                # print("Coin " + symbol + " downloaded")
+        print("Coin " + symbol + " processed")
     else:
         print("Coin " + symbol + " not downloaded, error " + str(response))
 
 
 def apiToDatabase(stratData, client):
     # stratData -> 1 -> stratName -> iterate over trades -> 1 -> BuyDate \ CloseDate
-
+    cur, conn = connectionDB()
     if client.get_system_status()["status"] == 0 and not isNull(stratData[1]):
-        allTimeRequested = {}
         for stratName in stratData[1]:
             for trade in stratData[1][stratName]:
-                if str(trade[1]['Coin '][:-1] + 'USDT') not in allTimeRequested.keys():
-                    allTimeRequested[str(trade[1]['Coin '][:-1] + 'USDT')] = []
-                allTimeRequested = apiCallsManager(trade, allTimeRequested)
+                print('trade number: ' + str(trade[0]))
+                apiCallsManager(trade, cur, conn)
 
     else:
         print('system maintenance')
         return 1
+    connectioncloseDB(cur, conn)
 
 
 def clientInit():
