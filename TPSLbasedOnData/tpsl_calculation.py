@@ -16,14 +16,17 @@ def dataPrepStratLevel(stratName, stratData, BuySellPrice, stratTPSLdata, dateFo
 def tpsl_StratLevel_manager(stratData, colNames, BuySellPrice):
     TPSLdata, tradeNumList = receiveData(stratData)
     tradeNumListLastNum = 0
+    optimalTPSLstrat = {}
     dateFormat = "%Y-%m-%d %H:%M:%S"
     for stratName in stratData[1]:
         optimalPHighO, optimalPLowO = tpsl_TradeLevel_manager(*dataPrepStratLevel(stratName, stratData, BuySellPrice,
                                                                                   TPSLdata, dateFormat, tradeNumList,
                                                                                   colNames))
         if optimalPHighO and optimalPLowO != "err":
+            optimalTPSLstrat[stratName] = [optimalPHighO, optimalPLowO]
             print(stratName)
             print(' optimal TP %.3f \n optimal SL %.3f ' % (optimalPHighO, optimalPLowO))
+    return optimalTPSLstrat
 
 
 # trade data : from strat data by stratName

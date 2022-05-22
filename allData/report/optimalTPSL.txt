@@ -1,0 +1,54 @@
+(strategy <d180s1 M+>)
+ optimal TP 11.707
+ optimal SL -7.752
+(strategy <d150s1 M+>)
+ optimal TP 12.412
+ optimal SL -9.350
+(strategy <d120s1 M+>)
+ optimal TP 12.379
+ optimal SL -7.707
+(strategy <d120s1.2 M+>)
+ optimal TP 15.755
+ optimal SL -11.809
+(strategy <d180s1.5 M+>)
+ optimal TP 12.568
+ optimal SL -7.427
+(strategy <d180s1.2 M+>)
+ optimal TP 11.731
+ optimal SL -9.803
+(strategy <d150s1.2 M+>)
+ optimal TP 13.103
+ optimal SL -12.910
+(strategy <d120s1.5 M+>)
+ optimal TP 11.824
+ optimal SL -18.402
+(strategy <d150s1.5 M+>)
+ optimal TP 11.910
+ optimal SL -13.068
+(strategy <d180s1.2 M->)
+ optimal TP 11.474
+ optimal SL -10.749
+(strategy <d150s1.2 M->)
+ optimal TP 11.728
+ optimal SL -12.004
+(strategy <d180s1 M->)
+ optimal TP 12.082
+ optimal SL -7.749
+(strategy <d150s1 M->)
+ optimal TP 12.015
+ optimal SL -7.252
+(strategy <d120s1 M->)
+ optimal TP 13.035
+ optimal SL -5.975
+(strategy <d180s1.5 M->)
+ optimal TP 15.658
+ optimal SL -12.691
+(strategy <d150s1.5 M->)
+ optimal TP 15.500
+ optimal SL -15.289
+(strategy <d120s1.2 M->)
+ optimal TP 13.387
+ optimal SL -11.229
+(strategy <d120s1.5 M->)
+ optimal TP 14.841
+ optimal SL -14.981

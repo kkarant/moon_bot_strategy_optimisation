@@ -1,0 +1,71 @@
+Report for allData/data/dr13k.txt
+====================================
+Ranges for strategy (strategy <d120s1.2 M+>)  with ratio = -0.32
+Total trades = 551
+for dBTC range is [-0.12, 0.56]
+for d24BTC range is [-1.14, NaN]
+for dM24 range is [0.26, 1.89]
+for bvsv range is [NaN, 0.97]
+for dBTC5m range is [0.11, 0.56]
+for Dump1H range is [1.41, 1.41]
+for d24h range is [NaN, 30.79]
+for d3h range is [6.13, 18.7]
+for d15m range is [1.25, 2.94]
+for d1m range is [NaN, 1.77]
+====================================
+Ranges for strategy (strategy <d180s1.2 M+>)  with ratio = -0.31
+Total trades = 534
+for dBTC range is [NaN, 0.31]
+for dMarket range is [0.03, NaN]
+for dM24 range is [NaN, 3.62]
+for bvsv range is [NaN, 0.75]
+for dBTC5m range is [NaN, 0.31]
+for Pump1H range is [0.13, NaN]
+for Dump1H range is [0.67, 3.08]
+for d15m range is [NaN, 2.73]
+for d5m range is [NaN, 3.06]
+for d1m range is [0.76, 0.76]
+====================================
+Ranges for strategy (strategy <d150s1.2 M+>)  with ratio = -0.30
+Total trades = 532
+for dBTC range is [0.11, 0.13]
+for d24BTC range is [-0.58, NaN]
+for dM24 range is [0.36, NaN]
+for bvsv range is [NaN, 1.22]
+for dBTC5m range is [0.11, NaN]
+for Dump1H range is [0.01, 2.19]
+for d24h range is [NaN, 34.18]
+for d3h range is [6.68, NaN]
+for d1h range is [3.14, 12.2]
+for d15m range is [NaN, 5.55]
+for d5m range is [NaN, 4.6]
+for d1m range is [0.48, 1.38], correlation is -0.16
+for dBTC1m range is [NaN, 0.13]
+====================================
+Ranges for strategy (strategy <d120s1 M->)  with ratio = -0.27
+Total trades = 1542
+for dBTC range is [0.03, NaN]
+for dMarket range is [-3.23, -0.59]
+for dM24 range is [-6.57, -0.07]
+for bvsv range is [NaN, 1.16]
+for Pump1H range is [0.1, NaN]
+for Dump1H range is [3.41, NaN]
+for d3h range is [2.78, NaN]
+for d15m range is [2.31, 7.02]
+for d5m range is [1.46, NaN]
+for d1m range is [1.09, NaN]
+for dBTC1m range is [0.03, NaN]
+====================================
+Ranges for strategy (strategy <d120s1.2 M->)  with ratio = -0.26
+Total trades = 612
+for d24BTC range is [-3.65, 0.65]
+for dMarket range is [-0.99, NaN]
+for dM24 range is [NaN, -0.06]
+for bvsv range is [0.37, NaN]
+for Pump1H range is [0.16, NaN]
+for Dump1H range is [0.08, NaN]
+for d24h range is [6.78, NaN]
+for d3h range is [3.03, NaN]
+for d1h range is [NaN, 9.68]
+for d5m range is [1.81, 1.81]
+for d1m range is [0.81, 1.15]
