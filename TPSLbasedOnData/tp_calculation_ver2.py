@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 
 import numpy as np
 import pytz
-from matplotlib import pyplot as plt
 from scipy.signal import find_peaks
 
 from databaseInteraction.dataReceiver import receiveData
@@ -14,7 +13,7 @@ def tradeCheck(priceActionData, openTime, closeTime, dateFormat):
     tradeDur = (datetime.strptime(closeTime, dateFormat) - datetime.strptime(openTime, dateFormat))
     openTimeDT = utc.localize(datetime.strptime(openTime, dateFormat))
     closeTimeDT = utc.localize(datetime.strptime(closeTime, dateFormat))
-    if priceActionData is not None and len(priceActionData) >= 1:
+    if priceActionData is not None and len(priceActionData) >= 8:
         if (closeTimeDT - openTimeDT) >= timedelta(seconds=31):
             # if len(priceActionData) >= 1:
             #     lasttimedata = utc.localize(datetime.strptime(datetime.fromtimestamp(int(priceActionData[-1][1]) /
@@ -81,23 +80,29 @@ def tpsl_TradeLevel_manager(tradeData, BuySellPrice, TPSLdata, tradeNumList,
             if len(peaks) > 0:
                 # print(peaks)
                 peaks = extremumsNormalise(peaks)
-                print(peaks)
+                # print(peaks)
                 ranges = extremumsRangeCalculation(peaks, openTime, closeTime, openPrice, dateFormat)
-                print(ranges)
+                # print(ranges)
                 ranges = rangesOptimised(ranges)
+                print("========================")
                 print(ranges)
-                numOfTradesWithpeaks += 1
+                ranges = rangesLower(ranges)
+                print(ranges)
+                if len(ranges) > 0:
+                    numOfTradesWithpeaks += 1
             # threeMaxExtremumFinal = extremumsNormalise(threeMaxExtremumFinal)
             # extremumsRangeCalculation(threeMaxExtremumFinal, openTime, closeTime, dateFormat)
 
         indexDict[coin] = indexDict[coin] + 1
-    print(numOfNormalTrades, numOfTradesWithpeaks, len(tradeData))
+    print(f"{int(numOfTradesWithpeaks / len(tradeData)*100)} % of trades have peaks")
 
 
 def extremumsParser(priceActionData, openPrice):
     peaksValues = []
     priceData = np.array([float(elem[0]) for elem in priceActionData])
+
     dist = len(priceData) / 8
+
     peaks, _ = find_peaks(priceData, height=openPrice, distance=dist, width=1)
     # print(peaks)
     # plt.plot(priceData)
@@ -163,9 +168,10 @@ def extremumsRangeCalculation(peaks, openTime, closeTime, openPrice, dateFormat)
 def rangesOptimised(ranges):
     tradeLen = ranges[-1][1] - ranges[0][0]
     if len(ranges) > 1:
-        for i in range(1,5):
+        for i in range(1, 5):
             for index, el in enumerate(ranges):
-                if el[1] - el[0] < tradeLen / 10:
+                averageP = sum([element[3] for element in ranges]) / len(ranges)
+                if el[1] - el[0] < tradeLen / 10 and el[3] < averageP:
                     if index < len(ranges) - 2:
                         newEl = [min(ranges[index][0], ranges[index + 1][0]),
                                  max(ranges[index][1], ranges[index + 1][1]),
@@ -183,4 +189,30 @@ def rangesOptimised(ranges):
                         ranges[index] = newEl
                         del ranges[index - 1]
 
+    return ranges
+
+
+def rangesLower(ranges):
+    for index, el in enumerate(ranges):
+        if el[3] <= 2:
+            del ranges[index]
+    return ranges
+
+
+def rangesLowerMethod1(ranges, lowestPercent):
+    index = ranges.index(lowestPercent)
+    if index < len(ranges) - 2:
+        newEl = [min(ranges[index][0], ranges[index + 1][0]),
+                 max(ranges[index][1], ranges[index + 1][1]),
+                 round((float(ranges[index][2]) + float(ranges[index + 1][2])) / 2,
+                       len(str(ranges[index][2]))),
+                 round((float(ranges[index][3]) + float(ranges[index + 1][3])) / 2, 2)]
+        ranges[index] = newEl
+        del ranges[index + 1]
+    elif index == len(ranges) - 1:
+        newEl = [min(ranges[index][0], ranges[index - 1][0]),
+                 max(ranges[index][1], ranges[index - 1][1]),
+                 round((float(ranges[index][2]) + float(ranges[index - 1][2])) / 2,
+                       len(str(ranges[index][2]))),
+                 round((float(ranges[index][3]) + float(ranges[index - 1][3])) / 2, 2)]
     return ranges
