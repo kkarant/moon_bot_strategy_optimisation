@@ -2,7 +2,8 @@ from datetime import datetime, timedelta
 
 import pandas as pd
 import pytz
-from databaseInteraction.dataReceiver import receiveData
+from db_interaction.dataReceiver import receiveData
+from supportingFunctions import decorator
 
 utc = pytz.UTC
 
@@ -35,6 +36,7 @@ def tpsl_StratLevel_manager(stratData, colNames, BuySellPrice):
 # tradeNumList : lists num is same as strat has["Coin ", tradeNumOverall]
 # colNames : list of column names in csv
 
+
 def tpsl_TradeLevel_manager(tradeData, BuySellPrice, TPSLdata, tradeNumList,
                             colNames, dateFormat, stratName):
     highestPercentOverall = 0
@@ -48,9 +50,9 @@ def tpsl_TradeLevel_manager(tradeData, BuySellPrice, TPSLdata, tradeNumList,
     for trade in tradeData:
         # overallTradeNum = tradeNumList[tradeData.index(trade) + tradeNumListLastNum][1]
         # print(list(filter(lambda x: x[0] == trade, tradeNumList)))
-        #overallTradeNum = filter(lambda x: x[0].equals(other=trade[1]), tradeNumList)
+        # overallTradeNum = filter(lambda x: x[0].equals(other=trade[1]), tradeNumList)
         overallTradeNum = trade[0]
-        #print(overallTradeNum)
+        # print(overallTradeNum)
         coin = trade[1][colNames.index('Coin ')][:-1]  # coin name
         indexTrade = indexDict[coin]  # num of trade in TPSLdata dict TPSLdata->coin-> indexTrade
         openTime = trade[1][colNames.index('BuyDate ')][:-1]  # open time
@@ -104,8 +106,8 @@ def rrCalculator(priceActionData, openPrice, closePrice):
         minL = min(float(minL), float(el[0]))
     highestPercent = (maxH - openPrice) / openPrice * 100 * 20
     lowestPercent = (minL - openPrice) / openPrice * 100 * 20
-    #print(highestPercent)
-    #print(lowestPercent)
+    # print(highestPercent)
+    # print(lowestPercent)
     # print(f'===================================='
     # f'\nhighestPercent = {highestPercent}'
     # f'\nlowestPercent = {lowestPercent}')

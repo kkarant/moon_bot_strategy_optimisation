@@ -3,14 +3,14 @@ from datetime import datetime
 
 import requests
 
-from databaseInteraction.dbKlinesInfo import checkIfTableExist, dbAddKline, checkIfRowsExist, connectionDB, \
+from db_interaction.dbKlinesInfo import checkIfTableExist, dbAddKline, checkIfRowsExist, connectionDB, \
     connectioncloseDB
 from supportingFunctions import decorator
 from datetime import timedelta
 
 from binance import Client
 
-from binanceApiTradeInfo.prepForAPI import finalTransform, rightTimeDatesPrep, apiCallsOptimization
+from binance_api.prepForAPI import finalTransform, rightTimeDatesPrep, apiCallsOptimization
 from supportingFunctions import isNull
 
 

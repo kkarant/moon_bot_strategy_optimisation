@@ -2,7 +2,8 @@ from datetime import datetime, timedelta
 
 import psycopg2
 
-from dataValidation.dataValidationModels import KlineData
+from data_validation.dataValidationModels import KlineData
+from supportingFunctions import decorator
 
 
 def connectionDB():
@@ -74,7 +75,7 @@ def receiveDataFromDB(trade, dateFormat, cur, conn):
 
         tmpBuyDate = datetime.strptime(trade[1]['BuyDate '][:-1], dateFormat)
         tmpCloseDate = datetime.strptime(trade[1]['CloseDate '][:-1], dateFormat) + timedelta(minutes=1)
-        tmpBuyDate = datetime.strptime(str(tmpBuyDate)[:-2] + "00", dateFormat)
+        tmpBuyDate = datetime.strptime(str(tmpBuyDate), dateFormat)
         tmpCloseDate = datetime.strptime(str(tmpCloseDate)[:-2] + "00", dateFormat)
 
         startTime = int(datetime.timestamp(tmpBuyDate) * 1000)

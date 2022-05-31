@@ -103,11 +103,13 @@ def paramsRangesNormalise(paramMin, paramMax, param, stratName):
     return paramMin, paramMax
 
 
-def backtest_stratLevel_manager(stratData, colNames):
+def backtest_stratLevel_manager(stratData, colNames, repFile):
     paramsDict = receiveOptimisedDeltaFromReport("allData/report/reportRangesNotSorted.txt", stratData)
-    print(paramsDict)
+    # print(paramsDict)
     tpslValuesDict = receiveOptimisedTPSLFromReport("allData/report/optimalTPSL.txt", stratData)
-    print(tpslValuesDict)
+    #print(tpslValuesDict)
+    file = open("allData/report/profitOnCalculatedTPSLRanges.txt", "w")
+    file.write(f"Report for {repFile}")
     for stratName in stratData[1]:
         overallprofit = 0
         overallprofitotSorted = 0
@@ -136,7 +138,10 @@ def backtest_stratLevel_manager(stratData, colNames):
                             minusCount = minusCount + 1
                         overallprofit = overallprofit + float(trade[1][colNames.index('Profit ')])
                     overallprofitotSorted = overallprofitotSorted + float(trade[1][colNames.index('Profit ')])
-                print(f'For {stratName} Profit = {round(overallprofit)}, '
-                      f'not sorted Profit = {round(overallprofitotSorted)}, '
-                      f'calculated profit = '
-                      f'{plusCount*float(tpslValuesDict[stratName][0]) + minusCount*float(tpslValuesDict[stratName][1])}')
+                calculatedprofit = plusCount * float(tpslValuesDict[stratName][0]) \
+                                   + minusCount * float(tpslValuesDict[stratName][1])
+
+                file.write(f"\n====================================")
+                file.write(f'\nFor {stratName} '
+                           f'\nProfit(from report) = {round(overallprofit)}, '
+                           f'\ncalculated profit = {round(calculatedprofit)}')

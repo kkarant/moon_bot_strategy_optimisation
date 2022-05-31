@@ -22,3 +22,11 @@ def isNull(*args):
             return True
         elif len(var) > 0:
             return False
+
+
+def checkEmptyFile(filename, repFile):
+    with open(filename, "r") as file:
+        lines = file.readlines()
+        if lines.__len__() == 0 or str("Report for " + repFile) not in lines[0]:
+            file.close()
+            return True

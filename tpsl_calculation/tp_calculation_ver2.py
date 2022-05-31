@@ -4,7 +4,7 @@ import numpy as np
 import pytz
 from scipy.signal import find_peaks
 
-from databaseInteraction.dataReceiver import receiveData
+from db_interaction.dataReceiver import receiveData
 
 utc = pytz.UTC
 
@@ -194,7 +194,10 @@ def rangesOptimised(ranges):
 
 def rangesLower(ranges):
     for index, el in enumerate(ranges):
-        if el[3] <= 2:
+        if float(el[3]) <= 2:
+            del ranges[index]
+    for index, el in enumerate(ranges):
+        if float(el[3]) <= 2:
             del ranges[index]
     return ranges
 

@@ -1,4 +1,5 @@
-from databaseInteraction.dbKlinesInfo import receiveDataFromDB, connectionDB
+from db_interaction.dbKlinesInfo import receiveDataFromDB, connectionDB
+from supportingFunctions import decorator
 
 
 def receiveData(stratData):
@@ -6,7 +7,8 @@ def receiveData(stratData):
     stratTPSLdata = {}
     dateFormat = "%Y-%m-%d %H:%M:%S"
     cur, conn = connectionDB()
-    for stratName in stratData[1]:
+    stratList = ["(strategy <d180s1 M+>) "]
+    for stratName in stratList:
         tradeDict = {}
         for trade in stratData[1][stratName]:
             tradeDict[trade[1]["Coin "][:-1]] = []
