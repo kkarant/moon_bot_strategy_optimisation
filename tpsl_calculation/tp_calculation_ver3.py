@@ -65,14 +65,8 @@ def extremumsParser(priceActionData, openPrice):
     dist = len(priceData) / 8
 
     peaks, _ = find_peaks(priceData, height=openPrice, distance=dist, width=1)
-    # print(peaks)
-    # plt.plot(priceData)
-    # plt.plot(openPrice, "--", color="gray")
-    # plt.plot(peaks, priceData[peaks], "x")
-    # plt.show()
     if len(peaks) > 0:
         for elem in peaks:
-            # profit = (float(priceActionData[elem][0]) - float(openPrice)) / float(openPrice) * 100 * 20
             peaksValues.append(priceActionData[elem])
     return peaksValues
 
@@ -125,43 +119,47 @@ def rangesLower(peaks):
     return peaks
 
 
-def plotProfits(overallPeaks):
+def plotProfits(overallPeaks, coeffs):
     timeProfitDict = {}
     numOfEl = {}
     x = list(zip(*overallPeaks))[1]
     for el in x:
         if el not in timeProfitDict:
-            numOfEl[el] = 0
-            timeProfitDict[el] = 0
+            numOfEl[el] = 0  # fill zeros for each element
+            timeProfitDict[el] = 0  # fill zeros for each element
     for el in x:
-        for elem in overallPeaks:
+        for elem in overallPeaks:  # overallPeaks have price, time and percent of peaks
             if elem[1] == el:
-                numOfEl[el] = numOfEl[el] + 1
-                timeProfitDict[el] = timeProfitDict[el] + elem[2]
+                numOfEl[el] = numOfEl[el] + 1  # count number of profits
+                timeProfitDict[el] = timeProfitDict[el] + elem[2]  # sum of profits in ranges
 
     timeProfitOrdered = dict(sorted(timeProfitDict.items()))
     numOfElSorted = dict(sorted(numOfEl.items()))
 
-    x = list(timeProfitOrdered.keys())
-    y = list(timeProfitOrdered.values())
-    numOfElSorted_values = list(numOfElSorted.values())
+    x = list(timeProfitOrdered.keys())  # timestamps of peaks
+    y = list(timeProfitOrdered.values())  # profit values of peaks
+    numOfElSorted_values = list(numOfElSorted.values())  # num of peaks at each unix timestamp
 
-    divCoef = 10
-    x_chunked = [x[i:i + divCoef] for i in range(0, len(x), divCoef)]
-    y_chunked = [y[i:i + divCoef] for i in range(0, len(y), divCoef)]
-    numOfElSorted_chunked = [sum(numOfElSorted_values[i:i + divCoef])
+    divCoef = 10  # coefficient of division of trade time
+    x_chunked = [x[i:i + divCoef] for i in range(0, len(x), divCoef)]  # time ranges with divCoef step in sec
+    y_chunked = [y[i:i + divCoef] for i in range(0, len(y), divCoef)]  # profit chunked by divCoef
+    numOfElSorted_chunked = [sum(numOfElSorted_values[i:i + divCoef])  # num of profits at each chunk
                              for i in range(0, len(numOfElSorted_values), divCoef)]
 
-    # y_chunked = [float(a) / int(b) for a in y_chunked_pre for b in numOfElSorted_chunked if int(b) > 0]
     for index, el in enumerate(x_chunked):
-        x_chunked[index] = int(index) * divCoef
+        x_chunked[index] = int(index) * divCoef  # time ranges with divCoef step for plot
     for index, el in enumerate(y_chunked):
-        y_chunked[index] = sum(y_chunked[index]) / numOfElSorted_chunked[index]
+        y_chunked[index] = sum(y_chunked[index]) / numOfElSorted_chunked[index]  # average profit for each chunk
 
-    x_chunked_np = np.array([int(elm) for elm in x_chunked])
-    y_chunked_np = np.array([float(ele) for ele in y_chunked])
+    coef_len = len(coeffs)  # num of divCoef chunks where stored 90% of trades
+    y_chunked_coeffs = []
+    for index, el in enumerate(y_chunked[:coef_len]):
+        y_chunked_coeffs.append(el * coeffs[index])  # profit for chunks * their procent of trades in strat
+    x_chunked_np = np.array([int(elm) for elm in x_chunked[:coef_len]])  # remake of time ranges to np array
+    y_chunked_np = np.array([float(ele) for ele in y_chunked_coeffs])  # remake of profits to np array
 
-    peaks, _ = find_peaks(y_chunked_np, height=0)
-    plt.plot(x_chunked_np, y_chunked_np)
-    plt.plot([el * divCoef for el in peaks], y_chunked_np[peaks], "x")
+    peaks, _ = find_peaks(y_chunked_np, height=0)  # searching for peaks in profit
+    plt.plot(x_chunked_np, y_chunked_np)  # profit plot
+    plt.plot([el * divCoef for el in peaks], y_chunked_np[peaks], "x")  # x marks the peaks we found
+    plt.title("Profit on 10s chunks")
     plt.show()
