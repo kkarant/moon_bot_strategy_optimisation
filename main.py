@@ -1,17 +1,15 @@
 from datetime import datetime
 
-from tpsl_calculation.tp_calculation_ver2 import tpsl_StratLevel_manager_v2
-from tpsl_calculation.tp_calculation_ver3 import tpsl_StratLevel_manager_v3
+from tpsl_calculation.data_manager import tpsl_StratLevel_manager_v3
 from tpsl_calculation.tpsl_backtest import backtest_stratLevel_manager
-from tpsl_calculation.tpsl_calculation_ver1 import tpsl_StratLevel_manager
-from binance_api.APIinteraction import clientInit, apiToDatabase
+from binance_api.APIinteraction import clientInit
 from delta_calculation.decTreeRangesCombine import weightSearch, weightLinesDepthSearch, \
     featuresListFinder, featuresCombineFinal, featuresFinalReport
 from delta_calculation.deltaFindML import decisionTree
 from file_interaction import fileImport, reportCreator
 from file_interaction.fileImport import checkFilesForExistence
 from strategy_statistics import regressionCalculaton, strategyStatistics
-from supportingFunctions import decorator, checkEmptyFile
+from data_validation.supportingFunctions import decorator, checkEmptyFile
 
 
 @decorator
@@ -81,5 +79,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+    # divhalHuy()
 
 # TODO strategyDict -> [1] -> strategy name -> vse sdelki
