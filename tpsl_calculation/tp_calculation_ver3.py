@@ -1,28 +1,11 @@
-from collections import OrderedDict
 from datetime import datetime, timedelta
+
+import matplotlib.pyplot as plt
 import numpy as np
 import pytz
-from scipy.signal import chirp, find_peaks, peak_widths
-import matplotlib.pyplot as plt
-
-from db_interaction.dataReceiver import receiveData
+from scipy.signal import find_peaks
 
 utc = pytz.UTC
-
-
-def tradeCheck(priceActionData, openTime, closeTime, dateFormat):
-    tradeDur = (datetime.strptime(closeTime, dateFormat) - datetime.strptime(openTime, dateFormat))
-    openTimeDT = utc.localize(datetime.strptime(openTime, dateFormat))
-    closeTimeDT = utc.localize(datetime.strptime(closeTime, dateFormat))
-    if priceActionData is not None and len(priceActionData) >= 8:
-        if (closeTimeDT - openTimeDT) >= timedelta(seconds=31):
-            return True
-
-
-def dataPrepStratLevel(stratName, stratData, BuySellPrice, stratTPSLdata, dateFormat, tradeNumList, colNames):
-    tradeData = stratData[1][stratName]
-    TPSLdata = stratTPSLdata[stratName]
-    return tradeData, BuySellPrice, TPSLdata, tradeNumList, colNames, dateFormat, stratName
 
 
 def tradeDataPrep(trade, colNames, indexDict, BuySellPrice):
@@ -37,20 +20,15 @@ def tradeDataPrep(trade, colNames, indexDict, BuySellPrice):
     return coin, indexTrade, openTime, closeTime, openPrice, closePrice, profit
 
 
-def tpsl_StratLevel_manager_v3(stratData, colNames, BuySellPrice):
-    TPSLdata, tradeNumList = receiveData(stratData)
-    optimalTPSLstrat = {}
-    dateFormat = "%Y-%m-%d %H:%M:%S"
-    stratList = ["(strategy <d180s1 M+>) "]
-    for stratName in stratList:
-        overallPeaks = tpsl_TradeLevel_manager(*dataPrepStratLevel(stratName, stratData, BuySellPrice, TPSLdata,
-                                                                   dateFormat, tradeNumList, colNames))
-        plotProfits(overallPeaks)
-    return optimalTPSLstrat
+def tradeCheck(priceActionData, openTime, closeTime, dateFormat):
+    openTimeDT = utc.localize(datetime.strptime(openTime, dateFormat))
+    closeTimeDT = utc.localize(datetime.strptime(closeTime, dateFormat))
+    if priceActionData is not None and len(priceActionData) >= 8:
+        if (closeTimeDT - openTimeDT) >= timedelta(seconds=31):
+            return True
 
 
-def tpsl_TradeLevel_manager(tradeData, BuySellPrice, TPSLdata, tradeNumList,
-                            colNames, dateFormat, stratName):
+def tp_TradeLevel_manager(tradeData, BuySellPrice, TPSLdata, colNames, dateFormat):
     overallPeaks = []
     indexDict = {}
     for trade in tradeData:
@@ -70,7 +48,7 @@ def tpsl_TradeLevel_manager(tradeData, BuySellPrice, TPSLdata, tradeNumList,
                 peaks = extremumsNormalise(peaks)
                 peaks = percentApply(peaks, openPrice)
                 peaks = rangesLower(peaks)
-                #print(peaks)
+                # print(peaks)
             if len(peaks) > 0:
                 numOfTradesWithpeaks += 1
                 for el in peaks:
@@ -149,34 +127,41 @@ def rangesLower(peaks):
 
 def plotProfits(overallPeaks):
     timeProfitDict = {}
-    print(overallPeaks)
+    numOfEl = {}
     x = list(zip(*overallPeaks))[1]
     for el in x:
         if el not in timeProfitDict:
+            numOfEl[el] = 0
             timeProfitDict[el] = 0
     for el in x:
         for elem in overallPeaks:
             if elem[1] == el:
+                numOfEl[el] = numOfEl[el] + 1
                 timeProfitDict[el] = timeProfitDict[el] + elem[2]
 
     timeProfitOrdered = dict(sorted(timeProfitDict.items()))
+    numOfElSorted = dict(sorted(numOfEl.items()))
+
     x = list(timeProfitOrdered.keys())
     y = list(timeProfitOrdered.values())
+    numOfElSorted_values = list(numOfElSorted.values())
+
     divCoef = 10
     x_chunked = [x[i:i + divCoef] for i in range(0, len(x), divCoef)]
     y_chunked = [y[i:i + divCoef] for i in range(0, len(y), divCoef)]
-    print(x_chunked)
-    print(y_chunked)
+    numOfElSorted_chunked = [sum(numOfElSorted_values[i:i + divCoef])
+                             for i in range(0, len(numOfElSorted_values), divCoef)]
+
+    # y_chunked = [float(a) / int(b) for a in y_chunked_pre for b in numOfElSorted_chunked if int(b) > 0]
     for index, el in enumerate(x_chunked):
-        x_chunked[index] = int(index)*divCoef
+        x_chunked[index] = int(index) * divCoef
     for index, el in enumerate(y_chunked):
-        y_chunked[index] = sum(y_chunked[index])
+        y_chunked[index] = sum(y_chunked[index]) / numOfElSorted_chunked[index]
 
     x_chunked_np = np.array([int(elm) for elm in x_chunked])
     y_chunked_np = np.array([float(ele) for ele in y_chunked])
 
     peaks, _ = find_peaks(y_chunked_np, height=0)
-    print(peaks)
     plt.plot(x_chunked_np, y_chunked_np)
-    plt.plot([el*divCoef for el in peaks], y_chunked_np[peaks], "x")
+    plt.plot([el * divCoef for el in peaks], y_chunked_np[peaks], "x")
     plt.show()
