@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import numpy as np
 import pytz
-from scipy.signal import find_peaks
+from scipy.signal import find_peaks, savgol_filter
 
 utc = pytz.UTC
 
@@ -155,10 +155,15 @@ def plotProfits(overallPeaks, coeffs):
     y_chunked_coeffs = []
     for index, el in enumerate(y_chunked[:coef_len]):
         y_chunked_coeffs.append(el * coeffs[index])  # profit for chunks * their procent of trades in strat
+
     x_chunked_np = np.array([int(elm) for elm in x_chunked[:coef_len]])  # remake of time ranges to np array
     y_chunked_np = np.array([float(ele) for ele in y_chunked_coeffs])  # remake of profits to np array
 
+    y_smooth = savgol_filter(y_chunked_np, 5, 3)
+
     peaks, _ = find_peaks(y_chunked_np, height=0)  # searching for peaks in profit
+
+    # plt.plot(x_chunked_np, y_smooth, color='green')
     plt.plot(x_chunked_np, y_chunked_np)  # profit plot
     plt.plot([el * divCoef for el in peaks], y_chunked_np[peaks], "x")  # x marks the peaks we found
     plt.title("Profit on 10s chunks")
