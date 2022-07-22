@@ -1,5 +1,4 @@
 from db_interaction.dbKlinesInfo import receiveDataFromDB, connectionDB
-from supportingFunctions import decorator
 
 
 def receiveData(stratData):

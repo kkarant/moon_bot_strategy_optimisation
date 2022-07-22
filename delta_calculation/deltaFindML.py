@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, export_graphviz, export_text
 
 from strategy_statistics.strategyStatistics import timeInTradeCalc
-from supportingFunctions import decorator
+from data_validation.supportingFunctions import decorator
 
 
 def getProfit(stratData, stratName):  # execution  time OK

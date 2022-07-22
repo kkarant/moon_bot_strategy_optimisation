@@ -5,13 +5,11 @@ import requests
 
 from db_interaction.dbKlinesInfo import checkIfTableExist, dbAddKline, checkIfRowsExist, connectionDB, \
     connectioncloseDB
-from supportingFunctions import decorator
+from data_validation.supportingFunctions import decorator
 from datetime import timedelta
 
-from binance import Client
-
-from binance_api.prepForAPI import finalTransform, rightTimeDatesPrep, apiCallsOptimization
-from supportingFunctions import isNull
+from data_validation.supportingFunctions import isNull
+from db_interaction.rdsConnection import connectionDBrds, connectioncloseDBrds
 
 
 @decorator
@@ -61,22 +59,20 @@ def apiCallsManager(trade, cur, conn):
     response = single_request(payload)
     if response != 404:
         for el in response:
-            if checkIfRowsExist(symbol, el, cur, conn):
-                print("Data already exists in db")
-                # print("Coin " + symbol + " already downloaded")
+            if checkIfRowsExist(symbol, el, cur, conn, dateFormat):
+                pass
             else:
-                dbAddKline(symbol, el, cur, conn)
+                dbAddKline(symbol, el, cur, conn, dateFormat)
                 print("Sum new added new to db")
-                # print("Coin " + symbol + " downloaded")
-        print("Coin " + symbol + " processed")
     else:
         print("Coin " + symbol + " not downloaded, error " + str(response))
 
 
-def apiToDatabase(stratData, client):
+def apiToDatabase(stratData):
     # stratData -> 1 -> stratName -> iterate over trades -> 1 -> BuyDate \ CloseDate
-    cur, conn = connectionDB()
-    if client.get_system_status()["status"] == 0 and not isNull(stratData[1]):
+    cur, conn = connectionDBrds()
+    # client.get_system_status()["status"] == 0 and
+    if not isNull(stratData[1]):
         for stratName in stratData[1]:
             for trade in stratData[1][stratName]:
                 print('trade number: ' + str(trade[0]))
@@ -85,15 +81,15 @@ def apiToDatabase(stratData, client):
     else:
         print('system maintenance')
         return 1
-    connectioncloseDB(cur, conn)
+    connectioncloseDBrds(cur, conn)
 
 
 def clientInit():
     api_key = "InpLPIyMKvx0qNAeCFCCxBJczLxSU7snqfzZfGHlcriFUxlo2Sinr1JvVUKpChx1"
     api_secret = "CHmWXVTNhX4o0YL790vpKezFykXerCsCqvcrk3xiZCjzB1mCL7detkTUUpl0Hm7y"
-    client = Client(api_key, api_secret)
-    print(client.get_system_status())
-    return client
+    # client = Client(api_key, api_secret)
+    # print(client.get_system_status())
+    # return client
 
 
 def timeForCalls(coinList):

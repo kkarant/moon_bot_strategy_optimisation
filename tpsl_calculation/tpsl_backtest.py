@@ -107,7 +107,7 @@ def backtest_stratLevel_manager(stratData, colNames, repFile):
     paramsDict = receiveOptimisedDeltaFromReport("allData/report/reportRangesNotSorted.txt", stratData)
     # print(paramsDict)
     tpslValuesDict = receiveOptimisedTPSLFromReport("allData/report/optimalTPSL.txt", stratData)
-    #print(tpslValuesDict)
+    # print(tpslValuesDict)
     file = open("allData/report/profitOnCalculatedTPSLRanges.txt", "w")
     file.write(f"Report for {repFile}")
     for stratName in stratData[1]:

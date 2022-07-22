@@ -2,8 +2,8 @@ import numpy as np
 from scipy.stats import pearsonr
 
 
-def zeroElimination(list):
-    for i in range(len(list)):
+def zeroElimination(lst):
+    for i in range(len(lst)):
         if list[i] == 0:
             list[i] = 0.0001
 
