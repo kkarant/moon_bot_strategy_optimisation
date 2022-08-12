@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 
 import pytz
-from API_DB_pipeline.db_interaction.dataReceiver import receiveData
+from API_DB_pipeline.db_interaction.db_data_receive import receiveData
 
 utc = pytz.UTC
 

@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def remake_file(file_path='allData/data/allTradesSet.csv'):
+def remake_file(file_path='all_data/data/allTradesSet.csv'):
     badCols = ['Coin ', 'BuyDate ', 'CloseDate ', 'Quantity ', 'BuyPrice ',
                'SellPrice ', 'Spent USDT ', 'Gained USDT ', 'ProfitUSDT ', 'SellReason ',
                'bvsv ', 'PriceBug ', 'Vd1m ', 'H. Vol ', 'D. Vol']
@@ -20,4 +20,4 @@ def remake_file(file_path='allData/data/allTradesSet.csv'):
     df.drop(df.index[df['ChannelName '] == '(strategy <d120s1.5 M+ FILTERS >) '], inplace=True)
     df.drop(df.index[df['ChannelName '] == '(strategy <d150s1.2 M+ FILTERS>) '], inplace=True)
     df['Profit '] = df['Profit '].apply(lambda x: 0 if float(x[:-2]) <= 0 else 1)
-    df.to_csv('allData/data/allTradesForModel..csv', sep=",")
+    df.to_csv('all_data/data/allTradesForModel..csv', sep=",")

@@ -8,8 +8,8 @@ from IPython.display import Image
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, export_graphviz, export_text
 
-from market_analysis_module.strategy_statistics.strategyStatistics import timeInTradeCalc
-from service_functions.supportingFunctions import decorator
+from market_analysis_module.strategy_statistics.strategy_statistics import timeInTradeCalc
+from service_functions.supporting_functions import decorator
 
 
 def getProfit(stratData, stratName):  # execution  time OK
@@ -78,7 +78,7 @@ def decisionTreeVisualisation(stratName, listOfReqVal, clf):
     graph.write_png(fileName)
     Image(graph.create_png())
 
-    dst_dir = 'decisionTreeReports'
+    dst_dir = 'all_data/decisionTreeReports'
     if not os.path.exists(dst_dir):
         os.makedirs(dst_dir)
     try:
@@ -100,7 +100,7 @@ def decisionTreeTextReport(clf, stratName):
     textReport = export_text(clf, show_weights=True)
     strName = str(stratName).replace(" ", "").replace("(", "").replace(")", "").replace(">", ""). \
         replace("<", "").replace("-", "_minus").replace("+", "_plus").replace("st", "St")
-    with open('allData/decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "w+") as file:
+    with open('all_data/decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "w+") as file:
         file.truncate()
         file.writelines(textReport)
         file.write('\n')
@@ -125,7 +125,7 @@ def decisionTree(stratData, colNames):
             # Predict the response for test dataset
             y_pred = clf.predict(X_test)
             # print("For strategy {0} accuracy: {1:.2f}".format(stratName, metrics.accuracy_score(y_test, y_pred)))
-            decisionTreeVisualisation(stratName, listOfReqVal, clf)
+            # decisionTreeVisualisation(stratName, listOfReqVal, clf)
             textRep = decisionTreeTextReport(clf, stratName)
         # else:
         # print(f"Not enough data for {stratName}")

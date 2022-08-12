@@ -3,9 +3,9 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.idea/dataSources" />
-      <excludeFolder url="file://$MODULE_DIR$/allData/decisionTreeReports" />
-      <excludeFolder url="file://$MODULE_DIR$/allData/decisionTreeTextReport" />
-      <excludeFolder url="file://$MODULE_DIR$/allData/models" />
+      <excludeFolder url="file://$MODULE_DIR$/all_data/models" />
+      <excludeFolder url="file://$MODULE_DIR$/all_data/decisionTreeTextReport" />
+      <excludeFolder url="file://$MODULE_DIR$/all_data/decisionTreeReports" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.10" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

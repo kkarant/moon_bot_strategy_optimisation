@@ -3,7 +3,7 @@ import warnings
 import pandas as pd
 from h2o.automl import H2OAutoML
 
-from API_DB_pipeline.db_interaction.dbKlinesInfo import dbReceiveKlines, connectionDB
+from API_DB_pipeline.db_interaction.db_interaction import dbReceiveKlines, connectionDB
 from tpsl_calculation.tp_calculation_ver3 import tradeDataPrep
 
 
@@ -23,7 +23,7 @@ def h2o_train_c(TP, colNames, BuySellPrice, stratData):
     aml.train(x=x, y=y, training_frame=train)
 
     m = aml.get_best_model()
-    model_path = h2o.save_model(model=m, path="allData/models", force=True)
+    model_path = h2o.save_model(model=m, path="all_data/models", force=True)
 
 
 def categorize(colNames, BuySellPrice, stratData, TP):
@@ -75,7 +75,7 @@ def ml_accuracy(TP, colNames, BuySellPrice, stratData):
     train[y] = train[y].asfactor()
     test[y] = test[y].asfactor()
 
-    model = h2o.load_model("allData/models/DRF_1_AutoML_1_20220727_110304")
+    model = h2o.load_model("all_data/models/DRF_1_AutoML_1_20220727_110304")
     preds = model.predict(test)
 
     predsList = h2o.as_list(preds, use_pandas=False)

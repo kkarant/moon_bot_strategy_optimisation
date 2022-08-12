@@ -1,4 +1,4 @@
-Report for allData/data/29julydr.txt
+Report for all_data/data/29julydr.txt
 Report for (strategy <d180s1 M+>) 
 for weights: [0.00, 26.00] class: Profit
 features: 	
@@ -39,7 +39,7 @@ feature_0>-0.00
 Report for (strategy <d120s1 M+>) 
 for weights: [0.00, 50.00] class: Profit
 features: 	
-feature_2<=0.80	
+feature_0<=0.83	
 feature_14>0.04	
 feature_5<=0.71	
 feature_3>0.99	
@@ -51,7 +51,7 @@ feature_6<=8.88
 feature_13<=3.80
 for weights: [0.00, 34.00] class: Profit
 features: 	
-feature_2<=0.80	
+feature_0<=0.83	
 feature_14>0.04	
 feature_5<=0.71	
 feature_3>0.99	
@@ -63,7 +63,7 @@ feature_6<=8.88
 feature_13<=3.80
 for weights: [0.00, 24.00] class: Profit
 features: 	
-feature_2<=0.80	
+feature_0<=0.83	
 feature_14>0.04	
 feature_5<=0.71	
 feature_3>0.99	
@@ -83,7 +83,7 @@ feature_2>0.01
 feature_5>0.10	
 feature_4<=2.20	
 feature_3>0.14	
-feature_2<=1.47	
+feature_0<=1.24	
 feature_11<=6.45	
 feature_0>0.00	
 feature_12<=1.96
@@ -96,7 +96,7 @@ feature_2>0.01
 feature_5>0.10	
 feature_4<=2.20	
 feature_3>0.14	
-feature_2<=1.47	
+feature_0<=1.24	
 feature_11<=6.45	
 feature_0>0.00	
 feature_12<=1.96
@@ -109,7 +109,7 @@ feature_2>0.01
 feature_5>0.10	
 feature_4<=2.20	
 feature_3>0.14	
-feature_2<=1.47	
+feature_0<=1.24	
 feature_11<=6.45	
 feature_0>0.00	
 feature_12<=1.96
@@ -137,8 +137,8 @@ for weights: [0.00, 35.00] class: Profit
 features: 	
 feature_2<=0.38	
 feature_13>0.64	
+feature_9>2.99	
 feature_3>0.02	
-feature_8>5.73	
 feature_0>-0.06	
 feature_2<=0.71	
 feature_13<=4.17	
@@ -148,8 +148,8 @@ for weights: [0.00, 20.00] class: Profit
 features: 	
 feature_2<=0.38	
 feature_13>0.64	
+feature_9>2.99	
 feature_3>0.02	
-feature_8>5.73	
 feature_0>-0.06	
 feature_2<=0.71	
 feature_13<=4.17	
@@ -159,8 +159,8 @@ for weights: [0.00, 12.00] class: Profit
 features: 	
 feature_2<=0.38	
 feature_13>0.64	
+feature_9>2.99	
 feature_3>0.02	
-feature_8>5.73	
 feature_0>-0.06	
 feature_2<=0.71	
 feature_13<=4.17	
@@ -194,15 +194,15 @@ feature_12<=2.10
 Report for (strategy <d180s1.2 M+ FILTERS>) 
 for weights: [0.00, 6.00] class: Profit
 features: 	
-feature_5<=0.30	
+feature_14<=0.10	
 feature_0>0.08
 for weights: [0.00, 1.00] class: Profit
 features: 	
-feature_5<=0.30	
+feature_14<=0.10	
 feature_0>0.08
 for weights: [0.00, 1.00] class: Profit
 features: 	
-feature_5<=0.30	
+feature_14<=0.10	
 feature_0>0.08
 Report for (strategy <d150s1.5 M+>) 
 for weights: [0.00, 27.00] class: Profit
@@ -221,22 +221,22 @@ Report for (strategy <d180s1.5 M+>)
 for weights: [0.00, 29.00] class: Profit
 features: 	
 feature_11<=3.96	
-feature_12>1.73	
 feature_10>2.91	
+feature_15>0.56	
 feature_13<=3.34	
 feature_9>4.70
 for weights: [0.00, 12.00] class: Profit
 features: 	
 feature_11<=3.96	
-feature_12>1.73	
 feature_10>2.91	
+feature_15>0.56	
 feature_13<=3.34	
 feature_9>4.70
 for weights: [0.00, 10.00] class: Profit
 features: 	
 feature_11<=3.96	
-feature_12>1.73	
 feature_10>2.91	
+feature_15>0.56	
 feature_13<=3.34	
 feature_9>4.70
 Report for (strategy <d150s1.2 M+ FILTERS>) 
@@ -263,8 +263,8 @@ feature_4>0.27
 feature_6>0.18	
 feature_7>0.20	
 feature_15<=8.89	
-feature_6<=15.28	
-feature_9>4.48
+feature_9>4.48	
+feature_11<=12.74
 for weights: [0.00, 9.00] class: Profit
 features: 	
 feature_14<=0.35	
@@ -272,8 +272,8 @@ feature_4>0.27
 feature_6>0.18	
 feature_7>0.20	
 feature_15<=8.89	
-feature_6<=15.28	
-feature_9>4.48
+feature_9>4.48	
+feature_11<=12.74
 for weights: [0.00, 2.00] class: Profit
 features: 	
 feature_14<=0.35	
@@ -281,8 +281,8 @@ feature_4>0.27
 feature_6>0.18	
 feature_7>0.20	
 feature_15<=8.89	
-feature_6<=15.28	
-feature_9>4.48
+feature_9>4.48	
+feature_11<=12.74
 Report for (strategy <d120s2 M+>) 
 for weights: [0.00, 8.00] class: Profit
 features: 	
@@ -299,19 +299,19 @@ feature_5<=0.49
 Report for (strategy <d150s2 M+>) 
 for weights: [0.00, 13.00] class: Profit
 features: 	
-feature_9>6.46	
+feature_7<=1.08	
 feature_3>0.06	
 feature_8<=18.98	
 feature_5<=0.67
 for weights: [0.00, 2.00] class: Profit
 features: 	
-feature_9>6.46	
+feature_7<=1.08	
 feature_3>0.06	
 feature_8<=18.98	
 feature_5<=0.67
 for weights: [0.00, 1.00] class: Profit
 features: 	
-feature_9>6.46	
+feature_7<=1.08	
 feature_3>0.06	
 feature_8<=18.98	
 feature_5<=0.67
@@ -332,9 +332,9 @@ feature_13>0.41
 feature_10>2.01	
 feature_7>1.92	
 feature_12>1.20	
-feature_13>0.33	
-feature_9>2.46	
 feature_14<=0.69	
+feature_9>2.46	
+feature_13>0.33	
 feature_11>1.22	
 feature_15>0.24	
 feature_7>1.75
@@ -344,9 +344,9 @@ feature_13>0.41
 feature_10>2.01	
 feature_7>1.92	
 feature_12>1.20	
-feature_13>0.33	
-feature_9>2.46	
 feature_14<=0.69	
+feature_9>2.46	
+feature_13>0.33	
 feature_11>1.22	
 feature_15>0.24	
 feature_7>1.75
@@ -356,18 +356,33 @@ feature_13>0.41
 feature_10>2.01	
 feature_7>1.92	
 feature_12>1.20	
-feature_13>0.33	
-feature_9>2.46	
 feature_14<=0.69	
+feature_9>2.46	
+feature_13>0.33	
 feature_11>1.22	
 feature_15>0.24	
 feature_7>1.75
 Report for (strategy <d180s1 M->) 
+for weights: [0.00, 87.00] class: Profit
+features: 	
+feature_6<=2.96	
+feature_13>0.69	
+feature_2>-1.77	
+feature_4>0.07	
+feature_1>-1.29	
+feature_13<=1.16	
+feature_12>1.05	
+feature_9>1.93	
+feature_9<=10.93	
+feature_1<=1.38	
+feature_13<=1.57
 for weights: [0.00, 24.00] class: Profit
 features: 	
-feature_0<=-0.04	
-feature_12>1.42	
-feature_1<=-1.29	
+feature_6<=2.96	
+feature_13>0.69	
+feature_2>-1.77	
+feature_4>0.07	
+feature_1>-1.29	
 feature_13<=1.16	
 feature_12>1.05	
 feature_9>1.93	
@@ -376,20 +391,11 @@ feature_1<=1.38
 feature_13<=1.57
 for weights: [0.00, 17.00] class: Profit
 features: 	
-feature_0<=-0.04	
-feature_12>1.42	
-feature_1<=-1.29	
-feature_13<=1.16	
-feature_12>1.05	
-feature_9>1.93	
-feature_9<=10.93	
-feature_1<=1.38	
-feature_13<=1.57
-for weights: [0.00, 9.00] class: Profit
-features: 	
-feature_0<=-0.04	
-feature_12>1.42	
-feature_1<=-1.29	
+feature_6<=2.96	
+feature_13>0.69	
+feature_2>-1.77	
+feature_4>0.07	
+feature_1>-1.29	
 feature_13<=1.16	
 feature_12>1.05	
 feature_9>1.93	
@@ -435,24 +441,24 @@ Report for (strategy <d180s1.2 M->)
 for weights: [0.00, 53.00] class: Profit
 features: 	
 feature_10>1.74	
-feature_8<=35.25	
-feature_7>0.17	
+feature_9<=10.93	
+feature_13<=1.46	
 feature_9<=11.28	
 feature_1>-2.11	
 feature_12<=1.72
 for weights: [0.00, 26.00] class: Profit
 features: 	
 feature_10>1.74	
-feature_8<=35.25	
-feature_7>0.17	
+feature_9<=10.93	
+feature_13<=1.46	
 feature_9<=11.28	
 feature_1>-2.11	
 feature_12<=1.72
 for weights: [0.00, 6.00] class: Profit
 features: 	
 feature_10>1.74	
-feature_8<=35.25	
-feature_7>0.17	
+feature_9<=10.93	
+feature_13<=1.46	
 feature_9<=11.28	
 feature_1>-2.11	
 feature_12<=1.72
@@ -470,40 +476,34 @@ features:
 feature_13>0.91	
 feature_10<=5.42
 Report for (strategy <d180s1.5 M->) 
-for weights: [0.00, 23.00] class: Profit
+for weights: [0.00, 19.00] class: Profit
 features: 	
-feature_12>1.75	
-feature_8>7.97	
-feature_1>-1.98	
-feature_9>3.63	
-feature_10<=7.19	
-feature_2>-1.05
+feature_12>1.77	
+feature_3>-2.30	
+feature_4<=0.91	
+feature_9>3.63
+for weights: [0.00, 6.00] class: Profit
+features: 	
+feature_12>1.77	
+feature_3>-2.30	
+feature_4<=0.91	
+feature_9>3.63
 for weights: [0.00, 2.00] class: Profit
 features: 	
-feature_12>1.75	
-feature_8>7.97	
-feature_1>-1.98	
-feature_9>3.63	
-feature_10<=7.19	
-feature_2>-1.05
-for weights: [0.00, 2.00] class: Profit
-features: 	
-feature_12>1.75	
-feature_8>7.97	
-feature_1>-1.98	
-feature_9>3.63	
-feature_10<=7.19	
-feature_2>-1.05
+feature_12>1.77	
+feature_3>-2.30	
+feature_4<=0.91	
+feature_9>3.63
 Report for (strategy <d150s1.5 M->) 
 for weights: [0.00, 17.00] class: Profit
 features: 	
-feature_0<=-0.03	
+feature_15>0.93	
 feature_4<=0.63
 for weights: [0.00, 5.00] class: Profit
 features: 	
-feature_0<=-0.03	
+feature_15>0.93	
 feature_4<=0.63
 for weights: [0.00, 2.00] class: Profit
 features: 	
-feature_0<=-0.03	
+feature_15>0.93	
 feature_4<=0.63

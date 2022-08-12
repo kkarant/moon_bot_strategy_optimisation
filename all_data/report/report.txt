@@ -1,0 +1,49 @@
+Report for all_data/data/29julydr.txt
+===================================================
+Overall stats for strategy
+
+Average plus is: 6.44
+Average minus is: -23.15
+Profit/loss ratio is: -0.28
+While there is: 3492.00 profit trades, and: 1319.00 loss trades
+calculated statistical realized PnL(%) is: -8030.10%
+Real PnL(%) is: -8030.10%
+
+***PnL(%) statistics are correct only with same order size in every trade***
+===================================================
+ Statistics about frequency of strategies
+(strategy <d180s1 M+>)               568
+(strategy <d180s1 M->)               534
+(strategy <d150s1 M+>)               501
+(strategy <d150s1 M->)               458
+(strategy <d120s1 M+>)               435
+(strategy <d120s1 M->)               395
+(strategy <d180s1.2 M+>)             252
+(strategy <d150s1.2 M+>)             234
+(strategy <d120s1.2 M+>)             215
+(strategy <d180s1.2 M->)             200
+(strategy <d150s1.2 M->)             154
+(strategy <d120s1.2 M->)             149
+(strategy <d180s1.5 M+>)             112
+(strategy <d150s1.5 M+>)             111
+(strategy <d120s1.5 M+>)              88
+(strategy <d150s1.2 M+ FILTERS>)      57
+(strategy <d180s1.5 M->)              57
+(strategy <d150s1.5 M->)              48
+(strategy <d120s1.5 M->)              42
+(strategy <d180s2 M+>)                41
+(strategy <d150s2 M+>)                38
+(strategy <d120s2 M+>)                31
+(strategy <d180s1.2 M+ FILTERS>)      27
+(strategy <d150s2 M->)                16
+(strategy <d120s2 M->)                12
+(strategy <d180s2 M->)                 8
+(strategy <d120s1.5 M+ FILTERS>)       7
+(strategy <d120s3 M+>)                 5
+(strategy <d150s3 M+>)                 5
+(strategy <d150s3 M->)                 3
+(strategy <d180s3 M+>)                 3
+(strategy <d180s3 M->)                 2
+(strategy <d120s1.2 M+ FILTERS>)       2
+(strategy <d120s3 M->)                 1
+Name: ChannelName , dtype: int64

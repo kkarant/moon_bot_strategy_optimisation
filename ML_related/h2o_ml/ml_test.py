@@ -6,7 +6,7 @@ from h2o.estimators import H2OGeneralizedLinearEstimator
 
 def h2o_train():
     h2o.init(ip="localhost", port=54323)
-    trades = h2o.import_file('allData/data/2to9JULYdr.txt')
+    trades = h2o.import_file('all_data/data/2to9JULYdr.txt')
     trades = trades[:, ["Profit ", "dBTC ", "d24BTC ", "dMarket ", "dM24 ",
                         "dBTC5m ", "Pump1H ", "Dump1H ", "d24h ", "d3h ", "d1h ", "d15m ", "d5m ", "d1m ", "dBTC1m "]]
     train, test, valid = trades.split_frame(ratios=[.7, .15])
@@ -21,7 +21,7 @@ def h2o_train():
 
     m = aml.get_best_model()
 
-    model_path = h2o.save_model(model=m, path="allData/models", force=True)
+    model_path = h2o.save_model(model=m, path="all_data/models", force=True)
     preds = aml.leader.predict(test)
 
     print(lb)
@@ -31,12 +31,12 @@ def h2o_train():
 
 def h2o_model_pred():
     h2o.init(ip="localhost", port=54323)
-    trades = h2o.import_file('allData/data/2to9JULYdr.txt')
+    trades = h2o.import_file('all_data/data/2to9JULYdr.txt')
     trades = trades[:, ["Profit ", "dBTC ", "d24BTC ", "dMarket ", "dM24 ",
                         "dBTC5m ", "Pump1H ", "Dump1H ", "d24h ", "d3h ", "d1h ", "d15m ", "d5m ", "d1m ", "dBTC1m "]]
     # Split the data into Train/Test/Validation with Train having 70% and test and validation 15% each
     train, test, valid = trades.split_frame(ratios=[.7, .15])
-    model = h2o.load_model("allData/models/StackedEnsemble_AllModels_1_AutoML_1_20220724_55651")
+    model = h2o.load_model("all_data/models/StackedEnsemble_AllModels_1_AutoML_1_20220724_55651")
     perf = model.model_performance(valid)
     preds = model.predict(test)
     colsCombine_df = test["Profit "].cbind(preds)

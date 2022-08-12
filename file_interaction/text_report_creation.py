@@ -1,10 +1,11 @@
-from market_analysis_module.strategy_statistics import strategyStatistics
+from market_analysis_module.strategy_statistics import strategy_statistics
+from market_analysis_module.strategy_statistics.strategy_statistics import timeInTradeCalc
 
 
 def reportModulesStrFind(strFirstLine):
     string1 = strFirstLine
 
-    file1 = open("allData/report/report.txt", "r")
+    file1 = open("all_data/report/report.txt", "r")
     flag = 0
     index = 0
 
@@ -27,7 +28,7 @@ def reportModulesStrFind(strFirstLine):
 def reportSourceFileName(rfile):
     string1 = str(rfile)
 
-    file1 = open("allData/report/report.txt", "r")
+    file1 = open("all_data/report/report.txt", "r")
     flag = 0
     index = 0
 
@@ -58,10 +59,10 @@ def timeInTradeCalcprint(strategyDictTime, file):
 
 def reportCreation(rfile, stratData, regrDict, ratioData, colNames, df, listOfReqVal, stratRatioDict):
     if reportSourceFileName(rfile):
-        with open("allData/report/report.txt", "w") as file:
+        with open("all_data/report/report.txt", "w") as file:
             file.write('Report for ' + str(rfile))
 
-    file = open("allData/report/report.txt", "a")
+    file = open("all_data/report/report.txt", "a")
     if reportModulesStrFind('Overall stats for strategy'):
         file.write('\n===================================================')
         file.write('\nOverall stats for strategy')
@@ -82,7 +83,7 @@ def reportCreation(rfile, stratData, regrDict, ratioData, colNames, df, listOfRe
         file.write(str(df[str(str(colNames[7]))].value_counts()))
 
     if reportModulesStrFind('Average time in trade stats for strategies'):
-        timeInTradeCalcprint(strategyStatistics.timeInTradeCalc(stratData, colNames)[0], file)
+        timeInTradeCalcprint(timeInTradeCalc(stratData, colNames)[0], file)
 
     if reportModulesStrFind('Overall stats for each strategy'):
         # 'real_pnl', 'plusCount', 'minusCount', 'sumPlus', 'sumMinus', 'averagePlus', 'averageMinus'
@@ -125,9 +126,9 @@ def reportCreation(rfile, stratData, regrDict, ratioData, colNames, df, listOfRe
 
 
 def featureReportCreation(rfile, weightDict, featureListDict):
-    with open("allData/report/reportFeatures.txt", "w") as file:
+    with open("all_data/report/reportFeatures.txt", "w") as file:
         file.write('Report for ' + str(rfile))
-    file = open("allData/report/reportFeatures.txt", "a")
+    file = open("all_data/report/reportFeatures.txt", "a")
     for stratName in featureListDict:
         i = 0
         file.write('\nReport for ' + stratName)
@@ -141,10 +142,10 @@ def featureReportCreation(rfile, weightDict, featureListDict):
 
 
 def rangesDictFinalReportCreation(rfile, rangesDictFinal):
-    with open("allData/report/reportRangesNotSorted.txt", "w") as file:
+    with open("all_data/report/reportRangesNotSorted.txt", "w") as file:
         file.write('Report for ' + str(rfile))
 
-    file = open("allData/report/reportRangesNotSorted.txt", "a")
+    file = open("all_data/report/reportRangesNotSorted.txt", "a")
     for stratName in rangesDictFinal:
         file.write("\n====================================")
         file.write("\nRanges for strategy " + stratName)
@@ -155,10 +156,10 @@ def rangesDictFinalReportCreation(rfile, rangesDictFinal):
 
 def rangesReportFiveBestCreation(rfile, rangesDictFinal, biggestRRList, biggestRegrDictStrat, stratRatioDict):
     i = 0
-    with open("allData/report/reportStratRangesFiveBest.txt", "w") as file:
+    with open("all_data/report/reportStratRangesFiveBest.txt", "w") as file:
         file.write('Report for ' + str(rfile))
 
-    file = open("allData/report/reportStratRangesFiveBest.txt", "a")
+    file = open("all_data/report/reportStratRangesFiveBest.txt", "a")
     for stratName in biggestRegrDictStrat:
         file.write("\n====================================")
         file.write("\nRanges for strategy " + stratName + " with ratio = {0:.2f}".format(biggestRRList[i]))

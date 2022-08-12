@@ -31,3 +31,6 @@ main duration:  0:00:01.935000
 main duration:  0:00:01.793001
 main duration:  0:00:01.878003
 main duration:  0:00:00.724120
+decisionTree duration:  0:00:39.354630
+main duration:  0:00:56.431657
+main duration:  0:00:00.847001

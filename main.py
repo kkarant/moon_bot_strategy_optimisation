@@ -1,26 +1,26 @@
 import os
 
 from tpsl_calculation.tpsl_backtest import backtest_stratLevel_manager
-from market_analysis_module.delta_calculation.decTreeRangesCombine import weightSearch, weightLinesDepthSearch, \
+from market_analysis_module.delta_calculation.dt_ranges_calculation import weightSearch, weightLinesDepthSearch, \
     featuresListFinder, featuresCombineFinal, featuresFinalReport
 from market_analysis_module.delta_calculation.deltaFindML import decisionTree
-from file_interaction.reportCreator import rangesReportFiveBestCreation, rangesDictFinalReportCreation, \
+from file_interaction.text_report_creation import rangesReportFiveBestCreation, rangesDictFinalReportCreation, \
     featureReportCreation, reportCreation
-from file_interaction.fileImport import checkFilesForExistence, csvImport
-from market_analysis_module.strategy_statistics.strategyStatistics import getStatForStrat, strategyGetRatio, \
+from file_interaction.file_Import import checkFilesForExistence, csvImport
+from market_analysis_module.strategy_statistics.strategy_statistics import getStatForStrat, strategyGetRatio, \
                                                                           getRatio, bestStrategies
-from market_analysis_module.strategy_statistics.regressionCalculaton import regressionValues
-from service_functions.supportingFunctions import decorator, checkEmptyFile
+from market_analysis_module.strategy_statistics.regression_calculaton import regressionValues
+from service_functions.supporting_functions import decorator, checkEmptyFile
 
 
 @decorator
 def main():
     os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "D:\\ChromeDownloads\\tradepred-357807-1d8093a8e7dd.json"
-    repFile = 'allData/data/29julydr.txt'
-    listOfReportFiles = [repFile, "allData/report/report.txt", "allData/report/reportFeatures.txt",
-                         "allData/report/reportFuncDuration.txt", "allData/report/reportRangesNotSorted.txt",
-                         "allData/report/reportStratRangesFiveBest.txt", "allData/report/optimalTPSL.txt",
-                         "allData/report/profitOnCalculatedTPSLRanges.txt"]
+    repFile = 'all_data/data/29julydr.txt'
+    listOfReportFiles = [repFile, "all_data/report/report.txt", "all_data/report/reportFeatures.txt",
+                         "all_data/report/reportFuncDuration.txt", "all_data/report/reportRangesNotSorted.txt",
+                         "all_data/report/reportStratRangesFiveBest.txt", "all_data/report/optimalTPSL.txt",
+                         "all_data/report/profitOnCalculatedTPSLRanges.txt"]
     # mode = 0
     mode = 1
     checkFilesForExistence(listOfReportFiles)
@@ -30,14 +30,14 @@ def main():
     regrDict, listOfReqVal = regressionValues(stratData, colNames)  # list of val used in program
     stratRatioDict = strategyGetRatio(stratData)  # basic info but for every strategy by themselves
 
-    if checkEmptyFile("allData/report/report.txt", repFile):
+    if checkEmptyFile("all_data/report/report.txt", repFile):
         ratioData: tuple = getRatio(df, colNames)
         # finds basic info as PnL or number of + and - trades
         reportCreation(repFile, stratData, regrDict, ratioData, colNames, df, listOfReqVal,
                        stratRatioDict)
         # creates a txt report for all file and every strategy(correlation, basic stats, time in trade and so on)
 
-    if checkEmptyFile("allData/report/reportFeatures.txt", repFile):
+    if checkEmptyFile("all_data/report/reportFeatures.txt", repFile):
         decisionTree(stratData, colNames)
         # TODO add if not the same reportFile then delete txt and generate new
         # generates trees, also can turn on feature of creating Jpg or TXT reports
@@ -66,7 +66,7 @@ def main():
                                      biggestRegrDictStrat, stratRatioDict)
         # creates txt report with ranges and correlations for five strategies with highest ratio
 
-    if checkEmptyFile("allData/report/profitOnCalculatedTPSLRanges.txt", repFile):
+    if checkEmptyFile("all_data/report/profitOnCalculatedTPSLRanges.txt", repFile):
         backtest_stratLevel_manager(stratData, colNames, repFile)
 
     # apiToDatabase(stratData)
@@ -88,7 +88,7 @@ def main():
     # prediction = live_predict()
     # winrate_test(prediction, df)
 
-    # remake_file(file_path='allData/data/allTradesSet.csv')
+    # remake_file(file_path='all_data/data/allTradesSet.csv')
     # data_processing(df)
 
 

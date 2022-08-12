@@ -41,7 +41,7 @@ def weightSearch(stratData, listOfReqVal, mode):
             strToFind = ["weights: [0.00, {0:.2f}] class: Profit".format(i) for i in numList]
             # print(strToFind)
             lineIndex = 0
-            file = open('allData/decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
+            file = open('all_data/decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
             for line in file.readlines():
                 i = 0
                 lineIndex = lineIndex + 1
@@ -120,7 +120,7 @@ def weightLinesDepthSearch(weightDict, weightLine, mode):
         strName = str(stratName).replace(" ", "").replace("(", "").replace(")", "").replace(">", ""). \
             replace("<", "").replace("-", "_minus").replace("+", "_plus").replace("st", "St")
 
-        file = open('allData/decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
+        file = open('all_data/decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
         content = file.readlines()
         if len(content) > 11:
             if mode == 0:
@@ -153,7 +153,7 @@ def featuresListFinder(weightDepthIndex, weightLine, weightDict, mode):
         strName = str(stratName).replace(" ", "").replace("(", "").replace(")", "").replace(">", ""). \
             replace("<", "").replace("-", "_minus").replace("+", "_plus").replace("st", "St")
 
-        file = open('allData/decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
+        file = open('all_data/decisionTreeTextReport/reportDecTree' + str(strName) + '.txt', "r+")
         content = file.readlines()
         if stratName in weightDepthIndex.keys():
             if mode == 0:

@@ -40,7 +40,7 @@ def live_predict():
     ENDPOINT_ID = "3403489865268985856"
     PROJECT_ID = "tradepred-357807"
     REGION = "asia-northeast1"
-    instance = readTradeFile("allData/data/emulator231re.csv")
+    instance = readTradeFile("all_data/data/emulator231re.csv")
     prediction = endpoint_predict(PROJECT_ID, REGION, instance, ENDPOINT_ID)
     return prediction
 
