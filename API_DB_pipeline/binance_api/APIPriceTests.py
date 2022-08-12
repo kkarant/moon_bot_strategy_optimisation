@@ -2,7 +2,7 @@ from datetime import datetime
 
 import requests
 
-from data_validation.supportingFunctions import decorator
+from service_functions.supportingFunctions import decorator
 
 
 def test_request_corect_price():

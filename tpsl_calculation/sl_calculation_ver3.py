@@ -1,10 +1,7 @@
-from datetime import datetime, timedelta
-
 import matplotlib.pyplot as plt
 import numpy as np
-import pytz
-from scipy.signal import find_peaks, savgol_filter
-from db_interaction.dbKlinesInfo import dbReceiveKlines, connectionDB
+from scipy.signal import find_peaks
+from API_DB_pipeline.db_interaction.dbKlinesInfo import dbReceiveKlines, connectionDB
 from tpsl_calculation.WWO_stop_calculation import WWO_combinations_generator
 from tpsl_calculation.tp_calculation_ver3 import tradeDataPrep, tradeCheck, smooth
 
@@ -48,7 +45,7 @@ def sl_TradeLevel_manager(tradeData, colNames, dateFormat, BuySellPrice, TPtimeR
                             overallStops.append(el)
             else:
                 takeValue, takeReached = ifTradeReachTP(priceActionData, openPrice, TPtimeRanges, openTimeDT)
-    print(f"{int(numOfNormalTrades / len(tradeData) * 100)} % of trades is OK in SLcalc, {numOfNormalTrades}")
+    # print(f"{int(numOfNormalTrades / len(tradeData) * 100)} % of trades is OK in SLcalc, {numOfNormalTrades}")
 
     return overallStops
 
@@ -78,58 +75,61 @@ def sl_calculation(overallStops, coeffs, coeffsNumTrades):
 
     y_smooth = smooth(y_chunked_np, 5)
     lowsSavGol, _ = find_peaks(-y_smooth)
-    peaksSavGol = np.delete(lowsSavGol, np.argwhere(y_chunked_np[lowsSavGol] > 0))
 
-    diffList = []
-    diffDict = []
+    if len(lowsSavGol) != 0:
+        diffList = []
+        diffDict = []
+        diffNormal = max(y_smooth[lowsSavGol]) / 5
+        for index, el in enumerate(lowsSavGol):
+            if index != len(lowsSavGol) - 1:
+                diff = y_smooth[lowsSavGol[index]] - y_smooth[lowsSavGol[index + 1]]
+            else:
+                diff = diffNormal + 1
+            if -diffNormal < diff < diffNormal:
+                diffList.append(el)
+            else:
+                diffList.append(el)
+                diffDict.append(diffList)
+                diffList = []
 
-    diffNormal = max(y_smooth[lowsSavGol]) / 5
-    for index, el in enumerate(lowsSavGol):
-        if index != len(lowsSavGol) - 1:
-            diff = y_smooth[lowsSavGol[index]] - y_smooth[lowsSavGol[index + 1]]
-        else:
-            diff = diffNormal + 1
-        if -diffNormal < diff < diffNormal:
-            diffList.append(el)
-        else:
-            diffList.append(el)
-            diffDict.append(diffList)
-            diffList = []
+        diffDict = [x for x in diffDict if x]
 
-    diffDict = [x for x in diffDict if x]
+        ranges_borders = []
+        for index, el in enumerate(diffDict):
+            if index != len(diffDict) - 1:
+                ranges_borders.append((el[-1] + diffDict[index + 1][0]) / 2)
+            else:
+                ranges_borders.append(max(x_chunked_np / 10))
 
-    ranges_borders = []
-    for index, el in enumerate(diffDict):
-        if index != len(diffDict) - 1:
-            ranges_borders.append((el[-1] + diffDict[index + 1][0]) / 2)
-        else:
-            ranges_borders.append(max(x_chunked_np / 10))
+        # profitList = [sum(y_chunked_np[el]) / len(el) for el in diffDict]
+        profitList = [sum(y_smooth[el]) / len(el) for el in diffDict]
 
-    # profitList = [sum(y_chunked_np[el]) / len(el) for el in diffDict]
-    profitList = [sum(y_smooth[el]) / len(el) for el in diffDict]
+        slListNorm = []
+        diffDictNorm = []
+        for index, el in enumerate(profitList):
+            if index == len(profitList) - 1:
+                slListNorm.append(el)
+                diffDictNorm.append(diffDict[index])
+            elif el > profitList[index + 1]:
+                slListNorm.append(el)
+                diffDictNorm.append(diffDict[index])
 
-    slListNorm = []
-    diffDictNorm = []
-    for index, el in enumerate(profitList):
-        if index == len(profitList) - 1:
-            slListNorm.append(el)
-            diffDictNorm.append(diffDict[index])
-        elif el > profitList[index + 1]:
-            slListNorm.append(el)
-            diffDictNorm.append(diffDict[index])
+        SLtimeRanges = []
+        for index, el in enumerate(diffDictNorm):
+            if index == 0:
+                startTime = 0
+            else:
+                startTime = ranges_borders[index - 1] * 10
+            endTime = ranges_borders[index] * 10
+            SLtimeRanges.append([int(startTime), int(endTime), round(slListNorm[index], 2)])
 
-    SLtimeRanges = []
-    for index, el in enumerate(diffDictNorm):
-        if index == 0:
-            startTime = 0
-        else:
-            startTime = ranges_borders[index - 1] * 10
-        endTime = ranges_borders[index] * 10
-        SLtimeRanges.append([int(startTime), int(endTime), round(slListNorm[index], 2)])
-
-
-    plotstop(x_chunked_np, y_smooth, lowsSavGol,
-             coeffsNumTrades, ranges_borders)
+        plotstop(x_chunked_np, y_smooth, lowsSavGol,
+                 coeffsNumTrades, ranges_borders)
+        return SLtimeRanges
+    elif len(lowsSavGol) == 0:
+        stop = min(y_smooth)
+        SLtimeRanges = [[0, len(coeffs)*10, stop]]
+        return SLtimeRanges
 
 
 def plotstop(x_chunked_np, y_smooth, lowsSavGol, coeffsNumTrades, ranges_borders):

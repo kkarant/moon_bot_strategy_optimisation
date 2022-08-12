@@ -8,8 +8,8 @@ from IPython.display import Image
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, export_graphviz, export_text
 
-from strategy_statistics.strategyStatistics import timeInTradeCalc
-from data_validation.supportingFunctions import decorator
+from market_analysis_module.strategy_statistics.strategyStatistics import timeInTradeCalc
+from service_functions.supportingFunctions import decorator
 
 
 def getProfit(stratData, stratName):  # execution  time OK
@@ -28,7 +28,7 @@ def getProfit(stratData, stratName):  # execution  time OK
 
 
 def dataSetInsert(stratData, stratName, val, colNames):
-    # returns dataframe with 1 col of time ans 2nd col of val values
+    # returns dataframe with 1 col of time and 2nd col of val values
     # tempListOProfit = getProfit(stratData, stratName)[0]
     classification = getProfit(stratData, stratName)[1]
     valList = []
@@ -44,48 +44,6 @@ def dataSetInsert(stratData, stratName, val, colNames):
     dfDict = {str(val): valList, 'tradeTime': timeList, 'classification': classification}
     df = pd.DataFrame(dfDict)
     return df
-
-
-# SVC algorithm - too slow, not for out situation def analysisSCV(stratData, colNames):
-# listOfReqVal = ['dBTC ',
-# 'd24BTC ', 'dMarket ', 'dM24 ', 'bvsv ', 'dBTC5m ', 'Pump1H ', 'Dump1H ', 'd24h ', 'd3h ', 'd1h ', 'd15m ', 'd5m ',
-# 'd1m ', 'dBTC1m ', 'Vd1m ']
-#
-#     for stratName in stratData[1]:
-#         for val in listOfReqVal:
-#             df = dataSetInsert(stratData, stratName, val, colNames)
-#             training_set, test_set = train_test_split(df, test_size=0.2, random_state=1)
-#             X_train = training_set.iloc[:, 0:2].values
-#             Y_train = training_set.iloc[:, 2].values
-#             X_test = test_set.iloc[:, 0:2].values
-#             Y_test = test_set.iloc[:, 2].values
-#
-#             classifier = SVC(kernel='rbf', random_state=1)
-#             classifier.fit(X_train, Y_train)
-#
-#             Y_pred = classifier.predict(X_test)
-#             test_set["Predictions"] = Y_pred
-#
-#             le = LabelEncoder()
-#             Y_train = le.fit_transform(Y_train)
-#             classifier = SVC(kernel='rbf', random_state=1)
-#             classifier.fit(X_train, Y_train)
-#
-#             plt.figure(figsize=(7, 7))
-#             X_set, y_set = X_train, Y_train
-#             X1, X2 = np.meshgrid(np.arange(start=X_set[:, 0].min() - 1, stop=X_set[:, 0].max() + 1, step=0.01),
-#                                  np.arange(start=X_set[:, 1].min() - 1, stop=X_set[:, 1].max() + 1, step=0.01))
-#             plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).reshape(X1.shape), alpha=0.75,
-#                          cmap=ListedColormap(('black', 'white')))
-#             plt.xlim(X1.min(), X1.max())
-#             plt.ylim(X2.min(), X2.max())
-#             for i, j in enumerate(np.unique(y_set)):
-#                 plt.scatter(X_set[y_set == j, 0], X_set[y_set == j, 1], c=ListedColormap(('red', 'orange'))(i), label=j)
-#             plt.title(str(val))
-#             plt.xlabel('Value of ' + str(val))
-#             plt.ylabel('Time')
-#             plt.legend()
-#             plt.show()
 
 
 def dataSetForDecisionTree(stratData, stratName, listOfReqVal, colNames):
@@ -167,7 +125,7 @@ def decisionTree(stratData, colNames):
             # Predict the response for test dataset
             y_pred = clf.predict(X_test)
             # print("For strategy {0} accuracy: {1:.2f}".format(stratName, metrics.accuracy_score(y_test, y_pred)))
-            # decisionTreeVisualisation(stratName, listOfReqVal, clf)
+            decisionTreeVisualisation(stratName, listOfReqVal, clf)
             textRep = decisionTreeTextReport(clf, stratName)
         # else:
         # print(f"Not enough data for {stratName}")

@@ -1,0 +1,221 @@
+Report for allData/data/29julydr.txt
+====================================
+Ranges for strategy (strategy <d180s1 M+>) 
+for dBTC range is [-0.2, -0.0]
+for d24BTC range is [0.22, 3.42]
+for dMarket range is [NaN, 1.26]
+for dM24 range is [0.05, 2.96]
+for bvsv range is [0.41, NaN]
+for Dump1H range is [0.01, NaN]
+for d24h range is [NaN, 21.61]
+for d15m range is [NaN, 12.57]
+for d5m range is [1.66, NaN]
+for d1m range is [0.63, 4.16]
+====================================
+Ranges for strategy (strategy <d120s1 M+>) 
+for dBTC range is [-0.14, 0.71]
+for d24BTC range is [NaN, 28.79]
+for dMarket range is [NaN, 0.8]
+for dM24 range is [0.99, NaN]
+for dBTC5m range is [NaN, 0.71]
+for Pump1H range is [8.88, 8.88]
+for Dump1H range is [NaN, 4.0]
+for d1h range is [NaN, 8.59]
+for d1m range is [0.38, 3.8]
+for dBTC1m range is [0.04, NaN]
+====================================
+Ranges for strategy (strategy <d150s1 M+>) 
+for dBTC range is [0.0, 3.24]
+for dMarket range is [0.01, 1.47]
+for dM24 range is [0.14, NaN]
+for bvsv range is [NaN, 2.2]
+for dBTC5m range is [0.07, 0.58]
+for Dump1H range is [0.14, NaN]
+for d24h range is [6.09, 20.32]
+for d1h range is [NaN, 8.28]
+for d15m range is [2.21, 6.45]
+for d5m range is [1.96, 3.01]
+for d1m range is [0.75, NaN]
+====================================
+Ranges for strategy (strategy <d120s1.2 M+>) 
+for dBTC range is [0.05, 0.71]
+for d24BTC range is [0.74, NaN]
+for dMarket range is [NaN, 0.78]
+for bvsv range is [NaN, 0.94]
+for dBTC5m range is [0.24, 0.71]
+for Dump1H range is [0.42, 0.42]
+for d24h range is [9.11, 22.39]
+for d5m range is [1.73, 1.73]
+for dBTC1m range is [0.05, NaN]
+====================================
+Ranges for strategy (strategy <d150s1.2 M+>) 
+for dBTC range is [-0.06, NaN]
+for d24BTC range is [NaN, 18.96]
+for dMarket range is [0.38, 0.71]
+for dM24 range is [0.02, NaN]
+for bvsv range is [0.59, 0.59]
+for d24h range is [5.73, 19.7]
+for d1h range is [2.39, NaN]
+for d5m range is [1.54, NaN]
+for d1m range is [0.64, 4.17]
+====================================
+Ranges for strategy (strategy <d180s1.2 M+>) 
+for dBTC range is [-0.09, 0.66]
+for d24BTC range is [1.0, NaN]
+for dM24 range is [0.19, NaN]
+for bvsv range is [0.21, 0.56]
+for Pump1H range is [0.96, NaN]
+for Dump1H range is [NaN, 4.54]
+for d24h range is [6.39, 19.09]
+for d1h range is [2.44, NaN]
+for d15m range is [NaN, 6.38]
+for d5m range is [2.1, 2.1]
+for dBTC1m range is [NaN, 0.19]
+====================================
+Ranges for strategy (strategy <d180s1.2 M+ FILTERS>) 
+for dBTC range is [0.08, 0.3]
+for dBTC5m range is [NaN, 0.3]
+for Pump1H range is [4.05, NaN]
+====================================
+Ranges for strategy (strategy <d150s1.5 M+>) 
+for dBTC range is [0.12, 0.35]
+for dMarket range is [0.11, 0.11]
+for dM24 range is [1.54, NaN]
+for Pump1H range is [NaN, 6.53]
+for Dump1H range is [NaN, 2.15]
+for d3h range is [8.86, 8.86]
+for dBTC1m range is [NaN, 0.35]
+====================================
+Ranges for strategy (strategy <d180s1.5 M+>) 
+for dBTC range is [0.19, NaN]
+for bvsv range is [0.78, 0.78]
+for dBTC5m range is [0.19, NaN]
+for Pump1H range is [5.48, NaN]
+for d24h range is [7.63, NaN]
+for d3h range is [4.7, NaN]
+for d1h range is [2.91, NaN]
+for d15m range is [3.96, 9.37]
+for d5m range is [1.73, NaN]
+for d1m range is [NaN, 3.34]
+====================================
+Ranges for strategy (strategy <d150s1.2 M+ FILTERS>) 
+for d24BTC range is [3.17, 3.17]
+for dMarket range is [0.05, NaN]
+for bvsv range is [0.25, NaN]
+for Dump1H range is [0.18, NaN]
+for d15m range is [2.7, 2.7]
+for d1m range is [0.73, NaN]
+====================================
+Ranges for strategy (strategy <d120s1.5 M+>) 
+for dBTC range is [NaN, 0.35]
+for d24BTC range is [-0.26, 8.89]
+for bvsv range is [0.27, NaN]
+for Pump1H range is [0.18, 15.28]
+for Dump1H range is [0.2, 0.2]
+for d3h range is [4.48, NaN]
+for d1h range is [8.01, NaN]
+for dBTC1m range is [NaN, 0.35]
+====================================
+Ranges for strategy (strategy <d120s2 M+>) 
+for dBTC range is [0.49, 0.49]
+for d24BTC range is [0.88, 0.88]
+for dMarket range is [1.44, NaN]
+for dM24 range is [0.05, NaN]
+for dBTC5m range is [0.49, 0.49]
+====================================
+Ranges for strategy (strategy <d150s2 M+>) 
+for dBTC range is [0.1, 0.67]
+for dM24 range is [0.06, 2.14]
+for dBTC5m range is [NaN, 0.67]
+for d24h range is [18.98, 18.98]
+for d3h range is [6.46, 6.46]
+for dBTC1m range is [0.1, NaN]
+====================================
+Ranges for strategy (strategy <d120s1 M->) 
+for dBTC range is [-1.6, NaN]
+for dM24 range is [-2.67, -1.08]
+for bvsv range is [0.12, 1.29]
+for dBTC5m range is [0.13, NaN]
+for Dump1H range is [2.8, 2.8]
+for d1m range is [0.59, NaN]
+for dBTC1m range is [0.03, NaN]
+====================================
+Ranges for strategy (strategy <d150s1 M->) 
+for dBTC range is [-0.94, 1.21]
+for d24BTC range is [-1.4, 1.43]
+for dM24 range is [-3.12, NaN]
+for dBTC5m range is [0.22, 1.21]
+for Pump1H range is [0.92, 9.04]
+for Dump1H range is [1.75, 1.75]
+for d3h range is [2.46, NaN]
+for d1h range is [2.01, NaN]
+for d15m range is [1.22, 1.97]
+for d5m range is [1.2, NaN]
+for d1m range is [0.33, 1.34]
+for dBTC1m range is [NaN, 0.69]
+====================================
+Ranges for strategy (strategy <d180s1 M->) 
+for dBTC range is [0.13, -0.04]
+for d24BTC range is [NaN, 1.38]
+for dM24 range is [-0.51, NaN]
+for dBTC5m range is [0.13, NaN]
+for Dump1H range is [NaN, 3.9]
+for d3h range is [1.93, 10.93]
+for d1h range is [2.95, NaN]
+for d5m range is [1.05, 2.74]
+for d1m range is [1.16, 1.57]
+====================================
+Ranges for strategy (strategy <d120s1.2 M->) 
+for dBTC range is [0.37, NaN]
+for d24BTC range is [NaN, 0.92]
+for dM24 range is [-0.59, -0.59]
+for bvsv range is [0.27, NaN]
+for dBTC5m range is [0.37, NaN]
+for Dump1H range is [1.6, 1.6]
+for d3h range is [2.44, NaN]
+====================================
+Ranges for strategy (strategy <d150s1.2 M->) 
+for dBTC range is [0.12, NaN]
+for d24BTC range is [NaN, 17.42]
+for dM24 range is [-2.68, NaN]
+for bvsv range is [NaN, 2.39]
+for dBTC5m range is [0.31, NaN]
+for Pump1H range is [NaN, 2.12]
+for Dump1H range is [2.15, 2.15]
+for d24h range is [NaN, 31.35]
+for d3h range is [2.88, NaN]
+for d15m range is [2.69, 2.69]
+for dBTC1m range is [0.12, NaN]
+====================================
+Ranges for strategy (strategy <d180s1.2 M->) 
+for dBTC range is [0.05, NaN]
+for d24BTC range is [-2.11, 1.89]
+for dMarket range is [-0.4, NaN]
+for Dump1H range is [0.17, NaN]
+for d24h range is [NaN, 35.25]
+for d3h range is [NaN, 11.28]
+for d1h range is [1.74, 10.16]
+for d5m range is [1.72, 1.72]
+for d1m range is [NaN, 1.69]
+for dBTC1m range is [0.05, NaN]
+====================================
+Ranges for strategy (strategy <d120s1.5 M->) 
+for dBTC range is [NaN, -0.48]
+for d1h range is [5.42, 9.41]
+for d1m range is [0.91, NaN]
+====================================
+Ranges for strategy (strategy <d180s1.5 M->) 
+for dBTC range is [0.33, NaN]
+for d24BTC range is [-1.98, NaN]
+for dMarket range is [-1.05, NaN]
+for dBTC5m range is [0.33, NaN]
+for d24h range is [7.97, NaN]
+for d3h range is [3.63, NaN]
+for d1h range is [NaN, 7.19]
+for d5m range is [1.75, 1.75]
+====================================
+Ranges for strategy (strategy <d150s1.5 M->) 
+for dBTC range is [NaN, 0.81]
+for bvsv range is [0.63, 1.26]
+for dBTC5m range is [NaN, 0.81]
+for d3h range is [14.1, NaN]

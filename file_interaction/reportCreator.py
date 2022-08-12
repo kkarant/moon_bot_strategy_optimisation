@@ -1,4 +1,4 @@
-from strategy_statistics import strategyStatistics
+from market_analysis_module.strategy_statistics import strategyStatistics
 
 
 def reportModulesStrFind(strFirstLine):
