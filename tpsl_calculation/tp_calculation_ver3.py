@@ -3,9 +3,9 @@ from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
 import numpy as np
 import pytz
-from scipy.signal import find_peaks, savgol_filter
+from scipy.signal import find_peaks
 
-from db_interaction.dbKlinesInfo import dbReceiveKlines, connectionDB
+from API_DB_pipeline.db_interaction.dbKlinesInfo import dbReceiveKlines, connectionDB
 
 utc = pytz.UTC
 
@@ -68,8 +68,8 @@ def tp_TradeLevel_manager(tradeData, colNames, dateFormat, BuySellPrice):
                     peakTime = el[1]
                     overallPeaks.append([el[0], (peakTime - openTimeDT).seconds, el[2]])
 
-    print(f"{int(numOfNormalTrades / len(tradeData) * 100)} % of trades is OK in TPcalc")
-    print(f"{int(numOfTradesWithpeaks / len(tradeData) * 100)} % of trades have peaks in TPcalc")
+    # print(f"{int(numOfNormalTrades / len(tradeData) * 100)} % of trades is OK in TPcalc")
+    # print(f"{int(numOfTradesWithpeaks / len(tradeData) * 100)} % of trades have peaks in TPcalc")
 
     return overallPeaks
 
@@ -161,59 +161,63 @@ def tp_calculation(overallPeaks, coeffs, coeffsNumTrades):
     y_smooth = smooth(y_chunked_np, 5)
     peaksSavGol, _ = find_peaks(y_smooth)
     # peaksSavGol = np.delete(peaksSavGol, np.argwhere(y_chunked_np[peaksSavGol] < 3))
+    if len(peaksSavGol) != 0:
+        diffList = []
+        diffDict = []
 
-    diffList = []
-    diffDict = []
+        diffNormal = max(y_smooth[peaksSavGol]) / 5
+        for index, el in enumerate(peaksSavGol):
+            if index != len(peaksSavGol) - 1:
+                diff = y_smooth[peaksSavGol[index]] - y_smooth[peaksSavGol[index + 1]]
+            else:
+                diff = diffNormal + 1
+            if -diffNormal < diff < diffNormal:
+                diffList.append(el)
+            else:
+                diffList.append(el)
+                diffDict.append(diffList)
+                diffList = []
 
-    diffNormal = max(y_smooth[peaksSavGol]) / 5
-    for index, el in enumerate(peaksSavGol):
-        if index != len(peaksSavGol) - 1:
-            diff = y_smooth[peaksSavGol[index]] - y_smooth[peaksSavGol[index + 1]]
-        else:
-            diff = diffNormal + 1
-        if -diffNormal < diff < diffNormal:
-            diffList.append(el)
-        else:
-            diffList.append(el)
-            diffDict.append(diffList)
-            diffList = []
+        diffDict = [x for x in diffDict if x]
 
-    diffDict = [x for x in diffDict if x]
+        ranges_borders = []
+        for index, el in enumerate(diffDict):
+            if index != len(diffDict) - 1:
+                ranges_borders.append((el[-1] + diffDict[index + 1][0]) / 2)
+            else:
+                ranges_borders.append(max(x_chunked_np / 10))
 
-    ranges_borders = []
-    for index, el in enumerate(diffDict):
-        if index != len(diffDict) - 1:
-            ranges_borders.append((el[-1] + diffDict[index + 1][0]) / 2)
-        else:
-            ranges_borders.append(max(x_chunked_np / 10))
+        # profitList = [sum(y_chunked_np[el]) / len(el) for el in diffDict]
+        profitList = [sum(y_smooth[el]) / len(el) for el in diffDict]
 
-    # profitList = [sum(y_chunked_np[el]) / len(el) for el in diffDict]
-    profitList = [sum(y_smooth[el]) / len(el) for el in diffDict]
+        profitListNorm = []
+        diffDictNorm = []
+        for index, el in enumerate(profitList):
+            if index == len(profitList) - 1:
+                profitListNorm.append(el)
+                diffDictNorm.append(diffDict[index])
+            elif el > profitList[index + 1]:
+                profitListNorm.append(el)
+                diffDictNorm.append(diffDict[index])
 
-    profitListNorm = []
-    diffDictNorm = []
-    for index, el in enumerate(profitList):
-        if index == len(profitList) - 1:
-            profitListNorm.append(el)
-            diffDictNorm.append(diffDict[index])
-        elif el > profitList[index + 1]:
-            profitListNorm.append(el)
-            diffDictNorm.append(diffDict[index])
-
-    TPtimeRanges = []
-    for index, el in enumerate(diffDictNorm):
-        if index == 0:
-            startTime = 0
-        else:
-            startTime = ranges_borders[index - 1] * 10
-        endTime = ranges_borders[index] * 10
-        TPtimeRanges.append([int(startTime), int(endTime), round(profitListNorm[index] / 20, 2)])
+        TPtimeRanges = []
+        for index, el in enumerate(diffDictNorm):
+            if index == 0:
+                startTime = 0
+            else:
+                startTime = ranges_borders[index - 1] * 10
+            endTime = ranges_borders[index] * 10
+            TPtimeRanges.append([int(startTime), int(endTime), round(profitListNorm[index] / 20, 2)])
 
 
-    plotprofit(x_chunked_np, y_smooth, peaksSavGol,
-               coeffsNumTrades, ranges_borders)
+        plotprofit(x_chunked_np, y_smooth, peaksSavGol,
+                   coeffsNumTrades, ranges_borders)
 
-    return TPtimeRanges
+        return TPtimeRanges
+    elif len(peaksSavGol) == 0:
+        take = max(y_smooth)
+        TPtimeRanges = [[0, len(coeffs)*10, take]]
+        return TPtimeRanges
 
 
 def plotprofit(x_chunked_np,  y_smooth, peaksSavGol, coeffsNumTrades, ranges_borders):

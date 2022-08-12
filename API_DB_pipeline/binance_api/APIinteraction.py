@@ -3,20 +3,21 @@ from datetime import datetime
 
 import requests
 
-from db_interaction.dbKlinesInfo import checkIfTableExist, dbAddKline, checkIfRowsExist, connectionDB, \
+from API_DB_pipeline.db_interaction.dbKlinesInfo import checkIfTableExist, dbAddKline, checkIfRowsExist, connectionDB, \
     connectioncloseDB
-from data_validation.supportingFunctions import decorator
+from service_functions.supportingFunctions import decorator
 from datetime import timedelta
+from concurrent.futures import ThreadPoolExecutor
 
-from data_validation.supportingFunctions import isNull
-from db_interaction.rdsConnection import connectionDBrds, connectioncloseDBrds
+from service_functions.supportingFunctions import isNull
 
 
 @decorator
 def single_request(payload):
     try:
         response = requests.get(f"https://fapi.binance.com/fapi/v1/aggTrades", params=payload)
-        if len(response.json()) >= 1:
+        if len(response.json()) >= 1 and "code" not in response.json():
+            print(response.json())
             # print(response.json()[0])
             tradepriceAction = []
             tradepriceAction = select_price(response.json(), tradepriceAction)
@@ -34,7 +35,6 @@ def single_request(payload):
 def select_price(responseJSON, tradepriceAction):
     for el in responseJSON:
         tradepriceAction.append([el["p"], el["T"]])
-
     return tradepriceAction
 
 
@@ -68,20 +68,26 @@ def apiCallsManager(trade, cur, conn):
         print("Coin " + symbol + " not downloaded, error " + str(response))
 
 
+@decorator
 def apiToDatabase(stratData):
-    # stratData -> 1 -> stratName -> iterate over trades -> 1 -> BuyDate \ CloseDate
-    cur, conn = connectionDBrds()
+    threads = []
+    cur, conn = connectionDB()
+    i = 0
     # client.get_system_status()["status"] == 0 and
     if not isNull(stratData[1]):
-        for stratName in stratData[1]:
-            for trade in stratData[1][stratName]:
-                print('trade number: ' + str(trade[0]))
-                apiCallsManager(trade, cur, conn)
+        with ThreadPoolExecutor(max_workers=20) as executor:
+            for stratName in stratData[1]:
+                for trade in stratData[1][stratName]:
+                    # threads.append(rexecuto.submit(apiCallsManager, trade, cur, conn))
+                    apiCallsManager(trade, cur, conn)
+                    print(f'trade number: {str(trade[0])}, linear {i}')
+                    i += 1
+            # for task in as_completed(threads):
 
     else:
         print('system maintenance')
         return 1
-    connectioncloseDBrds(cur, conn)
+    connectioncloseDB(cur, conn)
 
 
 def clientInit():

@@ -74,6 +74,7 @@ def match_structure(WWO_group, Wlows, WOlows, priceActionData, openPrice, openTi
 
             valueTime = getStopValueTime(getStopIndex([["WO"]], Wlows, WOlows), priceActionData, openPrice, openTimeDT)
             valueTime = [valueTime[0], [[stop, time]]]
+            indexList = getStopIndex([["WO"], mW], Wlows, WOlows)
             stop, time = WOthenWalgo(valueTime, priceActionData, indexList, openTimeDT)
             return round(stop, 3), time
 
@@ -89,6 +90,7 @@ def match_structure(WWO_group, Wlows, WOlows, priceActionData, openPrice, openTi
             valueTime = getStopValueTime(indexList, priceActionData, openPrice, openTimeDT)
             stop, time = peakValueRatioMultW(valueTime[0], WpeaksValueIndex, indexList)
             valueTime = getStopValueTime(getStopIndex([mWO], Wlows, WOlows), priceActionData, openPrice, openTimeDT)
+            indexList = getStopIndex([mWO, mW], Wlows, WOlows)
             stop, time = WOthenWalgo([multiWOalgo(valueTime), [stop, time]], priceActionData, indexList, openTimeDT)
             return round(stop, 3), time
 
@@ -102,7 +104,7 @@ def match_structure(WWO_group, Wlows, WOlows, priceActionData, openPrice, openTi
             return round(stop, 3), time
 
         case [mW, ["WO"]] if all(ele == "W" for ele in mW if len(mW) > 1):  # mult W one WO [G]
-            valueTime = [[peakValueRatioMultW(valueTime[0], WpeaksValueIndex, indexList)], [valueTime[1]]]
+            valueTime = [[peakValueRatioMultW(valueTime[0], WpeaksValueIndex, indexList)], valueTime[1]]
             stop, time = WthenWOalgo(valueTime, priceActionData, indexList, openTimeDT)
             return round(stop, 3), time
 

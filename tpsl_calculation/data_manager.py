@@ -1,13 +1,8 @@
 from collections import Counter
 from datetime import datetime
 
-import pandas as pd
-import matplotlib.pyplot as plt
-
-from db_interaction.dataReceiver import receiveData
 from tpsl_calculation.tp_calculation_ver3 import tp_TradeLevel_manager, tp_calculation
 from tpsl_calculation.sl_calculation_ver3 import sl_TradeLevel_manager, sl_calculation
-from strategy_statistics.strategyStatistics import averageTime
 
 
 def dataPrepStratLevel(stratName, stratData, colNames, dateFormat, BuySellPrice):
@@ -17,19 +12,22 @@ def dataPrepStratLevel(stratName, stratData, colNames, dateFormat, BuySellPrice)
 
 def tpsl_StratLevel_manager_v3(stratData, colNames, BuySellPrice):
     optimalTPSLstrat = {}
+    TP = {}
     dateFormat = "%Y-%m-%d %H:%M:%S"
     for stratName in stratData[1]:
-        print(stratName)
-        overallPeaks = tp_TradeLevel_manager(*dataPrepStratLevel(stratName, stratData, colNames, dateFormat,
-                                                                 BuySellPrice))
-        coeffs, coeffsNumTrades = analysis_time(*strat_time_range(stratName, stratData, colNames))
-        TPtimeRanges = tp_calculation(overallPeaks, coeffs, coeffsNumTrades)
-        print(TPtimeRanges)
-        overallStops = sl_TradeLevel_manager(*dataPrepStratLevel(stratName, stratData, colNames, dateFormat,
-                                                                 BuySellPrice), TPtimeRanges)
-        SLtimeRanges = sl_calculation(overallStops, coeffs, coeffsNumTrades)
-        print(SLtimeRanges)
-    return optimalTPSLstrat
+        if len(stratData[1][stratName]) > 100:
+            print(stratName)
+            overallPeaks = tp_TradeLevel_manager(*dataPrepStratLevel(stratName, stratData, colNames, dateFormat,
+                                                                     BuySellPrice))
+            coeffs, coeffsNumTrades = analysis_time(*strat_time_range(stratName, stratData, colNames))
+            TPtimeRanges = tp_calculation(overallPeaks, coeffs, coeffsNumTrades)
+            print(TPtimeRanges)
+            overallStops = sl_TradeLevel_manager(*dataPrepStratLevel(stratName, stratData, colNames, dateFormat,
+                                                                     BuySellPrice), TPtimeRanges)
+            SLtimeRanges = sl_calculation(overallStops, coeffs, coeffsNumTrades)
+            print(SLtimeRanges)
+            TP[stratName] = TPtimeRanges
+    return TP
 
 
 def strat_time_range(stratName, strategyDict, colNames):  # we return list with trade len(sec) for all trades in strat
@@ -73,8 +71,8 @@ def analysis_time(list_trade_seconds, strategyLen):
             coeffsNumTrades.append(round(strategyLen * p_range / 100))
             coeffs.append(p_range)  # coefficient of coverage of strat trades by this time range
         elif percent >= req_percent:  # if we fill our percent - end loop
-            print(f"cover trades from 0 to {max_len} s, index - {index}, "
-                  f"percent of coverage is {percent}")
+            # print(f"cover trades from 0 to {max_len} s, index - {index}, "
+            # f"percent of coverage is {percent}")
             break
 
     # plt.plot(x_sorted[:index_slice], y_sorted[:index_slice])
