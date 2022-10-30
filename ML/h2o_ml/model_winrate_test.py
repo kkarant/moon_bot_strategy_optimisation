@@ -3,7 +3,7 @@ import warnings
 import pandas as pd
 from h2o.automl import H2OAutoML
 
-from API_DB_pipeline.db_interaction.db_interaction import dbReceiveKlines, connectionDB
+from api_db_pipeline.db_interaction.db_interaction import dbReceiveKlines, connectionDB
 from tpsl_calculation.tp_calculation_ver3 import tradeDataPrep
 
 

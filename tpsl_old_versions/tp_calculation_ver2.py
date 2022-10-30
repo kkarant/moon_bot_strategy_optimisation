@@ -4,7 +4,7 @@ import numpy as np
 import pytz
 from scipy.signal import find_peaks
 
-from API_DB_pipeline.db_interaction.db_data_receive import receiveData
+from api_db_pipeline.db_interaction.db_data_receive import receiveData
 
 utc = pytz.UTC
 

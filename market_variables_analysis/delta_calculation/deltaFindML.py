@@ -8,8 +8,8 @@ from IPython.display import Image
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier, export_graphviz, export_text
 
-from market_analysis_module.strategy_statistics.strategy_statistics import timeInTradeCalc
-from service_functions.supporting_functions import decorator
+from market_variables_analysis.strategy_statistics.strategy_statistics import timeInTradeCalc
+from service.supporting_functions import decorator
 
 
 def getProfit(stratData, stratName):  # execution  time OK

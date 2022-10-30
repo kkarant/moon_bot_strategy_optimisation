@@ -1,5 +1,5 @@
-from market_analysis_module.strategy_statistics import strategy_statistics
-from market_analysis_module.strategy_statistics.strategy_statistics import timeInTradeCalc
+from market_variables_analysis.strategy_statistics import strategy_statistics
+from market_variables_analysis.strategy_statistics.strategy_statistics import timeInTradeCalc
 
 
 def reportModulesStrFind(strFirstLine):

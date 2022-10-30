@@ -3,13 +3,13 @@ from datetime import datetime
 
 import requests
 
-from API_DB_pipeline.db_interaction.db_interaction import checkIfTableExist, dbAddKline, checkIfRowsExist, connectionDB, \
+from api_db_pipeline.db_interaction.db_interaction import checkIfTableExist, dbAddKline, checkIfRowsExist, connectionDB, \
     connectioncloseDB
-from service_functions.supporting_functions import decorator
+from service.supporting_functions import decorator
 from datetime import timedelta
 from concurrent.futures import ThreadPoolExecutor
 
-from service_functions.supporting_functions import isNull
+from service.supporting_functions import isNull
 
 
 @decorator

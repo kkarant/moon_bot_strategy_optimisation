@@ -1,4 +1,4 @@
-from API_DB_pipeline.db_interaction.db_interaction import receiveDataFromDB, connectionDB
+from api_db_pipeline.db_interaction.db_interaction import receiveDataFromDB, connectionDB
 
 
 def receiveData(stratData):

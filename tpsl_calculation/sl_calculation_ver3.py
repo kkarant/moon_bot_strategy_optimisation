@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.signal import find_peaks
-from API_DB_pipeline.db_interaction.db_interaction import dbReceiveKlines, connectionDB
+from api_db_pipeline.db_interaction.db_interaction import dbReceiveKlines, connectionDB
 from tpsl_calculation.WWO_stop_calculation import WWO_combinations_generator
 from tpsl_calculation.tp_calculation_ver3 import tradeDataPrep, tradeCheck, smooth
 
